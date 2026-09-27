@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lee｜个人成长与管理能力知识库</title>
+  <style>
+    :root {
+      --bg: #f3f0e9;
+      --paper: #fffdf8;
+      --ink: #18201c;
+      --muted: #6f7771;
+      --line: #dfddd5;
+      --green: #244f42;
+      --green-2: #397260;
+      --mint: #dce9df;
+      --amber: #c8772d;
+      --amber-soft: #f6e7d5;
+      --red: #9a4a3f;
+      --shadow: 0 16px 50px rgba(24, 32, 28, .08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(57,114,96,.10), transparent 27rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.65;
+    }
+    button, input, textarea { font: inherit; }
+    .layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: 100vh; }
+    aside {
+      position: sticky; top: 0; height: 100vh; padding: 30px 24px;
+      background: rgba(255,253,248,.86); backdrop-filter: blur(18px);
+      border-right: 1px solid var(--line); overflow-y: auto;
+    }
+    .brand { display: flex; gap: 12px; align-items: center; margin-bottom: 30px; }
+    .monogram {
+      width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+      color: white; font-weight: 800; background: var(--green);
+      box-shadow: 0 8px 18px rgba(36,79,66,.25);
+    }
+    .brand h1 { font-size: 15px; margin: 0; line-height: 1.35; }
+    .brand small { color: var(--muted); }
+    .search-wrap { position: relative; margin-bottom: 22px; }
+    .search-wrap span { position: absolute; left: 13px; top: 9px; color: var(--muted); }
+    #search {
+      width: 100%; border: 1px solid var(--line); background: #fff; border-radius: 12px;
+      padding: 10px 12px 10px 36px; outline: none;
+    }
+    #search:focus { border-color: var(--green-2); box-shadow: 0 0 0 3px rgba(57,114,96,.12); }
+    nav a {
+      display: block; color: #4e5852; text-decoration: none; border-radius: 10px;
+      padding: 9px 11px; margin: 3px 0; font-size: 14px;
+    }
+    nav a:hover, nav a.active { background: var(--mint); color: var(--green); font-weight: 700; }
+    .aside-note { margin-top: 24px; padding: 14px; border-radius: 14px; background: var(--green); color: white; font-size: 12px; }
+    main { width: min(1120px, 100%); padding: 54px 54px 90px; }
+    .hero {
+      min-height: 310px; border-radius: 28px; padding: 46px; color: white; position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #18392f, #2d6855); box-shadow: var(--shadow);
+    }
+    .hero::after {
+      content: ""; position: absolute; width: 360px; height: 360px; border: 1px solid rgba(255,255,255,.17);
+      border-radius: 50%; right: -100px; top: -140px; box-shadow: 0 0 0 55px rgba(255,255,255,.035), 0 0 0 110px rgba(255,255,255,.025);
+    }
+    .eyebrow { letter-spacing: .15em; font-size: 12px; font-weight: 800; opacity: .75; text-transform: uppercase; }
+    .hero h2 { font-size: clamp(34px, 5vw, 58px); line-height: 1.08; margin: 16px 0; max-width: 720px; }
+    .hero p { max-width: 720px; color: rgba(255,255,255,.82); margin-bottom: 28px; }
+    .hero-quote { display: inline-block; padding: 10px 15px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; background: rgba(255,255,255,.08); }
+    section { margin-top: 58px; scroll-margin-top: 24px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+    .section-head h3 { margin: 0; font-size: 26px; }
+    .section-head p { color: var(--muted); margin: 5px 0 0; }
+    .tag { font-size: 12px; font-weight: 800; color: var(--green); background: var(--mint); padding: 5px 10px; border-radius: 999px; white-space: nowrap; }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .card { grid-column: span 6; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: 0 8px 28px rgba(24,32,28,.035); }
+    .card.full { grid-column: 1 / -1; }
+    .card.third { grid-column: span 4; }
+    .card h4 { margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 7px 0; color: #4e5852; }
+    .num { font-size: 12px; color: var(--amber); font-weight: 900; letter-spacing: .08em; }
+    .callout { border-left: 4px solid var(--amber); background: var(--amber-soft); border-radius: 0 14px 14px 0; padding: 14px 18px; margin: 14px 0; }
+    .quote { font-size: 22px; line-height: 1.45; font-weight: 800; color: var(--green); margin: 0; }
+    ul, ol { padding-left: 1.25rem; }
+    li { margin: 7px 0; }
+    .tool {
+      border: 1px solid var(--line); border-radius: 14px; background: white; margin: 10px 0; overflow: hidden;
+    }
+    .tool summary { cursor: pointer; list-style: none; padding: 15px 18px; font-weight: 800; display: flex; justify-content: space-between; gap: 15px; }
+    .tool summary::-webkit-details-marker { display: none; }
+    .tool summary::after { content: "+"; color: var(--green-2); font-size: 20px; }
+    .tool[open] summary::after { content: "−"; }
+    .tool-body { padding: 0 18px 18px; color: #465049; }
+    .framework { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
+    .step { background: #f2f5f1; border-radius: 13px; padding: 14px; min-height: 118px; }
+    .step b { color: var(--green); display: block; margin-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+    .danger { color: var(--red); font-weight: 700; }
+    .good { color: var(--green-2); font-weight: 700; }
+    .prompt { background: #17231f; color: #e9f1ec; padding: 20px; border-radius: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; white-space: pre-wrap; }
+    .save-area { background: #fffaf1; border: 1px dashed #d4aa7b; border-radius: 16px; padding: 18px; }
+    .insight-flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 18px 0; }
+    .insight-node { position: relative; background: #f2f5f1; border-radius: 13px; padding: 14px; min-height: 112px; }
+    .insight-node:not(:last-child)::after { content: "→"; position: absolute; right: -9px; top: 40%; z-index: 2; color: var(--amber); font-weight: 900; }
+    .insight-node b { display: block; color: var(--green); margin-bottom: 5px; }
+    .book-meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 18px; }
+    .book-meta span { font-size: 12px; color: var(--muted); border: 1px solid var(--line); background: white; border-radius: 999px; padding: 5px 10px; }
+    .case-image { width: 100%; max-height: 680px; object-fit: contain; display: block; border-radius: 16px; border: 1px solid var(--line); background: #e7e7e2; margin: 14px 0 20px; }
+    .image-caption { color: var(--muted); font-size: 12px; margin-top: -12px; margin-bottom: 18px; }
+    .aesthetic-archive-head { grid-column: 1 / -1; margin-top: 8px; padding-top: 22px; border-top: 1px solid var(--line); }
+    .archive-title-row { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin-bottom: 14px; }
+    .archive-title-row h4 { margin: 0; font-size: 21px; }
+    .archive-title-row p { margin: 4px 0 0; color: var(--muted); }
+    .case-count { color: var(--green); font-size: 12px; font-weight: 900; background: var(--mint); border-radius: 999px; padding: 5px 10px; white-space: nowrap; }
+    .archive-controls { display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
+    .case-search { flex: 1 1 230px; min-width: 0; border: 1px solid var(--line); background: white; border-radius: 11px; padding: 9px 12px; outline: none; }
+    .case-search:focus { border-color: var(--green-2); box-shadow: 0 0 0 3px rgba(57,114,96,.12); }
+    .case-filter { border: 1px solid var(--line); background: rgba(255,255,255,.75); color: #536059; border-radius: 999px; padding: 7px 12px; cursor: pointer; font-size: 12px; font-weight: 800; }
+    .case-filter:hover, .case-filter.active { color: white; background: var(--green); border-color: var(--green); }
+    .aesthetic-case { grid-column: 1 / -1; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); overflow: hidden; box-shadow: 0 8px 28px rgba(24,32,28,.035); }
+    .aesthetic-case[open] { box-shadow: var(--shadow); }
+    .aesthetic-case > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 240px minmax(0,1fr); min-height: 176px; }
+    .aesthetic-case > summary::-webkit-details-marker { display: none; }
+    .case-preview-media { background: #e5e7e2; overflow: hidden; min-height: 176px; }
+    .case-preview-media img { width: 100%; height: 100%; min-height: 176px; object-fit: cover; display: block; transition: transform .35s ease; }
+    .aesthetic-case > summary:hover .case-preview-media img { transform: scale(1.025); }
+    .case-preview-copy { padding: 22px 24px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+    .case-preview-copy h4 { margin: 4px 0 6px; font-size: 20px; }
+    .case-preview-copy p { color: #55605a; margin: 0 0 13px; }
+    .case-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .case-tags span { color: var(--muted); font-size: 11px; border: 1px solid var(--line); background: white; border-radius: 999px; padding: 4px 8px; }
+    .case-open-label { position: absolute; right: 22px; bottom: 20px; color: var(--green); font-size: 12px; font-weight: 900; }
+    .case-open-label::after { content: " ↓"; }
+    .aesthetic-case[open] .case-open-label::before { content: "收起案例"; }
+    .aesthetic-case[open] .case-open-label { font-size: 0; }
+    .aesthetic-case[open] .case-open-label::before, .aesthetic-case[open] .case-open-label::after { font-size: 12px; }
+    .aesthetic-case[open] .case-open-label::after { content: " ↑"; }
+    .case-detail { border-top: 1px solid var(--line); padding: 28px; }
+    .case-empty { grid-column: 1 / -1; display: none; text-align: center; color: var(--muted); padding: 28px; border: 1px dashed var(--line); border-radius: 16px; }
+    textarea { width: 100%; min-height: 170px; border: 1px solid var(--line); border-radius: 12px; padding: 13px; resize: vertical; background: white; outline: none; }
+    textarea:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(200,119,45,.12); }
+    .actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+    .btn { border: 0; border-radius: 10px; padding: 9px 15px; cursor: pointer; font-weight: 800; }
+    .btn.primary { color: white; background: var(--green); }
+    .btn.secondary { background: var(--mint); color: var(--green); }
+    .status { color: var(--green-2); font-size: 13px; align-self: center; }
+    .hidden { display: none !important; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); padding-top: 24px; margin-top: 60px; font-size: 13px; }
+    @media (max-width: 900px) {
+      .layout { display: block; }
+      aside { position: relative; height: auto; border-right: 0; border-bottom: 1px solid var(--line); padding: 18px; }
+      nav { display: flex; gap: 6px; overflow-x: auto; }
+      nav a { white-space: nowrap; }
+      .aside-note { display: none; }
+      main { padding: 26px 18px 60px; }
+      .hero { padding: 30px 24px; min-height: 280px; }
+      .card, .card.third { grid-column: 1 / -1; }
+      .framework { grid-template-columns: 1fr 1fr; }
+      .insight-flow { grid-template-columns: 1fr 1fr; }
+      .insight-node:not(:last-child)::after { display: none; }
+      .aesthetic-case > summary { grid-template-columns: 190px minmax(0,1fr); }
+    }
+    @media (max-width: 520px) {
+      .framework, .insight-flow { grid-template-columns: 1fr; }
+      .section-head, .archive-title-row { align-items: start; flex-direction: column; }
+      .aesthetic-case > summary { grid-template-columns: 1fr; }
+      .case-preview-media, .case-preview-media img { min-height: 190px; height: 190px; }
+      .case-preview-copy { padding: 18px 18px 48px; }
+      .case-detail { padding: 18px; }
+    }
+    @media print { aside { display: none; } .layout { display: block; } main { max-width: none; padding: 0; } .hero { box-shadow: none; } }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <div class="brand">
+        <div class="monogram">L</div>
+        <div><h1>Lee 的能力操作系统</h1><small>持续更新的个人知识库</small></div>
+      </div>
+      <div class="search-wrap"><span>⌕</span><input id="search" placeholder="搜索：会议、管理、审美…" /></div>
+      <nav>
+        <a href="#dashboard" class="active">今日调用</a>
+        <a href="#upgrade">管理者升级</a>
+        <a href="#meeting">高层会议</a>
+        <a href="#influence">向上影响</a>
+        <a href="#politics">政治敏锐度</a>
+        <a href="#choice">思危·思变·思退</a>
+        <a href="#reading">阅读与自我认识</a>
+        <a href="#values">价值观与心路成长</a>
+        <a href="#aesthetic">审美能力训练</a>
+        <a href="#debate">辩论与思辨训练</a>
+        <a href="#training">每日训练</a>
+        <a href="#cases">案例记录</a>
+        <a href="#invoke">以后怎么调用</a>
+      </nav>
+      <div class="aside-note">核心目标：从“亲自把事情做完”，升级为“判断方向、组织资源、推动结果、沉淀系统”。</div>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="eyebrow">Personal Operating System · V1.5</div>
+        <h2>从被规则安排，<br/>到看懂并影响规则。</h2>
+        <p>这里不收藏空泛道理，只沉淀你在真实工作里验证过的判断框架、管理动作、会议工具和成长证据。</p>
+        <div class="hero-quote">思危而不惧 · 思变而不乱 · 思退而不逃</div>
+      </header>
+
+      <section id="dashboard" data-searchable>
+        <div class="section-head"><div><h3>今日调用台</h3><p>遇到问题时，先找到对应入口，不让情绪直接替你决策。</p></div><span class="tag">START HERE</span></div>
+        <div class="grid">
+          <article class="card third"><div class="num">01 · 任务失控</div><h4>事情很多，不知道先做什么</h4><p>只问：今天不完成，后果最大、最影响别人的一件事是什么？把它缩成25分钟动作。</p></article>
+          <article class="card third"><div class="num">02 · 会议内耗</div><h4>材料多、讨论久、感觉没意义</h4><p>检查：要解决什么问题？会后改变什么？材料是否支撑一个真实决策？</p></article>
+          <article class="card third"><div class="num">03 · 鱼肉感</div><h4>觉得命运掌握在别人手里</h4><p>拆成三步：看懂谁有权力；增加自己对决策的影响；同步建立外部选择权。</p></article>
+          <article class="card"><div class="num">04 · 管理困境</div><h4>团队不饱和，自己却很忙</h4><p>不要只派任务。给伙伴明确结果、判断标准、可支配资源和固定复盘，让他们对一块结果负责。</p></article>
+          <article class="card"><div class="num">05 · 被开除焦虑</div><h4>反复脑补最坏结果</h4><p>把“事实证据”与“焦虑推测”分开记录；确认公司安全线，同时整理业绩与作品，准备退路。</p></article>
+        </div>
+      </section>
+
+      <section id="upgrade" data-searchable>
+        <div class="section-head"><div><h3>管理者能力升级</h3><p>你的升级不是做更多，而是让更大的结果不再只依赖你亲自完成。</p></div><span class="tag">能力地图</span></div>
+        <div class="grid">
+          <article class="card"><div class="num">LEVEL 1</div><h4>执行者：把事情做完</h4><ul><li>接收任务，保障交付</li><li>判断标准主要来自上级</li><li>个人效率决定结果上限</li></ul></article>
+          <article class="card"><div class="num">LEVEL 2</div><h4>负责人：对结果负责</h4><ul><li>主动定义问题与优先级</li><li>用数据判断，而不是只报过程</li><li>识别风险并提前准备方案</li></ul></article>
+          <article class="card"><div class="num">LEVEL 3</div><h4>管理者：让别人产出结果</h4><ul><li>拆目标、定标准、给反馈</li><li>让伙伴拥有完整责任区</li><li>解决协同问题，不包办所有任务</li></ul></article>
+          <article class="card"><div class="num">LEVEL 4</div><h4>操盘手：用系统放大结果</h4><ul><li>连接商品、内容、直播、投放与用户</li><li>影响资源分配和组织决策</li><li>沉淀可复用的方法、看板与机制</li></ul></article>
+          <article class="card full">
+            <p class="quote">“我让别人解决问题，并通过系统放大结果。”</p>
+            <div class="callout"><b>你的当前跃迁：</b>从“我的夏被卖得很好”升级到“我如何让团队、机制和跨部门共同把品类做成”。这正是公司所说“团队贡献”的可操作版本，但需要把评价标准进一步量化。</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="meeting" data-searchable>
+        <div class="section-head"><div><h3>高层会议判断框架</h3><p>先承认一件事：让决策者理解业务，本身就是业务的一部分；但解释成本必须匹配决策价值。</p></div><span class="tag">会议解码</span></div>
+        <article class="card full">
+          <table>
+            <thead><tr><th>判断维度</th><th>有效会议</th><th>组织内耗</th></tr></thead>
+            <tbody>
+              <tr><td>要解决什么</td><td class="good">明确的问题、分歧或决策</td><td class="danger">只是汇报“最近做了什么”</td></tr>
+              <tr><td>会后改变什么</td><td class="good">预算、策略、分工、优先级改变</td><td class="danger">没有结论，下次继续汇报</td></tr>
+              <tr><td>材料为什么做</td><td class="good">用最少证据支撑选择</td><td class="danger">显得充分或规避追责</td></tr>
+              <tr><td>谁对结果负责</td><td class="good">负责人、时点、动作清楚</td><td class="danger">集体讨论，责任悬空</td></tr>
+            </tbody>
+          </table>
+        </article>
+        <div class="framework">
+          <div class="step"><b>① 结果</b>当前发生了什么？只报结论和关键数字。</div>
+          <div class="step"><b>② 原因</b>哪些因素真正推动了结果？区分事实与推测。</div>
+          <div class="step"><b>③ 风险</b>若不行动，最可能发生什么？何时触发预警？</div>
+          <div class="step"><b>④ 请求</b>需要领导决定什么、支持什么、停止什么？</div>
+        </div>
+        <details class="tool"><summary>会前：把几十页材料压缩成一页</summary><div class="tool-body"><ol><li>写出本次会议唯一需要回答的问题。</li><li>写出希望领导做出的决定。</li><li>只保留支撑决定的3组证据。</li><li>准备主方案、备选方案，以及不行动的代价。</li></ol></div></details>
+        <details class="tool"><summary>会中：识别真正议题</summary><div class="tool-body">记录四件事：谁反复追问、谁拥有最终决定权、谁在规避责任、哪些词背后代表预算/人力/风险。会议表面讨论数据，实际往往在分配资源、责任和定义权。</div></details>
+        <details class="tool"><summary>会后：让会议产生闭环</summary><div class="tool-body">在24小时内确认：结论、负责人、截止时间、成功标准、下次检查点。没有这五项，讨论很容易再次回到原点。</div></details>
+      </section>
+
+      <section id="influence" data-searchable>
+        <div class="section-head"><div><h3>向上影响：让业务进入决策</h3><p>向上管理不是讨好，而是降低上级理解成本，提高你的方案被采纳的概率。</p></div><span class="tag">表达工具</span></div>
+        <div class="grid">
+          <article class="card"><h4>领导通常关心什么</h4><ul><li>目标是否能达成</li><li>最大的风险与损失是什么</li><li>资源投下去能换回什么</li><li>是否有人对结果负责</li><li>现在需要他做哪个决定</li></ul></article>
+          <article class="card"><h4>你要避免什么</h4><ul><li>只罗列过程，不给判断</li><li>用大量细节代替结论</li><li>只提出困难，不提供选项</li><li>等领导追问才暴露风险</li><li>把“我很忙”当成贡献证明</li></ul></article>
+          <article class="card full"><h4>30秒汇报模板</h4><div class="prompt">结论：目前【结果】；与目标相比【差距/超额】。
+原因：主要由【关键因子1】和【关键因子2】驱动，证据是【数据】。
+风险：若【条件】持续，到【时间】可能造成【影响】。
+建议：我建议选择【方案A】，同时保留【方案B】。
+请求：需要您今天决定/支持【一个具体事项】。</div></article>
+        </div>
+      </section>
+
+      <section id="politics" data-searchable>
+        <div class="section-head"><div><h3>职场政治敏锐度</h3><p>像看《大明王朝1566》一样，不只听人说什么，还要判断他为什么此刻这样说。</p></div><span class="tag">权力地图</span></div>
+        <div class="grid">
+          <article class="card third"><div class="num">看位置</div><h4>他对什么负责？</h4><p>职责决定他最怕什么、必须证明什么，以及能调用什么资源。</p></article>
+          <article class="card third"><div class="num">看利益</div><h4>结果对他有什么影响？</h4><p>同一个业务方案，对销售、财务、内容和老板可能意味着完全不同的得失。</p></article>
+          <article class="card third"><div class="num">看约束</div><h4>他为什么不能直接答应？</h4><p>预算、绩效、上级态度、历史承诺、跨部门关系，都可能是隐性约束。</p></article>
+          <article class="card"><h4>会议五问</h4><ol><li>表面议题是什么？</li><li>真正要分配的资源或责任是什么？</li><li>谁拥有定义问题的权力？</li><li>谁受益，谁承担风险？</li><li>我该说什么，才能推动结果又保护自己？</li></ol></article>
+          <article class="card"><h4>边界提醒</h4><p>政治敏锐度不是猜忌，更不是操纵。所有判断都要区分：</p><ul><li><b>事实：</b>对方真实说了或做了什么</li><li><b>推断：</b>你认为背后的动机是什么</li><li><b>验证：</b>还需要哪条证据才能确认</li></ul></article>
+        </div>
+      </section>
+
+      <section id="choice" data-searchable>
+        <div class="section-head"><div><h3>思危 · 思变 · 思退</h3><p>把焦虑变成准备，把“人为刀俎”的无力感变成选择权。</p></div><span class="tag">职业安全</span></div>
+        <div class="grid">
+          <article class="card third"><div class="num">思危</div><h4>看清风险，不靠脑补</h4><p>列出现实证据：明确警告、职责被移交、整改期限、被排除在关键信息外、组织裁员。</p></article>
+          <article class="card third"><div class="num">思变</div><h4>改变能力结构</h4><p>不再靠更晚下班换安全感；升级判断、表达、管理、系统沉淀和AI放大能力。</p></article>
+          <article class="card third"><div class="num">思退</div><h4>建立选择，不是逃跑</h4><p>持续整理项目成绩、作品集、简历、外部岗位认知和现金储备。</p></article>
+          <article class="card full"><div class="callout"><b>一年交换原则：</b>如果继续承受高强度，就必须换回可证明的业绩、可迁移的能力、可展示的作品，以及随时能走的退路，而不只是疲惫。</div></article>
+        </div>
+      </section>
+
+      <section id="reading" data-searchable>
+        <div class="section-head"><div><h3>阅读与自我认识</h3><p>不追求记住整本书，而是记录一次阅读怎样改变了我对自己和现实问题的理解。</p></div><span class="tag">读书心得 01</span></div>
+        <article class="card full">
+          <div class="num">2026-08-08 · 《蛤蟆先生去看心理医生》· 第1—4章</div>
+          <h4>主题：我是不愿承担责任，还是暂时不想做决定？</h4>
+          <div class="book-meta"><span>关键词：决定权</span><span>内心力量</span><span>精力透支</span><span>管理授权</span></div>
+          <div class="insight-flow">
+            <div class="insight-node"><b>① 原书触发</b>蛤蟆不喜欢自己决定，让河鼠替他决定，因为这样像是卸下了肩上的责任。</div>
+            <div class="insight-node"><b>② 我的联想</b>我有时也不想做决定，但并不觉得自己是在推卸责任，更像是习惯或没有足够力量。</div>
+            <div class="insight-node"><b>③ 对话澄清</b>不想决定可能来自害怕选错、不信任判断、长期服从，也可能只是精力已经耗尽。</div>
+            <div class="insight-node"><b>④ 现实检验</b>最近并没有让别人替我决定；我是在把工作授权给伙伴，只是有时放手后完全不过问。</div>
+            <div class="insight-node"><b>⑤ 新的行动</b>不把任务收回来，而是补齐结果、标准、权限和节点，按风险决定介入程度。</div>
+          </div>
+          <div class="callout"><b>这次阅读形成的新认识：</b>我并不是一个习惯逃避责任的人。我在工作中承担了很多结果，有时不想继续做决定，可能是精力透支，也可能是希望减少选错后的自我责备。我的力量不是没有，而是在形成。力量并不等于永远选对，而是我能够自己选择、承担反馈，并相信选错后也能调整。</div>
+          <div class="callout"><b>今晚沉淀下来的核心管理结论：</b>授权不是把事情交出去以后完全不过问，而是由伙伴负责执行和日常判断，我用四个接口继续对结果负责——<b>结果、标准、权限、节点</b>。这四个词，是我以后布置和检查任务时可以直接调用的管理工具。</div>
+        </article>
+        <div class="grid">
+          <article class="card full">
+            <div class="num">可直接调用 · 授权四要素</div>
+            <h4>结果 · 标准 · 权限 · 节点</h4>
+            <table><thead><tr><th>核心词</th><th>我要说清楚什么</th><th>授权时直接问</th></tr></thead><tbody>
+              <tr><td><b>结果</b></td><td>这件事最终要交付什么，不只罗列做了哪些动作。</td><td>“最后需要拿出什么成果？”</td></tr>
+              <tr><td><b>标准</b></td><td>做到什么程度算合格、优秀，避免双方理解不一致。</td><td>“满足哪些条件，才算这件事做好了？”</td></tr>
+              <tr><td><b>权限</b></td><td>伙伴可以独立决定什么，哪些涉及预算、方向或风险的事项必须找我。</td><td>“哪些你可以直接定，哪些需要和我确认？”</td></tr>
+              <tr><td><b>节点</b></td><td>什么时候看方向、什么时候看进度、什么时候验收，防止最后一刻才发现跑偏。</td><td>“我们在哪个时间点对一次方向和结果？”</td></tr>
+            </tbody></table>
+            <p class="quote">我不需要事事亲自做，但必须通过结果、标准、权限、节点，保持对最终结果的掌控。</p>
+          </article>
+          <article class="card">
+            <h4>与管理实践的连接</h4>
+            <p><b>授权不等于逃避决定。</b>伙伴负责执行和日常判断，我仍负责目标、标准、关键节点与最终验收。</p>
+            <table><thead><tr><th>任务风险</th><th>我的介入方式</th></tr></thead><tbody>
+              <tr><td>低影响、可返工</td><td>完全授权，最后验收</td></tr>
+              <tr><td>中等影响、方向错会浪费时间</td><td>中途检查一次方向</td></tr>
+              <tr><td>高影响、不可逆或涉及预算</td><td>前期定方向＋关键节点检查＋最终决策</td></tr>
+            </tbody></table>
+          </article>
+          <article class="card">
+            <h4>给自己的两个提醒</h4>
+            <ol><li>不要把“内心力量不足”变成新的自我否定。</li><li>放手前问自己：如果今天精力充足，我还会认为这件事不值得过问吗？</li></ol>
+            <p class="quote">真正增强力量的，不是每次都选对，而是逐渐相信：即使选错了，我也有能力修正。</p>
+          </article>
+          <article class="card full">
+            <h4>以后每次阅读都用这个模板</h4>
+            <div class="prompt">书名与阅读范围：
+最触动我的内容：
+它让我想到了自己的什么经历：
+我的第一判断：
+和 Lee 讨论后，我澄清或改变了什么：
+这次形成的新认识：
+接下来要做的一个小行动：</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="values" data-searchable>
+        <div class="section-head"><div><h3>价值观与心路成长</h3><p>记录我对人、组织、品牌与生活逐渐形成的判断，并把个人体会转化为未来可以践行的文化原则。</p></div><span class="tag">价值观思考 01</span></div>
+        <article class="card full">
+          <div class="num">2026-08-08 · 亚朵愿景思考</div>
+          <h4>安静不是退缩：力量如何从安静中生长</h4>
+          <div class="book-meta"><span>关键词：安静</span><span>内心力量</span><span>自卑与逃避</span><span>深睡</span><span>企业文化</span></div>
+          <div class="insight-flow">
+            <div class="insight-node"><b>① 我的原始洞察</b>“安静”和“力量”放在一起很有张力。一个自卑、恐惧的人即使暂时安静，也可能只是通过逃避获得片刻喘息，底色仍然是不安。</div>
+            <div class="insight-node"><b>② 关键区分</b>表面不争、不说、不行动，可能是压抑、麻木或害怕；真正有力量的安静，是看见现实仍能判断、选择和行动。</div>
+            <div class="insight-node"><b>③ 对话后的补充</b>力量不一定永远先于安静。一个被工作和评价耗尽的人，也可以先借来一段安全、休息与深睡，再慢慢恢复面对生活的能力。</div>
+            <div class="insight-node"><b>④ 完整关系</b>力量与安静不是单向因果，而是循环：有力量，所以能够安静；获得真正的安静，也可能重新长出力量。</div>
+            <div class="insight-node"><b>⑤ 未来应用</b>如果有一天我建立品牌或公司，文化不应只是一句漂亮口号，而要回答：组织究竟创造什么条件，让人恢复判断、选择与行动的能力？</div>
+          </div>
+          <div class="callout"><b>这次讨论形成的核心结论：</b>真正的安静，不是逃离生活，也不是压抑声音，而是在得到休息、安全感和尊重之后，重新拥有面对现实、作出选择并承担结果的力量。</div>
+        </article>
+        <div class="grid">
+          <article class="card">
+            <div class="num">四种“安静”</div>
+            <h4>不能只看一个人是否沉默</h4>
+            <table><thead><tr><th>表面状态</th><th>底层本质</th></tr></thead><tbody>
+              <tr><td>不说、不争、不行动</td><td>可能是害怕冲突的压抑</td></tr>
+              <tr><td>不断躲开工作与关系</td><td>可能是暂时逃避压力</td></tr>
+              <tr><td>精疲力尽，什么都不想做</td><td>可能是能量耗尽后的麻木</td></tr>
+              <tr><td>看清现实后仍不慌乱</td><td>相信自己能够应对的安静</td></tr>
+            </tbody></table>
+          </article>
+          <article class="card">
+            <div class="num">安静与力量的循环</div>
+            <h4>外部条件怎样帮助力量回来</h4>
+            <ol><li>环境先安静下来</li><li>身体重新获得安全感</li><li>情绪不再持续报警</li><li>人重新听见自己的感受</li><li>开始作出选择并采取行动</li><li>内心力量在行动中逐渐恢复</li></ol>
+          </article>
+          <article class="card full">
+            <div class="num">未来做品牌或企业文化时可直接调用</div>
+            <h4>文化不是“赋予力量”，而是创造力量能够生长的条件</h4>
+            <table><thead><tr><th>文化原则</th><th>它意味着什么</th><th>要落到什么行为</th></tr></thead><tbody>
+              <tr><td><b>不夸大承诺</b></td><td>产品和组织不能替人解决人生，也不能宣称直接改造一个人。</td><td>说清自己能提供的真实价值和能力边界。</td></tr>
+              <tr><td><b>创造恢复条件</b></td><td>安全、睡眠、尊重与不被打扰，可以帮助被消耗的人恢复能量。</td><td>把抽象价值观落实到空间、产品、服务和管理制度。</td></tr>
+              <tr><td><b>尊重人的主体性</b></td><td>真正的力量来自一个人重新判断、选择、行动，而不是被品牌或领导替代。</td><td>给员工和用户知情权、选择权与必要的决策空间。</td></tr>
+              <tr><td><b>用行为验证文化</b></td><td>口号只有在利益冲突和压力出现时仍被遵守，才是企业文化。</td><td>检查绩效、会议、授权和用户体验是否与主张一致。</td></tr>
+            </tbody></table>
+            <p class="quote">我希望未来建立的文化，不是要求所有人表现得平静，而是让人不必靠恐惧和讨好生存，并有空间恢复判断、选择和行动的力量。</p>
+          </article>
+          <article class="card">
+            <h4>亚朵愿景的能力边界</h4>
+            <p>酒店、接待和睡眠产品可以创造一段安静的条件，却不能承诺消除自卑、恐惧或人生困境。“寻找”二字因此很重要：力量不是企业强行赋予的，而是用户在休息和被尊重之后，有机会重新看见自己本来拥有的部分。</p>
+          </article>
+          <article class="card">
+            <h4>判断安静是恢复还是逃避</h4>
+            <p>不要只问“我现在是否舒服”，而要观察安静之后发生了什么：</p>
+            <ul><li>如果更清楚现实、更敢选择、更愿意行动，这是恢复。</li><li>如果只是不断推迟必须面对的事情，这是逃避。</li></ul>
+            <p class="quote">安静过后，我是否更有能力面对生活？</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="aesthetic" data-searchable>
+        <div class="section-head"><div><h3>审美能力训练</h3><p>目标不是积累“高级感”形容词，而是把直觉升级为有证据、可执行、能服务商业目标的判断。</p></div><span class="tag">审美训练 · 第1—6课</span></div>
+        <article class="card full">
+          <div class="num">我的审美升级主线</div>
+          <p class="quote">从“我觉得挺好看”，升级为“我能指出哪里有效、为什么有效、服务了什么任务，以及只改哪里最有用”。</p>
+          <div class="framework">
+            <div class="step"><b>① 内容任务</b>这张画面究竟要让用户感受什么、相信什么？</div>
+            <div class="step"><b>② 视觉证据</b>亮度、面积、位置、颜色、光影和动作提供了什么证据？</div>
+            <div class="step"><b>③ 形成机制</b>为什么用户会先看这里，又为什么会得出这个结论？</div>
+            <div class="step"><b>④ 单一验证</b>只改一个变量，看它能否直接解决最大问题。</div>
+          </div>
+          <div class="callout"><b>通用审核链：</b>内容任务 → 当前问题 → 形成机制 → 单一调整 → 验证标准。每次反馈都要检查：我指出的是A问题，最后修改的是否仍然是A。</div>
+        </article>
+
+        <div class="grid">
+          <article class="card full">
+            <h4>六课能力地图</h4>
+            <table><thead><tr><th>课程</th><th>训练能力</th><th>审核时的核心问题</th><th>一句话结论</th></tr></thead><tbody>
+              <tr><td><b>第1课</b></td><td>视线主次</td><td>用户第一眼、第二眼、第三眼分别看到谁？它是否符合内容目标？</td><td>最亮的不一定是主角，却常会先夺走注意力。</td></tr>
+              <tr><td><b>第2课</b></td><td>构图权力</td><td>谁靠面积、位置、遮挡和空间层次获得画面权力？</td><td>构图不是摆放物体，而是在分配注意力。</td></tr>
+              <tr><td><b>第3课</b></td><td>颜色任务</td><td>基础色、产品色、点缀色分别负责什么？哪个颜色在无意义地说话？</td><td>高级感不是颜色少，而是没有颜色无意义地争抢职位。</td></tr>
+              <tr><td><b>第4课</b></td><td>灯光证据</td><td>光线有没有证明颜色、纹理、厚度或氛围？</td><td>好的灯光让用户隔着屏幕“摸到”产品。</td></tr>
+              <tr><td><b>第5课</b></td><td>材质形变</td><td>动作是否完整呈现初始、受力和结果？实际能证明什么，不能证明什么？</td><td>廉价质感靠表演，高级质感靠物理事实。</td></tr>
+              <tr><td><b>第6课</b></td><td>生活感与商业有效</td><td>不完美是在制造真实，还是形成杂乱？画面好看之后，产品价值被证明了吗？</td><td>大秩序稳定、小细节松动，才能形成被控制的松弛感。</td></tr>
+            </tbody></table>
+          </article>
+
+          <article class="card">
+            <h4>审图时的两层判断</h4>
+            <p><b>第一层｜视觉是否成立：</b>主次清不清楚、颜色是否完成任务、光影是否有层次、画面是否真实可信。</p>
+            <p><b>第二层｜商业是否成立：</b>用户看完后究竟相信了产品什么？这些证据能否解释产品为什么值得购买、为什么值这个价格？</p>
+            <div class="callout">一张图可以是优秀的卧室氛围图，却不是有效的四季被转化图。个人喜欢与商业有效必须分开判断。</div>
+          </article>
+
+          <article class="card">
+            <h4>床品画面快速审核清单</h4>
+            <ol>
+              <li>用三个词定义目标感受。</li>
+              <li>写出真实的视线顺序，不用创作者意图代替用户观看路径。</li>
+              <li>找出支持判断的具体证据：面积、亮度、位置、色彩、光影、形变。</li>
+              <li>区分画面能证明与不能证明的卖点。</li>
+              <li>只选最大问题，只改一个变量，并提前写出验证标准。</li>
+            </ol>
+          </article>
+
+          <div class="aesthetic-archive-head">
+            <div class="archive-title-row">
+              <div><h4>审美案例库</h4><p>首页只保留案例索引；点击卡片后，再进入图片、判断过程与完整复盘。</p></div>
+              <span class="case-count" id="caseCount">1 个案例</span>
+            </div>
+            <div class="archive-controls" aria-label="审美案例筛选">
+              <input class="case-search" id="caseSearch" placeholder="搜索案例、结论或视觉问题…" />
+              <button class="case-filter active" type="button" data-filter="all">全部</button>
+              <button class="case-filter" type="button" data-filter="空间氛围">空间氛围</button>
+              <button class="case-filter" type="button" data-filter="床品商业">床品商业</button>
+              <button class="case-filter" type="button" data-filter="光影质感">光影质感</button>
+              <button class="case-filter" type="button" data-filter="构图色彩">构图色彩</button>
+            </div>
+          </div>
+
+          <details class="aesthetic-case" data-case-tags="空间氛围 床品商业 光影质感" data-case-title="卧室生活感与商业表达">
+            <summary>
+              <div class="case-preview-media" aria-hidden="true"></div>
+              <div class="case-preview-copy">
+                <div class="num">CASE 001 · 2026-08-08</div>
+                <h4>卧室生活感与商业表达</h4>
+                <p>从“这张图挺好看”，走到看懂生活感、注意力权力与800元产品价值证据。</p>
+                <div class="case-tags"><span>空间氛围</span><span>床品商业</span><span>光影质感</span></div>
+                <span class="case-open-label">查看完整复盘</span>
+              </div>
+            </summary>
+            <div class="case-detail">
+            <div class="num">2026-08-08 · 卧室图片实战诊断</div>
+            <h4>从“挺好看”到“看懂它为什么好看”</h4>
+            <img class="case-image" src="data:image/webp;base64,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" alt="Lee 审美训练使用的卧室案例：浅蓝床品、自然褶皱、床下书本和右侧高亮窗户" />
+            <div class="image-caption">本次训练原图：先看真实观看路径，再区分生活氛围、视觉问题与商业转化证据。</div>
+            <table><thead><tr><th>判断项</th><th>Lee 的观察</th><th>升级后的专业表达</th></tr></thead><tbody>
+              <tr><td>核心气质</td><td>很有生活气和真实感</td><td>枕头的不对称、被面的自然褶皱和床下书本，共同留下真实使用痕迹。</td></tr>
+              <tr><td>视线顺序</td><td>先看到窗户，因为很亮；再看到床和书</td><td>窗户靠局部高亮获得第一注意力；床靠中心位置和大面积色块承接第二注意力；褶皱与书本属于后续细节。</td></tr>
+              <tr><td>成功的不完美</td><td>右侧两个枕头和皱皱的被子，显得真实</td><td>枕头错位但仍集中于床头，被面有褶皱但顺着重力自然垂落，属于“大秩序稳定、小细节松动”。</td></tr>
+              <tr><td>视觉问题</td><td>窗户太亮，有些喧宾夺主</td><td>并非整个环境太亮，而是窗户局部亮度过高，形成全画面最强明暗反差，使它成为视觉主角。</td></tr>
+              <tr><td>商业问题</td><td>—</td><td>画面能证明卧室舒服，却没有证明四季被的蓬松、结构、包裹与温湿协同，也没有解释800元价值。</td></tr>
+            </tbody></table>
+            <div class="callout"><b>本次最重要的纠偏：</b>指出“窗户抢主体”后，单一修改应继续作用于窗户进光量；拿掉书只能解决局部整洁，既不能改变第一视觉，还可能损失生活感。修改动作必须与最大问题对齐。</div>
+            <p class="quote">不仅判断用户先看见谁，还要判断看完之后，用户究竟相信了产品什么。</p>
+            </div>
+          </details>
+          <div class="case-empty" id="caseEmpty">没有找到符合条件的审美案例。</div>
+
+          <article class="card full">
+            <h4>以后每次审美训练都用这个模板</h4>
+            <div class="prompt">图片 / 视频任务：
+目标感受（3个词）：
+用户观看路径（第一眼 → 第二眼 → 第三眼）：
+支持判断的视觉证据：
+最成功的一处设计或“不完美”：
+最大视觉问题：
+最大商业问题：
+这段画面真正能证明：
+这段画面不能证明：
+只改一个变量：
+验证标准：修改后，用户的观看或判断应发生什么变化？</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="debate" data-searchable>
+        <div class="section-head"><div><h3>辩论与思辨训练</h3><p>辩论不是为了把对方说服，而是训练我把价值直觉升级成定义清楚、因果完整、有反例与边界的判断。</p></div><span class="tag">历史训练已合并</span></div>
+        <article class="card full">
+          <div class="num">我的思辨升级主线</div>
+          <p class="quote">从“我觉得它是对的”，升级为“我能证明它为什么成立，也知道它在什么条件下不成立”。</p>
+          <div class="framework">
+            <div class="step"><b>① 定义</b>双方争论的词到底是什么意思？是否把两个不同概念偷偷当成同一个？</div>
+            <div class="step"><b>② 前提</b>对方结论成立，依赖了哪些没有说出口的假设？</div>
+            <div class="step"><b>③ 因果</b>证据怎样一步步推到结论？中间是否跳步、倒置或混入第三个变量？</div>
+            <div class="step"><b>④ 反例与边界</b>有没有一个反例能击穿绝对表达？观点应收窄到什么条件才严谨？</div>
+          </div>
+          <div class="callout"><b>Lee 的两套武器：</b>价值武器负责意义、情感、画面与升维；逻辑武器负责定义、前提、因果、反证和反例。你的优势一直是价值感强，下一步不是丢掉价值，而是给价值补上可验证的逻辑骨架。</div>
+        </article>
+
+        <div class="grid">
+          <article class="card full">
+            <h4>三本书如何在一场辩论里协同</h4>
+            <table><thead><tr><th>框架</th><th>负责解决什么</th><th>辩论时直接追问</th></tr></thead><tbody>
+              <tr><td><b>《学会提问》</b></td><td>识别结论、理由、模糊词、隐藏假设和证据质量。</td><td>“你的结论是什么？理由真的支持它吗？哪个词还没有定义？”</td></tr>
+              <tr><td><b>第一性原理</b></td><td>剥掉惯例和口号，把问题还原为底层目的、事实约束与不可再拆的条件。</td><td>“我们真正要解决的底层问题是什么？这个前提是事实，还是大家习惯如此？”</td></tr>
+              <tr><td><b>《思考，快与慢》</b></td><td>识别直觉替代理性、幸存者偏差、锚定、可得性偏差和事后归因。</td><td>“这个判断来自完整样本，还是一个特别容易想起的故事？”</td></tr>
+            </tbody></table>
+            <p class="quote">先用《学会提问》拆论证，再用第一性原理拆前提，最后用《思考，快与慢》检查自己为什么如此确信。</p>
+          </article>
+
+          <article class="card">
+            <h4>日常攻防结构</h4>
+            <ol>
+              <li><b>复述：</b>准确说出对方结论，不攻击一个对方没说过的观点。</li>
+              <li><b>定位：</b>只抓一个最大漏洞：定义、前提、因果、证据或价值排序。</li>
+              <li><b>击穿：</b>给反例、替代解释或归谬，让漏洞造成可见后果。</li>
+              <li><b>重建：</b>提出自己的逻辑链，不停留在“对方错了”。</li>
+              <li><b>收边：</b>说明成立条件，避免“永远、一定、完全”等绝对化。</li>
+            </ol>
+          </article>
+
+          <article class="card">
+            <h4>你的高阶判断句式</h4>
+            <ul>
+              <li>不要只问谁对谁错，要问谁是目的、手段、基础与结果。</li>
+              <li>不要把相关关系直接说成因果关系。</li>
+              <li>不要把“有帮助”偷换成“唯一决定因素”。</li>
+              <li>对方说A导致B时，追问A是必要条件、充分条件，还是仅仅提高概率。</li>
+              <li>价值排序要交代场景：短期与长期、个体与组织、生存期与发展期可能不同。</li>
+            </ul>
+          </article>
+
+          <article class="card full">
+            <div class="num">历史案例 01 · 人应该为自己而活，还是为别人而活？</div>
+            <h4>突破：识别假二分与概念偷换</h4>
+            <p><b>Lee 的价值表达：</b>人可以通过爱别人、帮助别人、承担责任，完成自己的人生价值。</p>
+            <p><b>关键纠偏：</b>“帮助别人”不等于“把人生意义完全交给别人”。不能仅凭帮助行为，就证明一个人在“为别人而活”。</p>
+            <div class="callout"><b>重建逻辑：</b>人生需要价值 → 价值常来自人与人的连接 → 承担责任、帮助与爱 → 获得价值感 → 实现自我。更高阶的结论不是二选一，而是“为别人”和“成就自己”在特定定义下可以统一。</div>
+          </article>
+
+          <article class="card">
+            <div class="num">历史案例 02 · 公平与效率</div>
+            <h4>突破：从二选一进入系统关系</h4>
+            <p>资源极度稀缺时，效率优先帮助组织先活下来；长期看，公平通过信任和积极性维持效率。</p>
+            <p class="quote">没有效率，公平难以持续；没有公平，效率也难以长期持续。</p>
+            <p><b>边界：</b>不说“活不下去时谈公平很滑稽”，而说“在资源极度稀缺的生存阶段，效率通常具有更高优先级”。</p>
+          </article>
+
+          <article class="card">
+            <div class="num">历史案例 03 · 稳定还是成长</div>
+            <h4>突破：攻击因果方向</h4>
+            <p>对方把稳定视为成长的必要前提；你的反击是，很多成长来自挑战与解决问题，稳定也可能是能力成长后的结果。</p>
+            <p class="quote">年轻人追求成长，不是放弃稳定，而是在为未来创造更可持续的稳定。</p>
+            <p><b>边界：</b>稳定也可以成为成长的土壤，不能绝对化成“稳定一定阻碍成长”。</p>
+          </article>
+
+          <article class="card full">
+            <div class="num">历史案例 04 · 成功更靠努力还是运气？</div>
+            <h4>突破：区分起点、机会、能力与结果</h4>
+            <table><thead><tr><th>变量</th><th>合理作用</th><th>不能被夸大成什么</th></tr></thead><tbody>
+              <tr><td>运气</td><td>影响出生、环境、机会出现与部分结果波动。</td><td>不能因此推出个人努力完全无效。</td></tr>
+              <tr><td>努力</td><td>提升能力、准备度、抓住机会的概率与守住成果的能力。</td><td>不能承诺只要努力就一定成功。</td></tr>
+              <tr><td>更严谨结论</td><td colspan="2">运气影响机会分布，努力改变机会到来时的承接概率；二者都不是单独的充分条件。</td></tr>
+            </tbody></table>
+            <div class="callout"><b>你曾经的好例子：</b>有人出生在“罗马”，却未必一直留在罗马；古代同样生于帝王家，有人成为继承者，也有人成为亡国之君。这个例子有效之处在于证明“好起点不等于必然好结果”，但它不能反过来证明努力决定一切。</div>
+          </article>
+
+          <article class="card full">
+            <h4>每次训练的提交模板</h4>
+            <div class="prompt">辩题：&#10;我的立场与核心结论：&#10;关键概念怎样定义：&#10;我的三步因果链：&#10;对方最强观点：&#10;对方最大的一个漏洞：&#10;我的反例或替代解释：&#10;我的观点在哪些条件下不成立：&#10;30秒结辩：&#10;复盘：这次我是靠价值感染，还是完成了逻辑证明？</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="training" data-searchable>
+        <div class="section-head"><div><h3>每日45分钟训练</h3><p>不等待状态好了再行动，而是用一个可完成的行动把状态带回来。</p></div><span class="tag">训练系统</span></div>
+        <article class="card full">
+          <table><thead><tr><th>模块</th><th>时长</th><th>今天要产出的东西</th></tr></thead><tbody>
+            <tr><td>状态启动</td><td>5分钟</td><td>精力/焦虑/掌控感评分＋今日唯一要事</td></tr>
+            <tr><td>核心能力</td><td>20分钟</td><td>一份真实业务判断、方案或管理动作</td></tr>
+            <tr><td>辩论表达</td><td>10分钟</td><td>观点＋证据＋反例＋边界</td></tr>
+            <tr><td>审美训练</td><td>5分钟</td><td>分析一个好作品：结构、色彩、节奏、情绪</td></tr>
+            <tr><td>工作复盘</td><td>5分钟</td><td>今天的关键判断＋明日唯一动作</td></tr>
+          </tbody></table>
+          <p><b>加班保底版：</b>15分钟，只做状态评分、一个核心判断、明日唯一动作。时间少可以缩短，不能因为不完美就完全放弃。</p>
+        </article>
+      </section>
+
+      <section id="cases" data-searchable>
+        <div class="section-head"><div><h3>我的案例与复盘</h3><p>这里的文字会保存在当前浏览器中。建议写完后同时把重要案例发给我，纳入下一版本。</p></div><span class="tag">可编辑</span></div>
+        <div class="save-area">
+          <textarea id="caseNotes" placeholder="日期：
+场景：
+表面议题：
+各方立场与隐性利益：
+我的判断（事实 / 推断 / 待验证）：
+我当时怎么表达：
+结果：
+下次改进："></textarea>
+          <div class="actions"><button class="btn primary" id="saveNotes">保存到浏览器</button><button class="btn secondary" id="exportNotes">导出为文本</button><span class="status" id="saveStatus"></span></div>
+        </div>
+      </section>
+
+      <section id="invoke" data-searchable>
+        <div class="section-head"><div><h3>以后如何直接调用</h3><p>你不需要重新解释背景，直接用下面这些话叫我更新或调用。</p></div><span class="tag">调用口令</span></div>
+        <div class="grid">
+          <article class="card"><h4>更新知识库</h4><div class="prompt">更新《Lee个人成长与管理能力知识库》：把我今天这场会议按照“业务议题、各方立场、隐性利益、权力关系、我的表达”拆解后加入案例。</div></article>
+          <article class="card"><h4>直接训练</h4><div class="prompt">调用我的管理知识库，今天训练“向上汇报”。请给我一个真实题目，等我回答后评分、指出最大问题，并让我重写。</div></article>
+          <article class="card"><h4>会前准备</h4><div class="prompt">调用我的高层会议框架。我明天要汇报【事项】，目标是让领导决定【决定】。帮我压缩成一页和30秒口头版。</div></article>
+          <article class="card"><h4>会后解码</h4><div class="prompt">调用我的职场政治敏锐度框架。以下是匿名会议记录，请严格区分事实、推断和待验证证据，不要过度脑补。</div></article>
+          <article class="card"><h4>记录读书心得</h4><div class="prompt">更新《Lee个人成长与管理能力知识库》：我读了【书名/章节】，最触动我的是【内容】，我的感受是【感受】。请先和我讨论，帮助我澄清认识，再按“触发—联想—澄清—新认识—行动”写入读书心得。</div></article>
+          <article class="card"><h4>记录价值观思考</h4><div class="prompt">更新《Lee个人成长与管理能力知识库》：我最近对【人 / 组织 / 品牌 / 生活】形成了一个判断。请先和我讨论它的成立条件、反例与边界，再提炼成“原始洞察—关键区分—完整观点—实践原则—未来应用”，写入价值观与心路成长。</div></article>
+          <article class="card"><h4>继续审美训练</h4><div class="prompt">调用我的审美能力训练。我会提交一张图片或一段视频，请先让我独立判断，再按“内容任务—视觉证据—形成机制—单一调整—验证标准”评分和纠偏；同时区分视觉问题与商业问题。</div></article>
+          <article class="card"><h4>继续辩论训练</h4><div class="prompt">调用我的辩论与思辨训练。请给我一个有现实复杂度的辩题，等我先回答；再分别用《学会提问》、第一性原理和《思考，快与慢》拆解我的定义、前提、因果、证据、反例与边界，并要求我重写30秒结辩。</div></article>
+        </div>
+      </section>
+
+      <footer>Lee 的个人成长与管理能力知识库 · V1.5 · 2026-08-08<br/>版本原则：只收录可行动、可验证、可复用的内容。</footer>
+    </main>
+  </div>
+  <script>
+    const search = document.getElementById('search');
+    const sections = [...document.querySelectorAll('[data-searchable]')];
+    search.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      sections.forEach(section => {
+        const match = !q || section.innerText.toLowerCase().includes(q);
+        section.classList.toggle('hidden', !match);
+      });
+    });
+
+    const navLinks = [...document.querySelectorAll('nav a')];
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    sections.forEach(s => observer.observe(s));
+
+    const aestheticCases = [...document.querySelectorAll('.aesthetic-case')];
+    const caseSearch = document.getElementById('caseSearch');
+    const caseCount = document.getElementById('caseCount');
+    const caseEmpty = document.getElementById('caseEmpty');
+    const caseFilters = [...document.querySelectorAll('.case-filter')];
+    let activeCaseFilter = 'all';
+
+    aestheticCases.forEach(item => {
+      const sourceImage = item.querySelector('.case-detail .case-image');
+      const preview = item.querySelector('.case-preview-media');
+      if (sourceImage && preview) {
+        const thumb = sourceImage.cloneNode(false);
+        thumb.className = '';
+        thumb.removeAttribute('loading');
+        preview.appendChild(thumb);
+      }
+    });
+
+    function filterAestheticCases() {
+      const q = (caseSearch?.value || '').trim().toLowerCase();
+      let visible = 0;
+      aestheticCases.forEach(item => {
+        const tags = item.dataset.caseTags || '';
+        const text = item.innerText.toLowerCase();
+        const filterMatch = activeCaseFilter === 'all' || tags.includes(activeCaseFilter);
+        const searchMatch = !q || text.includes(q);
+        const show = filterMatch && searchMatch;
+        item.classList.toggle('hidden', !show);
+        if (!show) item.open = false;
+        if (show) visible += 1;
+      });
+      if (caseCount) caseCount.textContent = `${visible} / ${aestheticCases.length} 个案例`;
+      if (caseEmpty) caseEmpty.style.display = visible ? 'none' : 'block';
+    }
+
+    caseSearch?.addEventListener('input', filterAestheticCases);
+    caseFilters.forEach(button => button.addEventListener('click', () => {
+      activeCaseFilter = button.dataset.filter || 'all';
+      caseFilters.forEach(item => item.classList.toggle('active', item === button));
+      filterAestheticCases();
+    }));
+    filterAestheticCases();
+
+    const notes = document.getElementById('caseNotes');
+    const status = document.getElementById('saveStatus');
+    const storageKey = 'lee-growth-management-notes-v1';
+    try { notes.value = localStorage.getItem(storageKey) || ''; } catch(e) {}
+    document.getElementById('saveNotes').addEventListener('click', () => {
+      try { localStorage.setItem(storageKey, notes.value); status.textContent = '已保存 ✓'; }
+      catch(e) { status.textContent = '浏览器禁止本地保存，请导出文本'; }
+      setTimeout(() => status.textContent = '', 2200);
+    });
+    document.getElementById('exportNotes').addEventListener('click', () => {
+      const blob = new Blob([notes.value || '暂无案例记录'], {type: 'text/plain;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'Lee_管理案例复盘.txt'; a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
