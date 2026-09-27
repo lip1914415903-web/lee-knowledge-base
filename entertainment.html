@@ -189,7 +189,7 @@
   </div>
 
   <script>
-    const search=document.querySelector('#search'),date=document.querySelector('#date'),clear=document.querySelector('#clear'),count=document.querySelector('#count'),toc=document.querySelector('#toc'),empty=document.querySelector('#empty');
+    /* sort-days-desc-v1 */ const root=document.querySelector('#content'),days=[...root.querySelectorAll('.day')];days.sort((a,b)=>(b.dataset.date||'').localeCompare(a.dataset.date||'')).forEach(x=>root.insertBefore(x,root.querySelector('.empty'))); const search=document.querySelector('#search'),date=document.querySelector('#date'),clear=document.querySelector('#clear'),count=document.querySelector('#count'),toc=document.querySelector('#toc'),empty=document.querySelector('#empty');
     const normalize=s=>(s||'').toLowerCase().replace(/\s+/g,'');
     function buildToc(){toc.innerHTML='';document.querySelectorAll('.day').forEach(day=>{const visible=[...day.querySelectorAll('.entry')].filter(e=>!e.hidden);if(!visible.length)return;const dh=document.createElement('div');dh.className='toc-day';dh.textContent=day.querySelector('.day-head h2').textContent;toc.appendChild(dh);visible.forEach(e=>{const a=document.createElement('a');a.href='#'+e.id;a.textContent=e.dataset.title;toc.appendChild(a)})})}
     function filter(){const q=normalize(search.value),d=date.value;let shown=0;document.querySelectorAll('.day').forEach(day=>{let dayShown=0;day.querySelectorAll('.entry').forEach(e=>{const hay=normalize(e.innerText+' '+e.dataset.tags+' '+e.dataset.title);const ok=(!q||hay.includes(q))&&(!d||day.dataset.date===d);e.hidden=!ok;if(ok){shown++;dayShown++}});day.hidden=dayShown===0});count.textContent=`显示 ${shown} 条`;empty.style.display=shown?'none':'block';buildToc()}
