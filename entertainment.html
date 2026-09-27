@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lee 的娱乐圈 × 抖音业务知识库</title>
+  <style>
+    :root{--bg:#f4f1ea;--paper:#fffdf8;--ink:#25231f;--muted:#766f65;--line:#ded8cd;--accent:#315c4c;--accent2:#c96e44;--soft:#e8efe9;--shadow:0 16px 46px rgba(53,45,33,.08)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.75}
+    header{padding:52px max(24px,calc((100vw - 1320px)/2));background:linear-gradient(135deg,#23483e,#477565);color:#fff}
+    header p{max-width:780px;margin:12px 0 0;color:#dbe8e2}.eyebrow{letter-spacing:.15em;font-size:12px;text-transform:uppercase;opacity:.8}h1{font-family:Georgia,"Songti SC",serif;font-size:clamp(30px,4vw,52px);line-height:1.15;margin:10px 0}
+    .controls{position:sticky;top:0;z-index:20;display:flex;gap:12px;flex-wrap:wrap;padding:16px max(24px,calc((100vw - 1320px)/2));background:rgba(244,241,234,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .field{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 13px;min-height:44px}.field.search{flex:1;min-width:240px}.field input{border:0;outline:0;background:transparent;font:inherit;width:100%}.field input[type=date]{width:auto}.controls button{border:0;border-radius:12px;padding:0 16px;background:var(--accent);color:#fff;font:inherit;cursor:pointer}.count{align-self:center;color:var(--muted);font-size:14px}
+    .layout{max-width:1320px;margin:28px auto 80px;padding:0 24px;display:grid;grid-template-columns:255px minmax(0,1fr);gap:28px}
+    aside{position:sticky;top:92px;align-self:start;max-height:calc(100vh - 116px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}aside h2{font-size:13px;letter-spacing:.14em;color:var(--muted);margin:0 0 14px}.toc-day{font-size:13px;font-weight:700;color:var(--accent);margin:15px 0 6px}.toc a{display:block;padding:7px 9px;border-radius:8px;color:#554f47;text-decoration:none;font-size:14px;line-height:1.35}.toc a:hover{background:var(--soft);color:var(--accent)}
+    main{min-width:0}.day{margin-bottom:36px}.day-head{display:flex;align-items:end;justify-content:space-between;margin:0 4px 14px}.day-head h2{font-family:Georgia,"Songti SC",serif;font-size:32px;margin:0}.day-head span{color:var(--muted);font-size:13px}
+    .entry{scroll-margin-top:92px;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:28px;margin:0 0 16px;box-shadow:var(--shadow)}.entry h3{font-size:23px;line-height:1.35;margin:8px 0 14px}.entry p{margin:10px 0}.entry ul{padding-left:1.25em}.entry blockquote{margin:18px 0;padding:14px 18px;background:var(--soft);border-left:4px solid var(--accent);font-family:Georgia,"Songti SC",serif;font-size:18px}.meta{display:flex;gap:8px;flex-wrap:wrap}.tag{display:inline-flex;padding:3px 9px;border-radius:999px;background:#eee9df;color:#5f574d;font-size:12px}.tag.fact{background:#e4efe9;color:#285642}.tag.risk{background:#f6e7df;color:#914c2f}.takeaway{margin-top:16px;padding:14px 16px;border-radius:12px;background:#f7efe5;border:1px solid #ecd9c7}.takeaway b{color:var(--accent2)}
+    .empty{display:none;text-align:center;background:var(--paper);border:1px dashed var(--line);border-radius:18px;padding:60px 20px;color:var(--muted)}mark{background:#ffe59b;border-radius:3px;padding:0 2px}.footer-note{color:var(--muted);font-size:13px;text-align:center;margin-top:30px}
+    @media(max-width:850px){header{padding-top:36px;padding-bottom:36px}.layout{grid-template-columns:1fr}aside{position:relative;top:auto;max-height:300px}.controls{position:relative}.entry{padding:22px}.day-head h2{font-size:26px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Lee's Entertainment & Commerce Notes</div>
+    <h1>娱乐圈 × 抖音业务知识库</h1>
+    <p>记录行业事件，也沉淀对艺人合作、内容运营、直播和品牌判断真正有用的方法。可持续按日追加。</p>
+  </header>
+
+  <section class="controls" aria-label="检索工具">
+    <label class="field search">⌕ <input id="search" type="search" placeholder="搜索艺人、事件、业务启发、黑话……" autocomplete="off"></label>
+    <label class="field">日期 <input id="date" type="date"></label>
+    <button id="clear" type="button">清除筛选</button>
+    <span class="count" id="count"></span>
+  </section>
+
+  <div class="layout">
+    <aside><h2>目录 CONTENTS</h2><nav class="toc" id="toc"></nav></aside>
+    <main id="content">
+      <section class="day" data-date="2026-08-22">
+        <div class="day-head"><h2>2026年8月22日</h2><span>今日主题：日常感、场景型直播、旧内容新解释</span></div>
+        <article class="entry" id="e-20260822-0" data-title="本期导读" data-tags="导读 日常感 场景型直播 旧内容">
+          <div class="meta"><span class="tag">本期导读</span></div><h3>Lee的娱乐圈 × 抖音业务晨报｜8月22日</h3>
+          <p>过去24小时没有特别大的塌房或官宣，真正值得看的是三个内容趋势：<b>明星日常感、场景型直播，以及老内容被网友重新解释。</b></p>
+        </article>
+
+        <article class="entry" id="e-20260822-1" data-title="谭松韵：轻内容为什么能上热榜" data-tags="谭松韵 抖音 热榜 人设 日常感 内容">
+          <div class="meta"><span class="tag fact">已证实</span><span class="tag">艺人内容</span></div><h3>1. 谭松韵：轻内容为什么能上热榜</h3>
+          <p>谭松韵发布了一段使用蓝色鲨鱼特效、对镜头吐泡泡的自拍视频，相关话题随后进入抖音公开热榜。<a href="https://so-landing.douyin.com/landings/hotlist" target="_blank" rel="noopener">抖音热榜</a>｜<a href="https://k.sina.com.cn/article_7879923119_1d5ae15af06801vzvu.html" target="_blank" rel="noopener">事件梳理</a></p>
+          <p>这条内容几乎没有作品信息，也没有精致造型，出圈靠的是三点：</p>
+          <ul><li>“鲨鱼”本该凶猛，她却拍得很呆萌；</li><li>画面和动作极简单，用户一秒就能看懂；</li><li>符合谭松韵长期积累的自然、亲切、没有攻击性的人设。</li></ul>
+          <blockquote>用户喜欢的谭松韵，不只是漂亮温柔的女演员，更是愿意使用幼稚特效、随手分享生活的人。</blockquote>
+          <p>因此，后续素材不能全部精致得像电视广告。可以保留整理被子失败、钻进被窝、突然笑场、一本正经研究双层结构等轻松片段。这些内容可能比一句完整卖点更容易拉近距离。</p>
+          <div class="takeaway"><b>业务启发与风险：</b>真正值得借的不是“蓝色”这个巧合，而是用户此刻为什么喜欢她——自然、童心和反差萌。但不能因为视频里出现“blue”，就擅自把它解读成亚朵“深睡蓝”；除非合作权益明确包含艺人社交内容联动。</div>
+        </article>
+
+        <article class="entry" id="e-20260822-2" data-title="特仑苏：把直播间搬到乌兰布和沙漠" data-tags="特仑苏 沙漠 直播 场景 品牌 证明产品">
+          <div class="meta"><span class="tag">案例拆解</span><span class="tag">场景直播</span></div><h3>2. 特仑苏：把品牌逻辑变成真实舞台</h3>
+          <p>8月21日，“沙漠绿洲·大地漫谈”音乐会在乌兰布和沙漠进行直播，董宇辉与梁永安、刘惜君、沙宝亮、张淇等参与人文对谈和演出；品牌代言人易烊千玺也参与了特仑苏相关内容传播。<a href="https://app.myzaker.com/news/article.php?pk=6a86e5c78e9f0924fe06f30c" target="_blank" rel="noopener">直播活动信息</a>｜<a href="https://www.facebook.com/onlyjacksonyee/videos/992257620494905/" target="_blank" rel="noopener">易烊千玺预告内容</a></p>
+          <p>它的核心不是“明星很多”，而是把品牌逻辑变成了一座真实舞台：</p>
+          <blockquote>沙漠里形成绿洲——绿洲孕育有机奶源——品牌在这里讲土地、时间与生长。</blockquote>
+          <p>这比让明星坐在普通直播间喝牛奶更有记忆点。对亚朵星球的启发是：寻找与产品逻辑一致的场景，而不是一味追求漂亮卧室。</p>
+          <p>例如四季被可以进入：</p>
+          <ul><li>空调房、初秋卧室、北方暖气房三种环境；</li><li>“睡前闷热—半夜降温—清晨潮湿”的一夜温湿变化；</li><li>真实机洗、烘干、重新铺床的完整过程。</li></ul>
+          <div class="takeaway"><b>业务启发：</b>场景不是漂亮背景板，场景本身应该成为产品证据。</div>
+        </article>
+
+        <article class="entry" id="e-20260822-3" data-title="老剧翻红：用户为什么重新玩《我的前半生》" data-tags="我的前半生 老剧 二创 用户嘴替 内容传播">
+          <div class="meta"><span class="tag">内容趋势</span><span class="tag">用户表达</span></div><h3>3. 老剧翻红：旧内容成为当代人的“嘴替”</h3>
+          <p>2017年播出的《我的前半生》近期重新走红。网友使用陈俊生头像吐槽职场，用“贺涵，下雨了，你能来接我吗”等台词改编天气和生活内容；《甄嬛传》《潜伏》《武林外传》等老剧也持续通过二创获得新生命。<a href="https://www.xinhuanet.com/ent/20260821/fd11f22890f14c40a5033b902141f4ef/c.html" target="_blank" rel="noopener">新华网报道</a></p>
+          <p>这不是简单怀旧。年轻人不一定重新看完整部剧，而是在做：</p>
+          <blockquote>从旧内容里，找到一个能替自己表达当下生活的角色和台词。</blockquote>
+          <p>抖音内容能否长尾传播，不只取决于画面多高级，还要看它能不能脱离广告，成为“用户嘴替”。四季被可以尝试形成这样的公共表达：</p>
+          <ul><li>白天替公司处理问题，晚上别再替被子处理问题。</li><li>我的生活已经够复杂了，被子能不能简单一点？</li><li>不是不想换季，是实在不想再收一床被子。</li></ul>
+          <div class="takeaway"><b>业务启发：</b>卖点变成用户愿意转发的生活态度，才可能突破纯投放素材。</div>
+        </article>
+
+        <article class="entry" id="e-20260822-4" data-title="美妆品牌为什么开始选择体育明星" data-tags="体育明星 娱乐明星 商业价值 信任 选人">
+          <div class="meta"><span class="tag">商业趋势</span><span class="tag">艺人选择</span></div><h3>4. 体育明星正在提供品牌稀缺的“信任”</h3>
+          <p>36氪8月21日梳理称，全红婵、孙颖莎、谷爱凌、苏翊鸣等运动员正在获得更多美妆和个护合作。品牌看中的不只是粉丝量，还有运动员带来的自律、真实和公众信任。<a href="https://www.36kr.com/p/3949205737674377" target="_blank" rel="noopener">36氪行业分析</a></p>
+          <p>这说明品牌选人的目标正在变化：</p>
+          <ul><li>娱乐明星更擅长制造审美和话题；</li><li>体育明星更容易提供努力、健康、可信赖的形象；</li><li>最终选谁，取决于品牌此刻缺的是声量、审美还是信任。</li></ul>
+          <blockquote>对800元四季被来说：这个人能不能让用户相信，她真的重视身体状态和睡眠质量？</blockquote>
+          <div class="takeaway"><b>风险边界：</b>运动员的专业表现不能被擅自推导成未经证实的产品功效。</div>
+        </article>
+
+        <article class="entry" id="e-20260822-5" data-title="《欢迎来龙餐馆》：用小动作承载大情感" data-tags="欢迎来龙餐馆 生活动作 情感 睡眠 内容">
+          <div class="meta"><span class="tag">内容方法</span><span class="tag">生活叙事</span></div><h3>5. “好好睡觉”也要落在具体动作里</h3>
+          <p>《欢迎来龙餐馆》在七夕档取得票房领先后仍保持讨论度。影片传播中被反复提到的不是宏大的异国故事，而是“一日三餐”“好好吃饭”等中国家庭最熟悉的关怀方式。<a href="https://www.news.cn/ent/" target="_blank" rel="noopener">新华娱乐专题</a>｜<a href="https://www.xinhuanet.com/ent/20260812/053057aee40d47a696e0da1e3cde2ad4/c.html" target="_blank" rel="noopener">影片上映及创作报道</a></p>
+          <blockquote>好内容经常是用很小、很具体的生活动作，承载一个很大的情感主题。</blockquote>
+          <p>对应到睡眠内容，“关心你睡得好”也不应只是一句口号，可以被翻译成：</p>
+          <ul><li>睡前帮你把空调调高一度；</li><li>半夜醒来替你盖一下被子；</li><li>早上发现被窝不潮、不黏；</li><li>被子脏了直接扔进洗衣机，不再等别人拆洗。</li></ul>
+          <p>“好好睡觉”和“好好吃饭”一样，都是中国人不太直接说爱的方式。</p>
+          <div class="takeaway"><b>业务启发：</b>好内容常用很小、很具体的生活动作，承载一个很大的情感主题。</div>
+        </article>
+
+        <article class="entry" id="e-20260822-6" data-title="李小龙：成熟IP如何被重新表达" data-tags="李小龙 IP 首席删除官 视觉符号 二创">
+          <div class="meta"><span class="tag">IP方法</span><span class="tag">品牌资产</span></div><h3>6. 成熟IP不靠复刻，而靠重新表达内核</h3>
+          <p>大型舞剧《武道——李小龙的有法与无限》8月21日在上海开启内地巡演。作品融合截拳道、咏春、粤剧身法、爵士乐、多媒体舞台，并配套李小龙积木像、书信和影像展览。<a href="https://www.chinanews.com.cn/cul/2026/08-21/10682105.shtml" target="_blank" rel="noopener">中国新闻网报道</a></p>
+          <p>这不是简单复刻李小龙的经典造型，而是抓住其核心精神“不断吸收、不断变化”，再用新的媒介重新表达。</p>
+          <p>一个成熟IP可以同时拥有：</p>
+          <ul><li>精神内核；</li><li>视觉符号；</li><li>现场体验；</li><li>可拍摄、可打卡、可二创的传播素材。</li></ul>
+          <div class="takeaway"><b>业务启发：</b>“首席删除官”要从一句定位变成可识别动作：每出现一个生活麻烦，就划掉、撕掉或删除一个词——被套、异形结构、频繁换季、复杂护理。</div>
+        </article>
+
+        <article class="entry" id="e-20260822-7" data-title="今日吃瓜：回应、传闻与旧争议" data-tags="彭小苒 张函瑞 小沈阳 吃瓜 舆情 回应 传闻">
+          <div class="meta"><span class="tag risk">舆情辨析</span><span class="tag">吃瓜区</span></div><h3>7. 今日吃瓜：三类信息，三种判断</h3>
+          <h4>瓜1：彭小苒本人回应获赞，工作室文案反而惹恼事业粉</h4>
+          <p>彭小苒本人用“正在接触中、希望保留私人空间、作品见”回应恋情后，工作室又发布了“既要爱情的糖，也要事业的光”一类文案，部分事业粉认为工作室再次把重点拉回恋爱，削弱了本人“作品见”的职业落点。<a href="https://k.sina.com.cn/article_7879776328_1d5abd848068026552.html" target="_blank" rel="noopener">争议梳理</a></p>
+          <p>为什么反应不同？</p>
+          <ul><li>普通网友看到的是一位成年女性坦然恋爱；</li><li>事业粉担心本就不算密集的作品曝光被恋情覆盖；</li><li>工作室希望表达祝福，却错误估计了粉丝最焦虑的问题。</li></ul>
+          <p><b>判断：</b>艺人回应和工作室回应不能各写各的。危机或关系官宣后，必须只有一个传播主线。</p>
+          <h4>瓜2：张函瑞的宠物马陆被转卖？</h4>
+          <p>网络流传，TF家族练习生张函瑞交由他人照顾的两只宠物马陆可能遭到转卖，由此引发粉丝对工作人员管理和宠物去向的质疑。</p>
+          <p>但截至相关报道发布时，张函瑞本人及时代峰峻没有正式确认事件经过，所谓转卖人员、价格和完整托付链条均缺少权威证据。<a href="https://k.sina.com.cn/article_7879923021_1d5ae154d06801jsfs.html" target="_blank" rel="noopener">未回应情况梳理</a></p>
+          <p>粉丝格外愤怒，是因为养成系粉丝不仅关心艺人作品，也会把工作人员如何照顾艺人的生活、宠物和情绪，当成公司是否尊重艺人的证明。</p>
+          <p><b>品牌判断：</b>目前不能使用该事件做段子，也不能写成“工作人员卖掉艺人宠物”的既定事实。</p>
+          <h4>瓜3：小沈阳“凭什么开演唱会”的旧争议重新发酵</h4>
+          <p>小沈阳此前回应过“没有自己的歌为什么开演唱会”的质疑，表示自己拥有数十首歌曲，并为演唱会中的翻唱内容购买版权。近期随着巡演和综艺曝光，这段回应再次被传播。<a href="https://www.dlsportscenter.com/index.php/article/show/id/3666/language/cn" target="_blank" rel="noopener">巡演官方信息</a>｜<a href="https://ent.sina.cn/2026-08-21/detail-ininzpqv6416315.d.html" target="_blank" rel="noopener">回应梳理</a></p>
+          <p>争议的本质不是能不能唱，而是公众把他牢牢归类成了“小品演员”。</p>
+          <ul><li>普通观众：以是否好听、票价是否值得判断；</li><li>老观众：更容易为《不差钱》的情怀买单；</li><li>音乐受众：会追问原创作品和现场能力；</li><li>粉丝：认为他多年唱功被喜剧标签遮住。</li></ul>
+          <p>这是典型的“旧心智压制新业务”。如果一个人长期只被记住一个标签，转型时就必须用作品和结果重新证明，而不是只宣布“我要转型”。</p>
+        </article>
+
+        <article class="entry" id="e-20260822-8" data-title="今日艺人：重新认识谭松韵" data-tags="谭松韵 艺人 商业资产 四季被">
+          <div class="meta"><span class="tag">艺人档案</span></div><h3>8. 今日值得重新认识的艺人：谭松韵</h3>
+          <p>你已经完成了她的拍摄，但今天这条抖音热榜提醒我们：她最宝贵的商业资产不只是娃娃脸，而是“成年人身上仍保留自然和童心”。</p>
+          <p>她适合的不是强压迫式叫卖，而是：</p>
+          <ul><li>有真实动作的小剧情；</li><li>温柔但不悬浮的居家状态；</li><li>搞怪、笑场、轻松反应；</li><li>把产品功能讲得像生活经验。</li></ul>
+          <p>对四季被而言，最适合她的表达不是“这是一床高科技被子”，而是：</p>
+          <blockquote>成年人的生活已经够累了，回到床上，就别再折腾自己了。</blockquote>
+        </article>
+
+        <article class="entry" id="e-20260822-9" data-title="今日黑话：自然热搜" data-tags="自然热搜 黑话 热度 搜索 成交">
+          <div class="meta"><span class="tag">行业黑话</span></div><h3>9. 今日黑话：自然热搜</h3>
+          <p>“自然热搜”通常指内容因为真实讨论和用户主动传播获得热度，而非通过购买热搜位、集中营销账号或组织粉丝做数据推动。</p>
+          <p>但外界很难仅凭榜单判断一个话题是否完全自然。品牌内部更实用的判断标准是：</p>
+          <ul><li>是否有大量非粉丝账号参与；</li><li>用户是否主动模仿和二创；</li><li>评论是否围绕内容本身，而非机械控评；</li><li>热度消退后，搜索和成交是否留下增量。</li></ul>
+        </article>
+
+        <article class="entry" id="e-20260822-10" data-title="今日判断题：谭松韵鲨鱼视频怎么用" data-tags="判断题 谭松韵 品牌 权益 C">
+          <div class="meta"><span class="tag">每日训练</span></div><h3>10. 今日判断题</h3>
+          <p>谭松韵的“蓝色鲨鱼吐泡泡”正在抖音传播，亚朵星球应该怎么用？</p>
+          <p>A. 立刻把视频剪进四季被广告，写“谭松韵认证深睡蓝”<br>B. 品牌号在评论区强行留言“这不就是我们的深睡蓝吗”<br>C. 不擅自绑定原视频，把“自然、童心、反差萌”吸收到已授权的谭松韵床品素材中</p>
+          <div class="takeaway"><b>我的选择是C。</b>真正值得借的不是“蓝色”这个巧合，而是用户此刻为什么喜欢她。</div>
+        </article>
+      </section>
+      <div class="empty" id="empty">没有找到匹配内容。试试更短的关键词，或清除日期筛选。</div>
+      <p class="footer-note">维护提示：以后新增内容时，复制一个 day 区块，修改 data-date、标题与 entry 即可；目录和筛选会自动生成。</p>
+    </main>
+  </div>
+
+  <script>
+    const search=document.querySelector('#search'),date=document.querySelector('#date'),clear=document.querySelector('#clear'),count=document.querySelector('#count'),toc=document.querySelector('#toc'),empty=document.querySelector('#empty');
+    const normalize=s=>(s||'').toLowerCase().replace(/\s+/g,'');
+    function buildToc(){toc.innerHTML='';document.querySelectorAll('.day').forEach(day=>{const visible=[...day.querySelectorAll('.entry')].filter(e=>!e.hidden);if(!visible.length)return;const dh=document.createElement('div');dh.className='toc-day';dh.textContent=day.querySelector('.day-head h2').textContent;toc.appendChild(dh);visible.forEach(e=>{const a=document.createElement('a');a.href='#'+e.id;a.textContent=e.dataset.title;toc.appendChild(a)})})}
+    function filter(){const q=normalize(search.value),d=date.value;let shown=0;document.querySelectorAll('.day').forEach(day=>{let dayShown=0;day.querySelectorAll('.entry').forEach(e=>{const hay=normalize(e.innerText+' '+e.dataset.tags+' '+e.dataset.title);const ok=(!q||hay.includes(q))&&(!d||day.dataset.date===d);e.hidden=!ok;if(ok){shown++;dayShown++}});day.hidden=dayShown===0});count.textContent=`显示 ${shown} 条`;empty.style.display=shown?'none':'block';buildToc()}
+    search.addEventListener('input',filter);date.addEventListener('change',filter);clear.addEventListener('click',()=>{search.value='';date.value='';filter();search.focus()});filter();
+  </script>
+</body>
+</html>
