@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>咪蒙写作研究与 Lee 内容训练库</title>
+  <style>
+    :root{--bg:#f5f1e9;--paper:#fffdf8;--ink:#20201e;--muted:#6d6b65;--line:#dfd9ce;--red:#d64035;--deep:#1d3b34;--gold:#b7883e;--shadow:0 18px 50px rgba(51,42,28,.09)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.75}
+    a{color:inherit}.wrap{width:min(1160px,calc(100% - 32px));margin:auto}.hero{padding:74px 0 42px;background:linear-gradient(135deg,#19372f 0%,#234b41 58%,#8d4437 100%);color:#fff;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:360px;height:360px;border:1px solid rgba(255,255,255,.14);border-radius:50%;right:-110px;top:-155px}.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#f1c988}.hero h1{font-size:clamp(34px,5.2vw,68px);line-height:1.08;margin:14px 0 18px;max-width:850px}.hero p{font-size:18px;color:rgba(255,255,255,.8);max-width:760px}.tag{display:inline-flex;padding:6px 10px;border:1px solid rgba(255,255,255,.26);border-radius:100px;font-size:12px;margin:6px 6px 0 0}.nav{position:sticky;top:0;z-index:20;background:rgba(255,253,248,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.nav .wrap{display:flex;gap:22px;overflow:auto;white-space:nowrap;padding:13px 0}.nav a{text-decoration:none;font-size:14px;color:#4e4b45}.nav a:hover{color:var(--red)}main{padding:38px 0 80px}section{scroll-margin-top:70px;margin:42px 0}.section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:20px}.section-head h2{font-size:30px;line-height:1.2;margin:0}.section-head p{margin:0;color:var(--muted);max-width:650px}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr)}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow)}.stat strong{display:block;font-size:34px;color:var(--deep)}.stat span{font-size:13px;color:var(--muted)}.notice{border-left:5px solid var(--gold);background:#fff8e7;padding:18px 20px;border-radius:12px}.quote{font-family:Georgia,"Songti SC",serif;font-size:24px;line-height:1.55;border-left:4px solid var(--red);padding:8px 0 8px 22px;margin:24px 0;color:#2e3935}.formula{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.step{background:var(--deep);color:#fff;border-radius:14px;padding:16px;min-height:116px}.step b{display:block;color:#f1c988;font-size:13px;margin-bottom:8px}.step span{font-size:14px;color:rgba(255,255,255,.8)}.two{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}h3{margin:0 0 10px;font-size:20px}.mini{font-size:14px;color:var(--muted)}.pill{display:inline-block;border-radius:999px;background:#ece7dc;padding:4px 9px;font-size:12px;margin:3px}.good{color:#17614e}.warn{color:#9a4b22}.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.tools input,.tools select{border:1px solid var(--line);border-radius:10px;background:#fff;padding:11px 13px;font-size:14px;min-width:220px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#fff}table{width:100%;border-collapse:collapse;min-width:900px}th,td{text-align:left;vertical-align:top;padding:14px;border-bottom:1px solid #ece7df;font-size:14px}th{position:sticky;top:0;background:#f3efe7;color:#4c4a44;z-index:1}td:first-child{font-weight:650}.source-link{color:var(--red);text-decoration:none}.source-link:hover{text-decoration:underline}.confidence{white-space:nowrap;font-size:12px;padding:4px 8px;border-radius:999px;background:#e6f1ed;color:#266454}.confidence.mid{background:#fff0d7;color:#8e571c}.dna{border-top:5px solid var(--deep)}.dna .num{font-size:12px;color:var(--red);font-weight:700}.example{background:#f4f0e7;border-radius:12px;padding:13px;margin-top:12px;font-size:14px}.compare{display:grid;grid-template-columns:1fr 38px 1fr;gap:12px;align-items:center}.arrow{text-align:center;color:var(--red);font-size:24px}.template{border:1px dashed #bdb4a5;background:#fff;padding:14px;border-radius:10px;font-family:"SFMono-Regular",Consolas,monospace;font-size:13px}.day{display:grid;grid-template-columns:88px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}.day strong{color:var(--red)}.checklist label{display:flex;gap:10px;align-items:flex-start;margin:10px 0}.checklist input{margin-top:6px}.footer{background:#1b2824;color:rgba(255,255,255,.74);padding:34px 0}.footer a{color:#f1c988}.hidden{display:none}.empty{display:none;text-align:center;padding:32px;color:var(--muted)}
+    @media(max-width:900px){.stats,.three{grid-template-columns:1fr 1fr}.formula{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr}.hero{padding-top:52px}}
+    @media(max-width:560px){.stats,.three,.formula{grid-template-columns:1fr}.compare{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.section-head{display:block}.section-head p{margin-top:8px}.hero h1{font-size:38px}.day{grid-template-columns:1fr;gap:3px}}
+    @media print{.nav,.tools{display:none}.hero{background:#fff;color:#000;padding:25px 0}.hero p{color:#444}.card{box-shadow:none}section{break-inside:avoid}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Writing system · Research edition 1.0</div>
+      <h1>咪蒙写作研究<br>与 Lee 内容训练库</h1>
+      <p>不复制“咪蒙腔”，而是拆出她真正可迁移的能力：人群洞察、冲突设计、故事细节、情绪节奏、标题测试与数据复盘，并改造成你的抖音床品内容系统。</p>
+      <div><span class="tag">可搜索文章索引</span><span class="tag">方法论拆解</span><span class="tag">床品内容迁移</span><span class="tag">7天训练</span></div>
+    </div>
+  </header>
+  <nav class="nav"><div class="wrap"><a href="#start">使用说明</a><a href="#system">生产系统</a><a href="#index">文章索引</a><a href="#dna">风格 DNA</a><a href="#transfer">床品迁移</a><a href="#training">7天训练</a><a href="#sources">资料来源</a></div></nav>
+  <main class="wrap">
+    <section id="start">
+      <div class="section-head"><h2>先建立一个正确目标</h2><p>你要学的不是她的攻击性，而是她如何把“用户模糊的感受”变成“用户忍不住转发的一句话”。</p></div>
+      <div class="grid stats">
+        <div class="card stat"><strong>4层</strong><span>索引、拆解、迁移、训练</span></div>
+        <div class="card stat"><strong>6步</strong><span>完整内容生产闭环</span></div>
+        <div class="card stat"><strong>7天</strong><span>第一轮刻意练习</span></div>
+        <div class="card stat"><strong>1条</strong><span>每天完成一条可拍脚本</span></div>
+      </div>
+      <p class="quote">真正值得学习的不是“骂得狠”，而是：她替一群人说出了想说、却没说清楚的话。</p>
+      <div class="notice"><b>资料边界：</b>咪蒙公众号已注销，公开网络中的“全集”多为第三方整理。本页不重新发布受版权保护的全文，只提供标题、公开来源链接、短摘要和原创分析。样本按可信度标注；“高”代表被多个公开资料或同期研究明确收录，“中”代表主要来自第三方标题索引，阅读时仍建议核验。</div>
+    </section>
+
+    <section id="system">
+      <div class="section-head"><h2>她的核心不是文风，是生产系统</h2><p>据2017年公开课整理：团队把写作当作产品，通过大量备选、采访、用户参与和复盘降低偶然性。</p></div>
+      <div class="formula">
+        <div class="step"><b>01 · 选题池</b><span>从约50个选题中选1个，不拿第一直觉当答案。</span></div>
+        <div class="step"><b>02 · 四级采访</b><span>核心用户、细分人群、个案与专家，寻找真实细节。</span></div>
+        <div class="step"><b>03 · 冲突切口</b><span>追求“意料之外，情理之中”，让题目自带戏剧性。</span></div>
+        <div class="step"><b>04 · 互动写作</b><span>写作中让“用户角色”持续质疑：这和我有什么关系？</span></div>
+        <div class="step"><b>05 · 标题测试</b><span>大量起标题，再让真实目标用户选择，而非作者自嗨。</span></div>
+        <div class="step"><b>06 · 数据复盘</b><span>看阅读、转发、留言与增粉，把一次经验沉淀为能力。</span></div>
+      </div>
+      <div class="grid two" style="margin-top:16px">
+        <div class="card"><h3>第一性原理拆解</h3><p>传播不是“作者写了什么”，而是用户为什么愿意停留、相信和转发。咪蒙系统的底层，是连续消除六个不确定性：<span class="pill">有没有需求</span><span class="pill">切口新不新</span><span class="pill">故事真不真</span><span class="pill">情绪顺不顺</span><span class="pill">标题点不点</span><span class="pill">结果能否复现</span></p></div>
+        <div class="card"><h3>和黑牛内容货架的连接</h3><p>咪蒙强在“让用户停下来并产生情绪”；黑牛框架要求内容继续承担货架任务。对你而言，完整链路应是：<b>冲突抓停 → 场景代入 → 产品解释 → 证据建立信任 → 商品承接成交</b>。</p></div>
+      </div>
+    </section>
+
+    <section id="index">
+      <div class="section-head"><h2>代表文章索引</h2><p>先读代表样本，不追求无目的地看几百篇。点击“研究来源”可查看收录或分析页面。</p></div>
+      <div class="tools">
+        <input id="search" type="search" placeholder="搜索标题或学习点…">
+        <select id="category"><option value="all">全部主题</option><option>两性关系</option><option>女性成长</option><option>职场人际</option><option>热点影评</option><option>自我表达</option></select>
+        <select id="mechanism"><option value="all">全部机制</option><option>身份冲突</option><option>反常识</option><option>利益损失</option><option>强态度</option><option>场景反差</option><option>提问悬念</option></select>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>标题</th><th>主题</th><th>核心机制</th><th>值得研究什么</th><th>可信度</th><th>研究来源</th></tr></thead><tbody id="articleBody">
+        <tr data-cat="自我表达" data-mech="强态度"><td>致贱人：我凭什么要帮你</td><td>自我表达</td><td>强态度</td><td>将“不好意思拒绝”重构为边界正当性；标题直接替用户发声。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.woshipm.com/operate/260014.html" target="_blank">同期70篇研究 ↗</a></td></tr>
+        <tr data-cat="自我表达" data-mech="强态度"><td>致low逼：不是我太高调，而是你玻璃心</td><td>自我表达</td><td>强态度</td><td>先划分立场，再替目标用户解除羞耻感；也体现标签化风险。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.woshipm.com/operate/260014.html" target="_blank">同期70篇研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="身份冲突"><td>夫妻间最大的矛盾是什么？阶级！</td><td>两性关系</td><td>身份冲突</td><td>用“阶级”替代普通的性格不合，扩大矛盾解释力。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.woshipm.com/operate/260014.html" target="_blank">同期70篇研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="利益损失"><td>为男人付出多少？底线是：你要输得起</td><td>两性关系</td><td>利益损失</td><td>把感情付出翻译为风险管理，提供清晰判断标准。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.woshipm.com/operate/260014.html" target="_blank">同期70篇研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="场景反差"><td>最高级的浪漫，就是柴米油盐鸡毛蒜皮</td><td>两性关系</td><td>场景反差</td><td>“高级浪漫”与琐碎生活对撞，反差中又符合长期关系经验。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.woshipm.com/operate/260014.html" target="_blank">同期70篇研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="强态度"><td>只要前任老死不相往来，世界将变成美好的人间</td><td>两性关系</td><td>强态度</td><td>把温和建议写成绝对立场，增强可记忆性与可讨论性。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.woshipm.com/operate/260014.html" target="_blank">同期70篇研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="提问悬念"><td>异地恋怎么才能成功呢？</td><td>两性关系</td><td>提问悬念</td><td>直接命中高频难题，依靠答案期待而非情绪攻击吸引点击。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.woshipm.com/operate/260014.html" target="_blank">同期70篇研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="提问悬念"><td>如何对付爱搞暧昧的男人？</td><td>两性关系</td><td>提问悬念</td><td>明确敌人、明确行为、承诺解决方案，属于强实用型标题。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.woshipm.com/operate/260014.html" target="_blank">同期70篇研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="提问悬念"><td>记一件小事，什么时候该跟男人上床？</td><td>两性关系</td><td>提问悬念</td><td>私密议题＋具体疑问制造好奇；学习选题敏感度，不照搬尺度。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.woshipm.com/operate/260014.html" target="_blank">同期70篇研究 ↗</a></td></tr>
+        <tr data-cat="女性成长" data-mech="身份冲突"><td>我把你当老公，你把我当子宫</td><td>女性成长</td><td>身份冲突</td><td>同一关系中的两种身份认知正面对撞，把结构性不满压缩成一句话。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.newrank.cn/article/detail/5425" target="_blank">新榜方法研究 ↗</a></td></tr>
+        <tr data-cat="热点影评" data-mech="场景反差"><td>七夕，我在民政局排队离婚</td><td>热点影评</td><td>场景反差</td><td>节日的浪漫预期与离婚现场冲突，典型“意料之外，情理之中”。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://k.sina.cn/article_1641518001_61d793b1001005dzt.html" target="_blank">公开演讲整理 ↗</a></td></tr>
+        <tr data-cat="热点影评" data-mech="强态度"><td>陈思诚：北京爱情故事之后，是上海3P故事</td><td>热点影评</td><td>强态度</td><td>借影视作品名改写现实事件，时效、熟悉感与态度同时出现。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://36kr.com/p/1721375637505" target="_blank">100+篇研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="反常识"><td>世界上只有一种男人，绝对不会出轨</td><td>两性关系</td><td>反常识</td><td>绝对化结论制造认知缺口，用户需要点击完成句意。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://36kr.com/p/1721375637505" target="_blank">100+篇研究 ↗</a></td></tr>
+        <tr data-cat="女性成长" data-mech="身份冲突"><td>直男癌父母的体面，佟丽娅的悲哀</td><td>女性成长</td><td>身份冲突</td><td>从明星事件转向家庭观念，把热点扩大为群体议题。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://36kr.com/p/1721375637505" target="_blank">100+篇研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="身份冲突"><td>结婚多年，原来我才是小三</td><td>两性关系</td><td>身份冲突</td><td>合法妻子与“小三”身份错置，标题本身构成完整故事悬念。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.digitaling.com/articles/35089.html" target="_blank">标题风格研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="反常识"><td>我们的爱情，是睡出来的</td><td>两性关系</td><td>反常识</td><td>利用词义双关和非常规因果制造点击；需警惕标题大于内容。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.digitaling.com/articles/35089.html" target="_blank">标题风格研究 ↗</a></td></tr>
+        <tr data-cat="两性关系" data-mech="反常识"><td>三围是检验真爱的唯一标准</td><td>两性关系</td><td>反常识</td><td>把物化词汇与真爱标准绑定，制造冒犯感和解释欲。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://www.digitaling.com/articles/35089.html" target="_blank">标题风格研究 ↗</a></td></tr>
+        <tr data-cat="自我表达" data-mech="反常识"><td>女友对你作？你应该谢天谢地，因为她爱你</td><td>自我表达</td><td>反常识</td><td>把负面行为重新解释为感情证据，强翻转但也存在逻辑过度简化。</td><td><span class="confidence mid">中</span></td><td><a class="source-link" href="https://zhuanlan.zhihu.com/p/104602211" target="_blank">第三方标题索引 ↗</a></td></tr>
+        <tr data-cat="热点影评" data-mech="提问悬念"><td>夏洛特烦恼：男人为什么总想搞自己的初恋</td><td>热点影评</td><td>提问悬念</td><td>热门影视＋普遍人性问题，借热点承载长期议题。</td><td><span class="confidence">高</span></td><td><a class="source-link" href="https://zhuanlan.zhihu.com/p/271756485" target="_blank">千篇标题研究 ↗</a></td></tr>
+      </tbody></table><div class="empty" id="empty">没有匹配结果，换个关键词试试。</div></div>
+      <p class="mini">说明：这里是“代表样本”，不是全文全集。标题索引可逐步扩充；学习优先级应由“最能代表一种机制”决定，而不是数量决定。</p>
+    </section>
+
+    <section id="dna">
+      <div class="section-head"><h2>咪蒙风格 DNA：七种可迁移能力</h2><p>每一种能力都有“值得学”和“不能照搬”的边界。</p></div>
+      <div class="grid three">
+        <div class="card dna"><span class="num">DNA 01</span><h3>替用户表达</h3><p>把用户心里的委屈、愤怒或渴望，压缩成一句能直接转发的话。</p><div class="example"><b>练习：</b>用户不是想听你介绍被子，而是想说“我真的受够半夜一会儿热、一会儿冷了”。</div></div>
+        <div class="card dna"><span class="num">DNA 02</span><h3>冲突先行</h3><p>不是泛泛讲一个主题，而是寻找主题里同时不能被满足的两个目标。</p><div class="example"><b>床品冲突：</b>想排湿，又怕凉；想蓬松，又怕闷；想洗得勤，又怕被子难晾。</div></div>
+        <div class="card dna"><span class="num">DNA 03</span><h3>具体细节</h3><p>观点之前先给人物、动作、时间和身体感受，让用户看见自己。</p><div class="example"><b>不要：</b>睡觉很闷。<br><b>要：</b>凌晨两点，把脚伸出去，十分钟后又冷得缩回来。</div></div>
+        <div class="card dna"><span class="num">DNA 04</span><h3>反常识切口</h3><p>先排除人人都能想到的第一答案，再给一个既意外又合理的新解释。</p><div class="example">“被窝越来越闷，问题不一定是被子太厚，也可能是湿气没有继续穿过整床被子。”</div></div>
+        <div class="card dna"><span class="num">DNA 05</span><h3>情绪阶梯</h3><p>情绪不是一开始就喊满，而是从不适、疑惑、委屈逐步走向看懂与解决。</p><div class="example">不舒服 → 反复调整 → 原来不是我的错 → 看懂热湿问题 → 获得解决方案。</div></div>
+        <div class="card dna"><span class="num">DNA 06</span><h3>短句节奏</h3><p>一段一个意思，关键句单独成段；反问、转折、重复负责推进。</p><div class="example">你缺的，可能不是一床更薄的被子。<br><br>而是一床能同时管住热和湿的被子。</div></div>
+        <div class="card dna"><span class="num">DNA 07</span><h3>测试与复盘</h3><p>作者判断只是一个假设。标题、开头、证据与成交都要接受真实用户数据检验。</p><div class="example">你的指标：5秒完播、点击率、商品访问率、转化率、可投消耗、搜索增量、评论问题。</div></div>
+        <div class="card" style="border-top:5px solid var(--red)"><h3 class="warn">不能照搬：极端化</h3><p>绝对结论、身份标签和敌我对立会放大传播，也会损伤品牌信任，尤其不适合长期经营。</p></div>
+        <div class="card" style="border-top:5px solid var(--gold)"><h3 class="warn">不能照搬：情绪代替证据</h3><p>床品属于商品内容，材料、检测与体感必须有边界；不能用“爽文逻辑”替代真实产品证据。</p></div>
+      </div>
+    </section>
+
+    <section id="transfer">
+      <div class="section-head"><h2>迁移到 Pro3.0：从“会写”到“能成交”</h2><p>咪蒙负责把人拉进来，产品证据负责把人留下来，内容货架负责完成成交。</p></div>
+      <div class="grid two">
+        <div class="card"><h3>普通表达 → 冲突表达</h3><div class="compare"><div class="example">这款被子采用双层结构，下层排湿，上层调温。</div><div class="arrow">→</div><div class="example"><b>你半夜总把脚伸出被窝，真不一定是被子太厚。</b><br>你可能同时遇到了两个问题：闷潮，又怕凉。</div></div></div>
+        <div class="card"><h3>冲突表达 → 产品承接</h3><div class="template">具体行为：半夜伸脚又缩回<br>＋体感冲突：闷，但又怕凉<br>＋新解释：热和湿没有被同时处理<br>＋产品机制：下层排湿、上层调温<br>＋证据：对应部位检测结果<br>＋边界表达：帮助减少闷潮感</div></div>
+      </div>
+      <div class="table-wrap" style="margin-top:16px"><table><thead><tr><th>内容任务</th><th>咪蒙能力</th><th>Pro3.0选题示例</th><th>必须补的成交证据</th></tr></thead><tbody>
+        <tr><td>问题认知</td><td>具体痛点＋反常识</td><td>房间只有22℃，为什么被窝里还是会闷？</td><td>人体持续产热产湿的通俗解释</td></tr>
+        <tr><td>场景代入</td><td>人物动作＋情绪阶梯</td><td>半夜伸脚、掀被、调空调，你到底在和什么较劲？</td><td>真实用户访谈与典型动作</td></tr>
+        <tr><td>产品原理</td><td>冲突压缩＋一句话观点</td><td>想排湿又怕凉，一层被子为什么很难兼顾？</td><td>双层固定方向与协同结构</td></tr>
+        <tr><td>证据建立</td><td>质疑预判＋短句解释</td><td>透气提升64%，到底提升的是什么，不是什么？</td><td>报告原文、送检部位、对比对象、指标边界</td></tr>
+        <tr><td>搜索成交</td><td>直接回答高意向问题</td><td>Pro3.0为什么能拆开，却不建议分成两床盖？</td><td>拉链用途、正确盖法、洗烘说明</td></tr>
+      </tbody></table></div>
+      <div class="card checklist" style="margin-top:16px"><h3>一条脚本发布前的 8 项检查</h3>
+        <label><input type="checkbox">这条内容说的是一个具体人群，而不是“所有人”。</label>
+        <label><input type="checkbox">开头出现了具体动作或具体时刻，而不是空泛形容词。</label>
+        <label><input type="checkbox">存在一个真实冲突，例如“想排湿又怕凉”。</label>
+        <label><input type="checkbox">观点“意料之外”，但后面的解释“情理之中”。</label>
+        <label><input type="checkbox">每条视频只解释一个核心机制，没有堆满材料名。</label>
+        <label><input type="checkbox">检测指标、部位、比较对象和限制条件准确。</label>
+        <label><input type="checkbox">没有把“帮助、减少、不易”写成绝对功效。</label>
+        <label><input type="checkbox">明确这条货架负责认知、解释、信任还是成交。</label>
+      </div>
+    </section>
+
+    <section id="training">
+      <div class="section-head"><h2>Lee 的 7 天训练计划</h2><p>每天30—45分钟。不要只读，必须产生一条可被评价的输出。</p></div>
+      <div class="card">
+        <div class="day"><strong>Day 1</strong><div><b>学会看冲突。</b>从索引中选10个标题，各写出“A想要什么、B又阻碍什么”。再写10个床品矛盾。</div></div>
+        <div class="day"><strong>Day 2</strong><div><b>学会抓动作。</b>采访3个人：睡觉热时具体做了什么？几点？哪个身体部位最先不舒服？只记录原话，不急着写观点。</div></div>
+        <div class="day"><strong>Day 3</strong><div><b>学会反第一直觉。</b>围绕“被窝闷”写10个常规答案，全部划掉，再寻找材料、结构、环境或行为层面的新解释。</div></div>
+        <div class="day"><strong>Day 4</strong><div><b>学会写100个标题的简化版。</b>同一选题写20个标题：提问5个、反常识5个、损失5个、场景5个。找5位同事盲选。</div></div>
+        <div class="day"><strong>Day 5</strong><div><b>学会情绪阶梯。</b>用“不适→反复→委屈→看懂→解决”写一条45秒脚本，每一层只用1—2句话。</div></div>
+        <div class="day"><strong>Day 6</strong><div><b>学会用证据收口。</b>给Day 5脚本补一项准确检测证据，写清指标、部位、对比对象与不能推导的结论。</div></div>
+        <div class="day"><strong>Day 7</strong><div><b>学会复盘。</b>把脚本给内容、直播同事和5个目标用户看，记录“哪里停住、哪里质疑、哪里想买”，形成下一版。</div></div>
+      </div>
+      <div class="grid two" style="margin-top:16px">
+        <div class="card"><h3>每日训练固定模板</h3><div class="template">今天的人群：____<br>真实动作：____<br>他同时想要A：____<br>但又害怕B：____<br>第一直觉答案：____<br>我推翻它的新切口：____<br>产品只承接一个机制：____<br>我能拿出的证据：____<br>最终标题（至少20个）：____</div></div>
+        <div class="card"><h3>你的合格标准</h3><p>不是“看起来像咪蒙”，而是同时满足四件事：</p><p><span class="pill">用户觉得在说我</span><span class="pill">观点有新意</span><span class="pill">产品接得住</span><span class="pill">证据经得起问</span></p><p class="mini">如果只有情绪，没有产品承接，这是流量内容；只有材料，没有用户冲突，这是说明书。你要做的是二者相乘。</p></div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="section-head"><h2>公开资料与继续阅读</h2><p>优先阅读公开演讲整理和同期研究；第三方“全集”只作为检索线索，不能自动视为权威原文。</p></div>
+      <div class="grid two">
+        <div class="card"><h3>方法论一手／近一手资料</h3><p><a class="source-link" target="_blank" href="https://ee.ckgsb.com/chuang/content/news_detail/482">长江商学院：4级采访、100个标题、1万字反馈报告 ↗</a></p><p><a class="source-link" target="_blank" href="https://k.sina.cn/article_1641518001_61d793b1001005dzt.html">公开演讲整理：用户判断与爆文秘诀 ↗</a></p><p><a class="source-link" target="_blank" href="https://www.newrank.cn/article/detail/5425">新榜：爆款方法论与生产系统研究 ↗</a></p></div>
+        <div class="card"><h3>文章样本与二手研究</h3><p><a class="source-link" target="_blank" href="https://www.woshipm.com/operate/260014.html">人人都是产品经理：早期70篇文章分类 ↗</a></p><p><a class="source-link" target="_blank" href="https://36kr.com/p/1721375637505">三节课／36氪：100+篇文章研究 ↗</a></p><p><a class="source-link" target="_blank" href="https://www.digitaling.com/articles/35089.html">数英：100+篇标题与内容研究 ↗</a></p><p><a class="source-link" target="_blank" href="https://www.heywhale.com/mw/dataset/5c8723441e7104002b3831d3">和鲸社区：第三方文章数据集线索 ↗</a></p><p><a class="source-link" target="_blank" href="https://zhuanlan.zhihu.com/p/104602211">知乎专栏：第三方标题索引（可能需登录）↗</a></p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap">为 Lee 制作 · 版本 1.0 · 2026-07-21<br><span class="mini">研究用途：学习内容生产机制，不复刻攻击性表达，不以情绪替代事实与产品证据。</span></div></footer>
+  <script>
+    const q=document.getElementById('search'),cat=document.getElementById('category'),mech=document.getElementById('mechanism'),rows=[...document.querySelectorAll('#articleBody tr')],empty=document.getElementById('empty');
+    function filter(){const k=q.value.trim().toLowerCase(),c=cat.value,m=mech.value;let shown=0;rows.forEach(r=>{const ok=(!k||r.innerText.toLowerCase().includes(k))&&(c==='all'||r.dataset.cat===c)&&(m==='all'||r.dataset.mech===m);r.classList.toggle('hidden',!ok);if(ok)shown++});empty.style.display=shown?'none':'block'}
+    q.addEventListener('input',filter);cat.addEventListener('change',filter);mech.addEventListener('change',filter);
+  </script>
+</body>
+</html>
