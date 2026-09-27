@@ -148,7 +148,7 @@
       </div>
     </section>
   </main>
-  <footer class="footer"><div class="wrap">为 Lee 制作 · 版本 1.0 · 2026-07-21<br><span class="mini">研究用途：学习内容生产机制，不复刻攻击性表达，不以情绪替代事实与产品证据。</span></div></footer>
+  <footer class="footer"><div class="wrap">为 Lee 制作 · 持续更新 · 最新 2026-09-27<br><span class="mini">研究用途：学习内容生产机制，不复刻攻击性表达，不以情绪替代事实与产品证据。</span></div></footer>
   <script>
     const q=document.getElementById('search'),cat=document.getElementById('category'),mech=document.getElementById('mechanism'),rows=[...document.querySelectorAll('#articleBody tr')],empty=document.getElementById('empty');
     function filter(){const k=q.value.trim().toLowerCase(),c=cat.value,m=mech.value;let shown=0;rows.forEach(r=>{const ok=(!k||r.innerText.toLowerCase().includes(k))&&(c==='all'||r.dataset.cat===c)&&(m==='all'||r.dataset.mech===m);r.classList.toggle('hidden',!ok);if(ok)shown++});empty.style.display=shown?'none':'block'}
