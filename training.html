@@ -37,17 +37,17 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 <section class="hero">
   <div style="font-size:13px;font-weight:800;letter-spacing:.08em;color:#bcd4ca;margin-bottom:6px">365 ESCAPE PLAN · 正在进行</div>
   <h2>365逃离计划：离开平台之后，我还剩什么？</h2>
-  <p>2026.10.18 → 2027.10.17。旧进度从今天起清零，重新从 Day 1 出发。现在借助公司的品牌、预算、团队、供应链和平台资源放大结果；这一年要训练的是：即使资源被拿走，只剩自己、少量资金和一台电脑，也能发现需求、做出产品/内容、获取用户、完成成交、算清账并持续迭代。</p>
+  <p>2026.10.19 → 2027.10.18。旧进度清零，明天正式从 Day 1 出发。现在借助公司的品牌、预算、团队、供应链和平台资源放大结果；这一年要训练的是：即使资源被拿走，只剩自己、少量资金和一台电脑，也能发现需求、做出产品/内容、获取用户、完成成交、算清账并持续迭代。</p>
   <div class="quote">真正要逃离的，不是一家公司，而是没有选择权、只能依赖平台的职业状态。</div>
 </section>
 
 <section class="section" style="margin-top:18px">
-  <div class="section-head"><h2>365逃离计划｜倒计时看板</h2><span>2026.10.18 → 2027.10.17 · 今天重新起跑</span></div>
+  <div class="section-head"><h2>365逃离计划｜倒计时看板</h2><span>2026.10.19 → 2027.10.18 · 明天正式起跑</span></div>
   <section class="stats" style="margin-top:0">
     <div class="stat"><b id="daysDone">—</b><span>已经走过</span></div>
     <div class="stat"><b id="daysLeft">—</b><span>距离目标还剩</span></div>
     <div class="stat"><b id="escapePct">—</b><span>365计划完成度</span></div>
-    <div class="stat"><b id="targetDate">2027.10.17</b><span>终点日</span></div>
+    <div class="stat"><b id="targetDate">2027.10.18</b><span>终点日</span></div>
   </section>
   <div class="progress"><span id="escapeBar"></span></div>
   <p class="kpi" style="margin-top:10px">Day <b id="dayNumber">—</b> / 365 · 目标不是熬到离职，而是在这一天之前建立“没有公司资源也能活”的能力。</p>
@@ -105,6 +105,20 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
       <p><b>规则：</b>副线不断线，但不抢主线资源。它们的价值是降低你独立做事的启动成本、扩大视野并提高表达与执行效率。</p>
     </div>
   </div>
+</section>
+
+
+<section class="section">
+  <div class="section-head"><h2>我的一天｜Daily Rhythm</h2><span>固定节奏，减少每天重新决策</span></div>
+  <div class="grid">
+    <div class="card third"><h3>06:00｜起床 + 锻炼</h3><p>先把身体叫醒。以骑行、有氧、力量或主动恢复为主，目标不是练狠，而是保持长期精力。</p><p><span class="pill">身体</span><span class="pill">纪律</span></p></div>
+    <div class="card third"><h3>07:00｜早餐 + 洗漱</h3><p>从运动状态切回工作状态。早餐后不刷碎片信息，给大脑留出完整注意力。</p><p><span class="pill">恢复</span><span class="pill">低噪音</span></p></div>
+    <div class="card third"><h3>07:30–08:30｜365晨练</h3><p>当天最重要的一小时：30分钟深度思考 + 20分钟高质量输入 + 10分钟输出，带着1个主线问题进入工作。</p><p><span class="pill">主线80%</span><span class="pill">副线20%</span></p></div>
+    <div class="card third"><h3>09:00｜出发上班</h3><p>白天不额外堆学习任务，把真实工作直接当训练场：判断、取舍、用户、商业、授权和机制化。</p><p><span class="pill">实战</span><span class="pill">证据</span></p></div>
+    <div class="card third"><h3>21:00｜回家 + 缓冲</h3><p>先完成简单恢复，不立刻继续高强度工作。把一天从“忙”切换到“复盘”。</p><p><span class="pill">恢复</span><span class="pill">边界</span></p></div>
+    <div class="card third"><h3>21:30–22:15｜晚间复盘</h3><p>复盘当天判断和结果，做一个短副线训练，并留下1条真正属于自己的方法、作品或案例。</p><p><span class="pill">复盘</span><span class="pill">沉淀</span></p></div>
+  </div>
+  <div class="mission"><b>每天最低标准</b><div>身体动一次、主线想深一个问题、工作中刻意练一次、晚上留下一个可迁移资产。其他都可以降档，但这四件事尽量不断。</div></div>
 </section>
 
 <section class="syncbar">
@@ -266,7 +280,7 @@ const SUPABASE_KEY='sb_publishable_uRsPdSc6LpKWr7NXu1rXTg_3YO4Cnuk';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const localDate=(d=new Date())=>{const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day};
 const today=new Date(), key=localDate(today), taskKey='lee-training-tasks-'+key, noteKey='lee-training-note-'+key;
-const ESCAPE_START=new Date('2026-10-18T00:00:00+08:00'),ESCAPE_END=new Date('2027-10-17T23:59:59+08:00'),ESCAPE_TOTAL=365;
+const ESCAPE_START=new Date('2026-10-19T00:00:00+08:00'),ESCAPE_END=new Date('2027-10-18T23:59:59+08:00'),ESCAPE_TOTAL=365;
 const escapeElapsed=Math.max(0,Math.min(ESCAPE_TOTAL,Math.floor((today-ESCAPE_START)/86400000)+1)),escapeLeft=Math.max(0,ESCAPE_TOTAL-escapeElapsed),escapePct=Math.max(0,Math.min(100,escapeElapsed/ESCAPE_TOTAL*100));
 document.getElementById('daysDone').textContent=escapeElapsed+'天';
 document.getElementById('daysLeft').textContent=escapeLeft+'天';
@@ -311,7 +325,7 @@ function renderGame(){
   document.getElementById('levelTitle').textContent=titles[chapter-1];
   document.getElementById('bossGrid').innerHTML=BOSSES.map((b,i)=>'<div class="boss '+(escapeElapsed>=b.day-14&&escapeElapsed<=b.day+14?'active':'')+'"><div class="monster">'+(escapeElapsed>b.day?'🏆':'👾')+'</div><div class="chapter">BOSS '+(i+1)+' · DAY '+b.day+'</div><b>'+b.name+'</b><small>'+b.desc+'</small><div class="reward">击败条件：'+b.win+'</div></div>').join('');
 }
-async function saveStageCloud(){if(!session)return;await sb.from('growth_records').upsert({user_id:session.user.id,record_type:'stage',record_date:'2026-10-18',payload:{plan_version:2,flags:claimed,day:escapeElapsed}},{onConflict:'user_id,record_type,record_date'})}
+async function saveStageCloud(){if(!session)return;await sb.from('growth_records').upsert({user_id:session.user.id,record_type:'stage',record_date:'2026-10-19',payload:{plan_version:2,flags:claimed,day:escapeElapsed}},{onConflict:'user_id,record_type,record_date'})}
 renderGame();
 const mondayOf=(d)=>{const x=new Date(d),day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return localDate(x)};
 const monthKey=(d)=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';
@@ -356,7 +370,7 @@ async function loadCloud(){
   }else{
     const lp=localPayload();if(Object.values(lp.tasks).some(Boolean)||lp.note)await saveCloudRecord('daily',key,lp)
   }
-  const stage=cloudRows.find(r=>r.record_type==='stage'&&r.record_date==='2026-10-18');if(stage?.payload?.plan_version===2){claimed=stage.payload.flags||{};localStorage.setItem('lee-escape-v2-flags',JSON.stringify(claimed));renderGame()}
+  const stage=cloudRows.find(r=>r.record_type==='stage'&&r.record_date==='2026-10-19');if(stage?.payload?.plan_version===2){claimed=stage.payload.flags||{};localStorage.setItem('lee-escape-v2-flags',JSON.stringify(claimed));renderGame()}
   const wk=cloudRows.find(r=>r.record_type==='weekly'&&r.record_date===mondayOf(today));document.getElementById('weeklyNote').value=wk?.payload?.note||localStorage.getItem('lee-weekly-'+mondayOf(today))||'';
   const mo=cloudRows.find(r=>r.record_type==='monthly'&&r.record_date===monthKey(today));document.getElementById('monthlyNote').value=mo?.payload?.note||localStorage.getItem('lee-monthly-'+monthKey(today))||'';
   updateProgress();updateStreak();renderHistory();renderMetrics();setSync(true,session.user.email+' · 云端已连接')
