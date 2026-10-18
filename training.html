@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lee｜365经营者成长计划</title>
+<title>Lee｜365逃离计划 × 经营者成长</title>
 <style>
 :root{--bg:#f4f5f7;--paper:#fff;--ink:#172033;--muted:#7b8495;--line:#e5e8ee;--green:#245746;--green2:#3f7a65;--soft:#eaf2ed;--amber:#b87333;--danger:#a14e46}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}
@@ -28,23 +28,35 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 <body>
 <main class="wrap">
 <div class="top">
-  <div><div class="eyebrow">LEE · 365 OPERATOR DEVELOPMENT PLAN</div><h1>365经营者成长计划</h1><p>把逃离计划、每日训练、主线能力和副线成长合成一套系统：用365天换来更强的职业选择权。</p></div>
+  <div><div class="eyebrow">LEE · 365 ESCAPE × OPERATOR DEVELOPMENT</div><h1>365逃离计划 × 经营者成长</h1><p>逃离计划没有消失。倒计时、主线、副线、日/周/月训练都合并在这一页：用365天换来更强的职业选择权。</p></div>
   <a class="home" href="index.html">← 返回总入口</a>
 </div>
 
 <section class="hero">
-  <h2>核心命题：离开平台之后，我还剩什么？</h2>
+  <div style="font-size:13px;font-weight:800;letter-spacing:.08em;color:#bcd4ca;margin-bottom:6px">365 ESCAPE PLAN · 正在进行</div>
+  <h2>365逃离计划：离开平台之后，我还剩什么？</h2>
   <p>2026.08.13 → 2027.08.12。现在借助公司的品牌、预算、团队、供应链和平台资源放大结果；这一年要训练的是：即使资源被拿走，只剩自己、少量资金和一台电脑，也能发现需求、做出产品/内容、获取用户、完成成交、算清账并持续迭代。</p>
   <div class="quote">真正要逃离的，不是一家公司，而是没有选择权、只能依赖平台的职业状态。</div>
 </section>
 
+<section class="section" style="margin-top:18px">
+  <div class="section-head"><h2>365逃离计划｜倒计时看板</h2><span>2026.08.13 → 2027.08.12</span></div>
+  <section class="stats" style="margin-top:0">
+    <div class="stat"><b id="daysDone">—</b><span>已经走过</span></div>
+    <div class="stat"><b id="daysLeft">—</b><span>距离目标还剩</span></div>
+    <div class="stat"><b id="escapePct">—</b><span>365计划完成度</span></div>
+    <div class="stat"><b id="targetDate">2027.08.12</b><span>目标日</span></div>
+  </section>
+  <div class="progress"><span id="escapeBar"></span></div>
+  <p class="kpi" style="margin-top:10px">Day <b id="dayNumber">—</b> / 365 · 目标不是熬到离职，而是在这一天之前建立“没有公司资源也能活”的能力。</p>
+</section>
+
 <section class="stats">
-  <div class="stat"><b id="daysLeft">—</b><span>365计划剩余天数</span></div>
-  <div class="stat"><b id="escapePct">—</b><span>365计划进度</span></div>
   <div class="stat"><b id="todayDone">0/6</b><span>今日训练</span></div>
   <div class="stat"><b id="streak">0</b><span>连续有效训练天数</span></div>
+  <div class="stat"><b>主线</b><span>独立经营者能力</span></div>
+  <div class="stat"><b>副线</b><span>英语 · AI · 摄影 · 剪辑 · 锻炼 · 辩论 · 读书</span></div>
 </section>
-<div class="progress"><span id="escapeBar"></span></div>
 
 <section class="section">
   <div class="section-head"><h2>能力地图｜没有公司资源时，我靠什么活下来</h2><span>主线不是“什么都会”，而是能独立完成经营闭环</span></div>
@@ -239,8 +251,10 @@ const localDate=(d=new Date())=>{const y=d.getFullYear(),m=String(d.getMonth()+1
 const today=new Date(), key=localDate(today), taskKey='lee-training-tasks-'+key, noteKey='lee-training-note-'+key;
 const ESCAPE_START=new Date('2026-08-13T00:00:00+08:00'),ESCAPE_END=new Date('2027-08-12T23:59:59+08:00'),ESCAPE_TOTAL=365;
 const escapeElapsed=Math.max(0,Math.min(ESCAPE_TOTAL,Math.floor((today-ESCAPE_START)/86400000)+1)),escapeLeft=Math.max(0,ESCAPE_TOTAL-escapeElapsed),escapePct=Math.max(0,Math.min(100,escapeElapsed/ESCAPE_TOTAL*100));
+document.getElementById('daysDone').textContent=escapeElapsed+'天';
 document.getElementById('daysLeft').textContent=escapeLeft+'天';
 document.getElementById('escapePct').textContent=escapePct.toFixed(1)+'%';
+document.getElementById('dayNumber').textContent=escapeElapsed;
 document.getElementById('escapeBar').style.width=escapePct+'%';
 const mondayOf=(d)=>{const x=new Date(d),day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return localDate(x)};
 const monthKey=(d)=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';
