@@ -22,6 +22,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px 10px
 .syncbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:18px 0}.sync-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.dot{width:9px;height:9px;border-radius:50%;background:#aab2bf}.dot.on{background:#3c8b68;box-shadow:0 0 0 4px #3c8b6818}.sync-title{font-weight:800}.sync-sub{font-size:12px;color:var(--muted)}.authbox{display:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:-6px 0 18px}.authbox.open{display:block}.authgrid{display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px}.authgrid input{min-width:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit}.history-list{display:grid;gap:8px}.history-item{display:grid;grid-template-columns:110px 90px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid #eef0f3;font-size:13px}.history-item:last-child{border-bottom:0}.history-item time{color:var(--muted)}.cloud-note{font-size:12px;color:var(--muted);margin-top:8px}
 .training-box{background:linear-gradient(135deg,#fffdf8,#f6faf7);border:1px solid #dfe8e2;border-radius:18px;padding:22px}.training-box h3{font-size:22px;margin:4px 0 10px}.training-meta{font-size:12px;color:var(--green2);font-weight:800;letter-spacing:.04em}.signal-list{display:grid;gap:7px;margin:12px 0}.signal{padding:9px 11px;background:#f4f7f5;border-radius:10px;color:#46544d}.mission{margin-top:14px;border-left:4px solid var(--amber);background:#fff8ef;border-radius:0 12px 12px 0;padding:12px 14px}.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.metric b{display:block;font-size:25px}.metric span{font-size:12px;color:var(--muted)}.bars{display:flex;align-items:flex-end;gap:5px;height:120px;margin-top:16px;padding-top:10px;border-top:1px solid #eef0f3}.daybar{flex:1;min-width:5px;background:#dfeae4;border-radius:5px 5px 2px 2px;position:relative}.daybar.good{background:#5d8f7a}.daybar:hover:after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);white-space:nowrap;background:#172033;color:#fff;font-size:11px;padding:4px 7px;border-radius:6px;z-index:3}
 .game-shell{background:#172033;color:#fff;border-radius:22px;padding:24px;overflow:hidden}.game-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-end;flex-wrap:wrap}.game-head h3{font-size:24px;margin:0}.game-head p{margin:4px 0 0;color:#cbd3df}.level-badge{background:#ffffff12;border:1px solid #ffffff24;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800}.road{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:18px}.flag{background:#ffffff0c;border:1px solid #ffffff18;border-radius:14px;padding:12px;min-height:118px;position:relative}.flag.unlocked{background:#22483d;border-color:#437a68}.flag.claimed{background:#7b2525;border-color:#b95b55}.flag .emoji{font-size:22px}.flag b{display:block;margin:5px 0 2px}.flag small{color:#b9c3d0}.flag button{margin-top:8px;padding:6px 9px;font-size:11px;background:#fff;color:#172033}.flag button:disabled{opacity:.35;cursor:not-allowed}.boss-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.boss{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px}.boss .monster{font-size:28px}.boss b{display:block;margin:4px 0}.boss small{color:var(--muted)}.boss.active{border-color:#c58b4c;box-shadow:0 0 0 3px #c58b4c12}.chapter{font-size:12px;color:#8b94a3;font-weight:800;letter-spacing:.08em}.reward{margin-top:10px;padding:9px 11px;background:#fff8ef;border-radius:10px;font-size:12px;color:#7b562c}.game-rule{margin-top:14px;color:#cbd3df;font-size:12px}.game-rule b{color:white}
+.version-btn{background:#f2f4f6;color:#566171}.draft-status{font-size:12px;color:var(--muted);align-self:center}.modal-backdrop{display:none;position:fixed;inset:0;background:#0f172a73;z-index:30;padding:24px;align-items:center;justify-content:center}.modal-backdrop.open{display:flex}.modal{width:min(760px,100%);max-height:80vh;overflow:auto;background:#fff;border-radius:18px;padding:20px;box-shadow:0 24px 80px #0f172a42}.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}.modal-head h3{margin:0}.close-btn{background:#f2f4f6;color:#566171}.version-list{display:grid;gap:9px}.version-item{border:1px solid var(--line);border-radius:12px;padding:12px}.version-item.current{border-color:#9db9ad;background:#f7faf8}.version-meta{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px}.version-preview{margin:7px 0 10px;white-space:pre-wrap;word-break:break-word;color:#3f4958;max-height:110px;overflow:auto}.empty-state{padding:20px;text-align:center;color:var(--muted)}
 @media(max-width:900px){.road{grid-template-columns:repeat(3,1fr)}.boss-grid{grid-template-columns:repeat(2,1fr)}}
 footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 @media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.card,.card.third{grid-column:1/-1}.top{flex-direction:column}.top h1{font-size:31px}.grid{display:block}.card{margin-bottom:12px}}
@@ -201,7 +202,7 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
   <div class="grid">
     <div class="card full">
       <textarea id="dailyNote" placeholder="例：今天我意识到，真正的授权不是把任务给别人，而是把目标、判断权、边界和升级条件一起给出去。"></textarea>
-      <div class="actions"><button class="primary" id="saveBtn">保存今日记录</button><button class="secondary" id="clearBtn">清空今日</button><span class="save-status" id="saveStatus"></span></div>
+      <div class="actions"><button class="primary" id="saveBtn">保存今日记录</button><button class="version-btn" data-history-type="daily">历史版本</button><button class="version-btn" data-undo-type="daily">撤销上次保存</button><button class="secondary" id="clearBtn">清空今日</button><span class="draft-status" id="dailyDraftStatus">草稿自动保存</span><span class="save-status" id="saveStatus"></span></div>
     </div>
   </div>
 </section>
@@ -215,7 +216,7 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
     <div class="card third"><h3>表达</h3><p>完成1篇经营思考或1个3–5分钟视频，训练高密度表达。</p></div>
     <div class="card third"><h3>审美</h3><p>拆1个商业视觉/内容案例：目标、焦点、信息层级、可迁移规律。</p></div>
     <div class="card third"><h3>周复盘</h3><p>回答：本周最对的判断、最大的错误、拿掉了什么、下周只练什么。</p></div>
-    <div class="card full"><h3>本周复盘记录</h3><textarea id="weeklyNote" placeholder="本周最重要的判断 / 最大错误 / 成功授权或机制化 / 新增职业资产 / 下周只练什么"></textarea><div class="actions"><button class="primary" id="saveWeekly">保存本周复盘</button><span class="save-status" id="weeklyStatus"></span></div></div>
+    <div class="card full"><h3>本周复盘记录</h3><textarea id="weeklyNote" placeholder="本周最重要的判断 / 最大错误 / 成功授权或机制化 / 新增职业资产 / 下周只练什么"></textarea><div class="actions"><button class="primary" id="saveWeekly">保存本周复盘</button><button class="version-btn" data-history-type="weekly">历史版本</button><button class="version-btn" data-undo-type="weekly">撤销上次保存</button><span class="draft-status">草稿自动保存</span><span class="save-status" id="weeklyStatus"></span></div></div>
   </div>
 </section>
 
@@ -239,7 +240,7 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
       <h3>逃离计划检查</h3>
       <p>问自己：如果今天离开当前公司，我比一个月前多了什么可迁移的市场价值？</p>
     </div>
-    <div class="card full"><h3>本月个人董事会</h3><textarea id="monthlyNote" placeholder="能力证据 / 新增案例资产 / 永久拿掉的低价值工作 / 市场价值变化 / 下月最重要的升级"></textarea><div class="actions"><button class="primary" id="saveMonthly">保存月度复盘</button><span class="save-status" id="monthlyStatus"></span></div></div>
+    <div class="card full"><h3>本月个人董事会</h3><textarea id="monthlyNote" placeholder="能力证据 / 新增案例资产 / 永久拿掉的低价值工作 / 市场价值变化 / 下月最重要的升级"></textarea><div class="actions"><button class="primary" id="saveMonthly">保存月度复盘</button><button class="version-btn" data-history-type="monthly">历史版本</button><button class="version-btn" data-undo-type="monthly">撤销上次保存</button><span class="draft-status">草稿自动保存</span><span class="save-status" id="monthlyStatus"></span></div></div>
   </div>
 </section>
 
@@ -299,6 +300,7 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
   <div class="card full"><div class="history-list" id="historyList"><div class="cloud-note">尚未登录，当前仅使用本机记录。</div></div></div>
 </section>
 
+<div class="modal-backdrop" id="versionModal"><div class="modal"><div class="modal-head"><h3 id="versionTitle">历史版本</h3><button class="close-btn" id="closeVersionModal">关闭</button></div><div class="cloud-note">每次点击“保存”都会保留上一个版本。恢复某个版本时，当前版本也会自动进入历史，因此可以再恢复回来。</div><div class="version-list" id="versionList"></div></div></div>
 <footer>Lee 365 Operator Development Plan · 有平台能放大，没平台也能从0开始。</footer>
 </main>
 
@@ -365,6 +367,11 @@ let session=null, cloudRows=[], publicTraining=null;
 let saved={};try{saved=JSON.parse(localStorage.getItem(taskKey)||'{}')}catch(e){}
 boxes.forEach(b=>{b.checked=!!saved[b.dataset.task];b.addEventListener('change',saveTasks)});
 note.value=localStorage.getItem(noteKey)||'';
+let dailyDraftTimer;
+note.addEventListener('input',()=>{clearTimeout(dailyDraftTimer);document.getElementById('dailyDraftStatus').textContent='草稿保存中…';dailyDraftTimer=setTimeout(()=>{localStorage.setItem(noteKey,note.value);document.getElementById('dailyDraftStatus').textContent='草稿已保存在本机 ✓'},350)});
+const weeklyEl=document.getElementById('weeklyNote'),monthlyEl=document.getElementById('monthlyNote');
+weeklyEl.addEventListener('input',()=>localStorage.setItem('lee-weekly-'+mondayOf(today),weeklyEl.value));
+monthlyEl.addEventListener('input',()=>localStorage.setItem('lee-monthly-'+monthKey(today),monthlyEl.value));
 
 function localPayload(){const tasks={};boxes.forEach(b=>tasks[b.dataset.task]=b.checked);return{tasks,note:note.value.trim(),training_snapshot:publicTraining||null}}
 function saveTasks(){const o={};boxes.forEach(b=>o[b.dataset.task]=b.checked);localStorage.setItem(taskKey,JSON.stringify(o));updateProgress();updateStreak();queueCloudDaily()}
@@ -448,6 +455,53 @@ async function loadPublicTraining(){
       (item.mission?'<div class="mission"><b>今日实战任务</b><div>'+esc(item.mission)+'</div></div>':'');
   }catch(e){console.warn('training content unavailable',e)}
 }
+
+const versionModal=document.getElementById('versionModal'),versionList=document.getElementById('versionList');
+document.getElementById('closeVersionModal').onclick=()=>versionModal.classList.remove('open');
+versionModal.addEventListener('click',e=>{if(e.target===versionModal)versionModal.classList.remove('open')});
+
+function recordDateFor(type){return type==='daily'?key:type==='weekly'?mondayOf(today):monthKey(today)}
+function noteElementFor(type){return type==='daily'?note:type==='weekly'?weeklyEl:monthlyEl}
+function currentPayloadFor(type){
+  if(type==='daily')return localPayload();
+  return {note:noteElementFor(type).value.trim()}
+}
+async function getRevisions(type,date){
+  if(!session)return [];
+  const {data,error}=await sb.from('growth_record_revisions').select('id,payload,created_at,source_updated_at').eq('record_type',type).eq('record_date',date).order('created_at',{ascending:false}).limit(30);
+  if(error){console.error(error);return []}
+  return data||[]
+}
+async function restoreNoteVersion(type,date,payload){
+  const el=noteElementFor(type),oldNote=payload?.note||'';
+  el.value=oldNote;
+  if(type==='daily'){localStorage.setItem(noteKey,oldNote);await saveCloudRecord('daily',date,{...localPayload(),note:oldNote})}
+  else{
+    localStorage.setItem((type==='weekly'?'lee-weekly-':'lee-monthly-')+date,oldNote);
+    await saveCloudRecord(type,date,{note:oldNote})
+  }
+}
+async function openVersionHistory(type){
+  if(!session){alert('历史版本需要先登录云端账号。草稿仍会自动保存在当前浏览器。');return}
+  const date=recordDateFor(type),current=currentPayloadFor(type),rows=await getRevisions(type,date);
+  document.getElementById('versionTitle').textContent=(type==='daily'?'今日判断':type==='weekly'?'本周复盘':'本月复盘')+' · 历史版本';
+  const esc=s=>(s||'').replace(/[<>&]/g,x=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[x]));
+  let html='<div class="version-item current"><div class="version-meta"><b>当前版本</b><span>现在</span></div><div class="version-preview">'+(esc(current.note)||'（空）')+'</div></div>';
+  if(!rows.length)html+='<div class="empty-state">还没有历史版本。至少保存并修改一次后，这里会出现旧版本。</div>';
+  html+=rows.map((r,i)=>'<div class="version-item"><div class="version-meta"><b>历史版本 '+(i+1)+'</b><span>'+new Date(r.created_at).toLocaleString('zh-CN')+'</span></div><div class="version-preview">'+(esc(r.payload?.note)||'（空）')+'</div><button class="secondary" data-restore-id="'+r.id+'">恢复这个版本</button></div>').join('');
+  versionList.innerHTML=html;
+  versionList.querySelectorAll('button[data-restore-id]').forEach(btn=>btn.onclick=async()=>{const row=rows.find(r=>String(r.id)===btn.dataset.restoreId);if(!row)return;if(confirm('恢复这个版本？当前内容也会自动保留到历史，可随时再恢复回来。')){await restoreNoteVersion(type,date,row.payload);versionModal.classList.remove('open');flash(type==='daily'?'saveStatus':type==='weekly'?'weeklyStatus':'monthlyStatus','已恢复历史版本 ✓')}})
+  versionModal.classList.add('open')
+}
+async function undoLastSave(type){
+  if(!session){alert('“撤销上次保存”需要先登录云端账号。未登录时可以使用浏览器自己的撤销快捷键。');return}
+  const date=recordDateFor(type),rows=await getRevisions(type,date);
+  if(!rows.length){alert('还没有可撤销的历史版本。');return}
+  await restoreNoteVersion(type,date,rows[0].payload);
+  flash(type==='daily'?'saveStatus':type==='weekly'?'weeklyStatus':'monthlyStatus','已撤销到上次保存 ✓')
+}
+document.querySelectorAll('[data-history-type]').forEach(b=>b.onclick=()=>openVersionHistory(b.dataset.historyType));
+document.querySelectorAll('[data-undo-type]').forEach(b=>b.onclick=()=>undoLastSave(b.dataset.undoType));
 
 const authBox=document.getElementById('authBox');
 document.getElementById('authToggle').onclick=()=>authBox.classList.toggle('open');
