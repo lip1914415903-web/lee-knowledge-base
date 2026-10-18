@@ -19,6 +19,7 @@ button{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:poin
 table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted)}
 .phase{border-left:4px solid var(--green);padding:12px 14px;background:#f8faf9;border-radius:0 12px 12px 0;margin:8px 0}.phase b{color:var(--green)}
 .kpi{font-size:13px;color:#55606e}.warn{color:var(--danger);font-weight:700}
+.syncbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:18px 0}.sync-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.dot{width:9px;height:9px;border-radius:50%;background:#aab2bf}.dot.on{background:#3c8b68;box-shadow:0 0 0 4px #3c8b6818}.sync-title{font-weight:800}.sync-sub{font-size:12px;color:var(--muted)}.authbox{display:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:-6px 0 18px}.authbox.open{display:block}.authgrid{display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px}.authgrid input{min-width:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit}.history-list{display:grid;gap:8px}.history-item{display:grid;grid-template-columns:110px 90px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid #eef0f3;font-size:13px}.history-item:last-child{border-bottom:0}.history-item time{color:var(--muted)}.cloud-note{font-size:12px;color:var(--muted);margin-top:8px}
 footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 @media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.card,.card.third{grid-column:1/-1}.top{flex-direction:column}.top h1{font-size:31px}.grid{display:block}.card{margin-bottom:12px}}
 </style>
@@ -41,6 +42,20 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
   <div class="stat"><b id="streak">0</b><span>连续完成天数</span></div>
   <div class="stat"><b>30天</b><span>第一阶段：行为明显变化</span></div>
   <div class="stat"><b>1年</b><span>目标：形成职业选择权</span></div>
+</section>
+
+<section class="syncbar">
+  <div class="sync-left"><span class="dot" id="syncDot"></span><div><div class="sync-title" id="syncTitle">本地保存模式</div><div class="sync-sub" id="syncSub">登录后可跨设备同步历史记录</div></div></div>
+  <div class="actions" style="margin:0"><button class="secondary" id="authToggle">登录 / 注册</button><button class="secondary" id="exportBtn">导出备份</button><button class="secondary" id="importBtn">导入备份</button><button class="secondary" id="logoutBtn" style="display:none">退出</button><input type="file" id="importFile" accept="application/json" hidden></div>
+</section>
+<section class="authbox" id="authBox">
+  <div class="authgrid">
+    <input id="authEmail" type="email" placeholder="邮箱">
+    <input id="authPassword" type="password" placeholder="密码（至少6位）">
+    <button class="primary" id="loginBtn">登录</button>
+    <button class="secondary" id="signupBtn">注册</button>
+  </div>
+  <div class="cloud-note" id="authMsg">首次注册后如收到确认邮件，请先完成邮箱确认，再回来登录。云端数据按账号隔离。</div>
 </section>
 
 <section class="section">
@@ -85,6 +100,7 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
     <div class="card third"><h3>表达</h3><p>完成1篇经营思考或1个3–5分钟视频，训练高密度表达。</p></div>
     <div class="card third"><h3>审美</h3><p>拆1个商业视觉/内容案例：目标、焦点、信息层级、可迁移规律。</p></div>
     <div class="card third"><h3>周复盘</h3><p>回答：本周最对的判断、最大的错误、拿掉了什么、下周只练什么。</p></div>
+    <div class="card full"><h3>本周复盘记录</h3><textarea id="weeklyNote" placeholder="本周最重要的判断 / 最大错误 / 成功授权或机制化 / 新增职业资产 / 下周只练什么"></textarea><div class="actions"><button class="primary" id="saveWeekly">保存本周复盘</button><span class="save-status" id="weeklyStatus"></span></div></div>
   </div>
 </section>
 
@@ -108,6 +124,7 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
       <h3>逃离计划检查</h3>
       <p>问自己：如果今天离开当前公司，我比一个月前多了什么可迁移的市场价值？</p>
     </div>
+    <div class="card full"><h3>本月个人董事会</h3><textarea id="monthlyNote" placeholder="能力证据 / 新增案例资产 / 永久拿掉的低价值工作 / 市场价值变化 / 下月最重要的升级"></textarea><div class="actions"><button class="primary" id="saveMonthly">保存月度复盘</button><span class="save-status" id="monthlyStatus"></span></div></div>
   </div>
 </section>
 
@@ -151,21 +168,102 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
   </div>
 </section>
 
+<section class="section">
+  <div class="section-head"><h2>历史记录｜History</h2><span>登录后自动读取云端最近记录</span></div>
+  <div class="card full"><div class="history-list" id="historyList"><div class="cloud-note">尚未登录，当前仅使用本机记录。</div></div></div>
+</section>
+
 <footer>Lee Operator Development System · 每天进步一点判断力，每周沉淀一点方法，每月增加一点职业资产。</footer>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const today=new Date(), key=today.toISOString().slice(0,10), taskKey='lee-training-tasks-'+key, noteKey='lee-training-note-'+key;
+const SUPABASE_URL='https://kryfdjlffpqtmbwpjjua.supabase.co';
+const SUPABASE_KEY='sb_publishable_uRsPdSc6LpKWr7NXu1rXTg_3YO4Cnuk';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const localDate=(d=new Date())=>{const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day};
+const today=new Date(), key=localDate(today), taskKey='lee-training-tasks-'+key, noteKey='lee-training-note-'+key;
+const mondayOf=(d)=>{const x=new Date(d),day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return localDate(x)};
+const monthKey=(d)=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';
 document.getElementById('dateLabel').textContent=today.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
 const boxes=[...document.querySelectorAll('input[data-task]')];
+const note=document.getElementById('dailyNote');
+let session=null, cloudRows=[];
 let saved={};try{saved=JSON.parse(localStorage.getItem(taskKey)||'{}')}catch(e){}
 boxes.forEach(b=>{b.checked=!!saved[b.dataset.task];b.addEventListener('change',saveTasks)});
-function saveTasks(){const o={};boxes.forEach(b=>o[b.dataset.task]=b.checked);localStorage.setItem(taskKey,JSON.stringify(o));updateProgress();updateStreak()}
+note.value=localStorage.getItem(noteKey)||'';
+
+function localPayload(){const tasks={};boxes.forEach(b=>tasks[b.dataset.task]=b.checked);return{tasks,note:note.value.trim()}}
+function saveTasks(){const o={};boxes.forEach(b=>o[b.dataset.task]=b.checked);localStorage.setItem(taskKey,JSON.stringify(o));updateProgress();updateStreak();queueCloudDaily()}
 function updateProgress(){const n=boxes.filter(b=>b.checked).length;document.getElementById('todayDone').textContent=n+'/6';document.getElementById('bar').style.width=(n/6*100)+'%';document.getElementById('progressText').textContent=n===6?'今日完成。把今天最重要的判断留在下面。':n>=4?'已经过半，继续完成剩余关键项。':n>0?'已经开始，保持最小连续性。':'今天还没开始。先完成最小的一步。'}
-const note=document.getElementById('dailyNote');note.value=localStorage.getItem(noteKey)||'';
-document.getElementById('saveBtn').onclick=()=>{localStorage.setItem(noteKey,note.value.trim());const s=document.getElementById('saveStatus');s.textContent='已保存 ✓';setTimeout(()=>s.textContent='',1800)};
-document.getElementById('clearBtn').onclick=()=>{if(confirm('清空今天的打卡和记录？')){boxes.forEach(b=>b.checked=false);note.value='';localStorage.removeItem(taskKey);localStorage.removeItem(noteKey);updateProgress();updateStreak()}};
-function updateStreak(){let c=0,d=new Date();for(let i=0;i<365;i++){const k=d.toISOString().slice(0,10),raw=localStorage.getItem('lee-training-tasks-'+k);if(!raw)break;let o={};try{o=JSON.parse(raw)}catch(e){}const n=Object.values(o).filter(Boolean).length;if(n<4)break;c++;d.setDate(d.getDate()-1)}document.getElementById('streak').textContent=c}
+function updateStreak(){
+  if(session && cloudRows.length){let c=0,d=new Date();const map=new Map(cloudRows.filter(r=>r.record_type==='daily').map(r=>[r.record_date,r.payload]));for(let i=0;i<365;i++){const k=localDate(d),p=map.get(k);if(!p)break;const n=Object.values(p.tasks||{}).filter(Boolean).length;if(n<4)break;c++;d.setDate(d.getDate()-1)}document.getElementById('streak').textContent=c;return}
+  let c=0,d=new Date();for(let i=0;i<365;i++){const k=localDate(d),raw=localStorage.getItem('lee-training-tasks-'+k);if(!raw)break;let o={};try{o=JSON.parse(raw)}catch(e){}const n=Object.values(o).filter(Boolean).length;if(n<4)break;c++;d.setDate(d.getDate()-1)}document.getElementById('streak').textContent=c
+}
+function flash(id,msg){const s=document.getElementById(id);s.textContent=msg;setTimeout(()=>s.textContent='',2200)}
+
+document.getElementById('saveBtn').onclick=async()=>{localStorage.setItem(noteKey,note.value.trim());await saveCloudRecord('daily',key,localPayload());flash('saveStatus',session?'已保存并同步 ✓':'已保存本机 ✓')};
+document.getElementById('clearBtn').onclick=async()=>{if(confirm('清空今天的打卡和记录？')){boxes.forEach(b=>b.checked=false);note.value='';localStorage.removeItem(taskKey);localStorage.removeItem(noteKey);updateProgress();updateStreak();if(session)await saveCloudRecord('daily',key,{tasks:{},note:''})}};
+
+let timer;function queueCloudDaily(){clearTimeout(timer);timer=setTimeout(async()=>{if(session)await saveCloudRecord('daily',key,localPayload())},500)}
+async function saveCloudRecord(type,date,payload){
+  if(!session)return false;
+  const {error}=await sb.from('growth_records').upsert({user_id:session.user.id,record_type:type,record_date:date,payload},{onConflict:'user_id,record_type,record_date'});
+  if(error){console.error(error);setSync(false,'同步失败，数据仍保存在本机');return false}
+  setSync(true,'已同步到云端');await loadHistory(false);return true
+}
+function setSync(on,sub){document.getElementById('syncDot').classList.toggle('on',on);document.getElementById('syncTitle').textContent=on?'云同步已开启':'本地保存模式';document.getElementById('syncSub').textContent=sub|| (on?session?.user?.email:'登录后可跨设备同步历史记录')}
+
+async function loadCloud(){
+  if(!session)return;
+  const {data,error}=await sb.from('growth_records').select('record_type,record_date,payload,updated_at').order('record_date',{ascending:false}).limit(400);
+  if(error){setSync(false,'云端读取失败');return}
+  cloudRows=data||[];
+  const daily=cloudRows.find(r=>r.record_type==='daily'&&r.record_date===key);
+  if(daily){
+    const p=daily.payload||{};boxes.forEach(b=>b.checked=!!(p.tasks||{})[b.dataset.task]);note.value=p.note||'';
+    localStorage.setItem(taskKey,JSON.stringify(p.tasks||{}));localStorage.setItem(noteKey,p.note||'')
+  }else{
+    const lp=localPayload();if(Object.values(lp.tasks).some(Boolean)||lp.note)await saveCloudRecord('daily',key,lp)
+  }
+  const wk=cloudRows.find(r=>r.record_type==='weekly'&&r.record_date===mondayOf(today));document.getElementById('weeklyNote').value=wk?.payload?.note||localStorage.getItem('lee-weekly-'+mondayOf(today))||'';
+  const mo=cloudRows.find(r=>r.record_type==='monthly'&&r.record_date===monthKey(today));document.getElementById('monthlyNote').value=mo?.payload?.note||localStorage.getItem('lee-monthly-'+monthKey(today))||'';
+  updateProgress();updateStreak();renderHistory();setSync(true,session.user.email+' · 云端已连接')
+}
+async function loadHistory(render=true){
+  if(!session)return;
+  const {data}=await sb.from('growth_records').select('record_type,record_date,payload,updated_at').order('record_date',{ascending:false}).limit(400);
+  if(data)cloudRows=data;if(render){updateStreak();renderHistory()}
+}
+function renderHistory(){
+  const el=document.getElementById('historyList');
+  const rows=cloudRows.filter(r=>r.record_type==='daily').slice(0,30);
+  if(!rows.length){el.innerHTML='<div class="cloud-note">还没有云端打卡记录。</div>';return}
+  el.innerHTML=rows.map(r=>{const n=Object.values(r.payload?.tasks||{}).filter(Boolean).length;const t=(r.payload?.note||'').replace(/[<>&]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[s]));return '<div class="history-item"><time>'+r.record_date+'</time><b>'+n+'/6</b><span>'+(t||'—')+'</span></div>'}).join('')
+}
+
+document.getElementById('saveWeekly').onclick=async()=>{const v=document.getElementById('weeklyNote').value.trim(),d=mondayOf(today);localStorage.setItem('lee-weekly-'+d,v);await saveCloudRecord('weekly',d,{note:v});flash('weeklyStatus',session?'已同步 ✓':'已保存本机 ✓')};
+document.getElementById('saveMonthly').onclick=async()=>{const v=document.getElementById('monthlyNote').value.trim(),d=monthKey(today);localStorage.setItem('lee-monthly-'+d,v);await saveCloudRecord('monthly',d,{note:v});flash('monthlyStatus',session?'已同步 ✓':'已保存本机 ✓')};
+document.getElementById('weeklyNote').value=localStorage.getItem('lee-weekly-'+mondayOf(today))||'';
+document.getElementById('monthlyNote').value=localStorage.getItem('lee-monthly-'+monthKey(today))||'';
+
+const authBox=document.getElementById('authBox');
+document.getElementById('authToggle').onclick=()=>authBox.classList.toggle('open');
+document.getElementById('loginBtn').onclick=async()=>{const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;document.getElementById('authMsg').textContent='正在登录…';const {data,error}=await sb.auth.signInWithPassword({email,password});document.getElementById('authMsg').textContent=error?error.message:'登录成功，正在同步…';if(data?.session){session=data.session;afterAuth()}};
+document.getElementById('signupBtn').onclick=async()=>{const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;if(password.length<6){document.getElementById('authMsg').textContent='密码至少6位';return}document.getElementById('authMsg').textContent='正在注册…';const {data,error}=await sb.auth.signUp({email,password});document.getElementById('authMsg').textContent=error?error.message:(data.session?'注册并登录成功':'注册成功。请先去邮箱完成确认，然后回来登录。');if(data?.session){session=data.session;afterAuth()}};
+document.getElementById('logoutBtn').onclick=async()=>{await sb.auth.signOut();session=null;cloudRows=[];document.getElementById('logoutBtn').style.display='none';document.getElementById('authToggle').style.display='inline-block';setSync(false,'已退出；当前继续保存在本机');document.getElementById('historyList').innerHTML='<div class="cloud-note">尚未登录，当前仅使用本机记录。</div>'};
+async function afterAuth(){authBox.classList.remove('open');document.getElementById('logoutBtn').style.display='inline-block';document.getElementById('authToggle').style.display='none';setSync(true,'正在读取云端记录…');await loadCloud()}
+
+document.getElementById('exportBtn').onclick=async()=>{
+  let data={version:1,exported_at:new Date().toISOString(),records:[]};
+  if(session){const {data:rows,error}=await sb.from('growth_records').select('record_type,record_date,payload,created_at,updated_at').order('record_date');if(error){alert('云端导出失败');return}data.records=rows||[]}
+  else{for(let i=0;i<3650;i++){const d=new Date();d.setDate(d.getDate()-i);const k=localDate(d),raw=localStorage.getItem('lee-training-tasks-'+k),n=localStorage.getItem('lee-training-note-'+k);if(raw||n){let tasks={};try{tasks=JSON.parse(raw||'{}')}catch(e){}data.records.push({record_type:'daily',record_date:k,payload:{tasks,note:n||''}})}}}
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Lee_成长记录备份_'+key+'.json';a.click();URL.revokeObjectURL(url)
+};
+document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
+document.getElementById('importFile').onchange=async(e)=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text()),records=data.records||[];if(!session){alert('请先登录云端账号，再导入历史备份。');return}const rows=records.map(r=>({user_id:session.user.id,record_type:r.record_type,record_date:r.record_date,payload:r.payload||{}}));for(let i=0;i<rows.length;i+=100){const {error}=await sb.from('growth_records').upsert(rows.slice(i,i+100),{onConflict:'user_id,record_type,record_date'});if(error)throw error}await loadCloud();alert('导入完成，共恢复 '+rows.length+' 条记录。')}catch(err){alert('导入失败：'+(err.message||err))}e.target.value=''};
+
+(async()=>{const {data}=await sb.auth.getSession();session=data.session||null;if(session)afterAuth();else setSync(false,'登录后可跨设备同步历史记录')})();
 updateProgress();updateStreak();
 </script>
 </body>
