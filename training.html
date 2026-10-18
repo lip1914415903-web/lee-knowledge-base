@@ -71,18 +71,6 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 </section>
 
 
-<section class="section">
-  <div class="section-head"><h2>成长指挥台｜Personal Operating System</h2><span>一次只抓最重要的几件事</span></div>
-  <div class="cockpit">
-    <div class="focus-card"><label>未来90天唯一主战役</label><textarea id="focusQuarter" placeholder="例：完成一次真正脱离公司资源的0→1验证"></textarea></div>
-    <div class="focus-card"><label>本月必须拿下的结果</label><textarea id="focusMonth" placeholder="只写1个可验收结果"></textarea></div>
-    <div class="focus-card"><label>本周 ONE THING</label><textarea id="focusWeek" placeholder="如果这周只能做好一件事，是什么？"></textarea></div>
-    <div class="focus-card"><label>STOP DOING</label><textarea id="stopDoing" placeholder="本周明确不做 / 停掉 / 减少什么？"></textarea></div>
-  </div>
-  <div class="actions"><button class="primary" id="saveFocus">保存指挥台</button><span class="save-status" id="focusStatus"></span></div>
-  <div class="mission"><b>系统只守3条：</b><div>主线优先；累了就降档但不断线；每月必须有一次脱离公司资源的真实小实验。</div></div>
-</section>
-
 <section class="stats compact">
   <div class="stat"><b id="todayDone">0/6</b><span>今日训练</span></div>
   <div class="stat"><b id="streak">0</b><span>连续有效训练天数</span></div>
@@ -312,9 +300,6 @@ note.addEventListener('input',()=>{clearTimeout(dailyDraftTimer);document.getEle
 const weeklyEl=document.getElementById('weeklyNote'),monthlyEl=document.getElementById('monthlyNote');
 weeklyEl.addEventListener('input',()=>localStorage.setItem('lee-weekly-'+mondayOf(today),weeklyEl.value));
 monthlyEl.addEventListener('input',()=>localStorage.setItem('lee-monthly-'+monthKey(today),monthlyEl.value));
-const focusEls={quarter:document.getElementById('focusQuarter'),month:document.getElementById('focusMonth'),week:document.getElementById('focusWeek'),stop:document.getElementById('stopDoing')};
-let focusLocal={};try{focusLocal=JSON.parse(localStorage.getItem('lee-focus-'+mondayOf(today))||'{}')}catch(e){}
-Object.entries(focusEls).forEach(([k,el])=>{el.value=focusLocal[k]||'';el.addEventListener('input',()=>{const o={};Object.entries(focusEls).forEach(([kk,ee])=>o[kk]=ee.value);localStorage.setItem('lee-focus-'+mondayOf(today),JSON.stringify(o))})});
 
 function localPayload(){const tasks={};boxes.forEach(b=>tasks[b.dataset.task]=b.checked);return{tasks,note:note.value.trim(),training_snapshot:publicTraining||null}}
 function saveTasks(){const o={};boxes.forEach(b=>o[b.dataset.task]=b.checked);localStorage.setItem(taskKey,JSON.stringify(o));updateProgress();updateStreak();queueCloudDaily()}
@@ -350,7 +335,6 @@ async function loadCloud(){
     const lp=localPayload();if(Object.values(lp.tasks).some(Boolean)||lp.note)await saveCloudRecord('daily',key,lp)
   }
   const stage=cloudRows.find(r=>r.record_type==='stage'&&r.record_date==='2026-10-19');if(stage?.payload?.plan_version===2){claimed=stage.payload.flags||{};localStorage.setItem('lee-escape-v2-flags',JSON.stringify(claimed));renderGame()}
-  const focus=cloudRows.find(r=>r.record_type==='focus'&&r.record_date===mondayOf(today));if(focus?.payload){Object.entries(focusEls).forEach(([k,el])=>el.value=focus.payload[k]||'');localStorage.setItem('lee-focus-'+mondayOf(today),JSON.stringify(focus.payload))}
   const wk=cloudRows.find(r=>r.record_type==='weekly'&&r.record_date===mondayOf(today));document.getElementById('weeklyNote').value=wk?.payload?.note||localStorage.getItem('lee-weekly-'+mondayOf(today))||'';
   const mo=cloudRows.find(r=>r.record_type==='monthly'&&r.record_date===monthKey(today));document.getElementById('monthlyNote').value=mo?.payload?.note||localStorage.getItem('lee-monthly-'+monthKey(today))||'';
   updateProgress();updateStreak();renderHistory();renderMetrics();setSync(true,session.user.email+' · 云端已连接')
@@ -446,13 +430,6 @@ async function undoLastSave(type){
 }
 document.querySelectorAll('[data-history-type]').forEach(b=>b.onclick=()=>openVersionHistory(b.dataset.historyType));
 document.querySelectorAll('[data-undo-type]').forEach(b=>b.onclick=()=>undoLastSave(b.dataset.undoType));
-
-document.getElementById('saveFocus').onclick=async()=>{
-  const payload={};Object.entries(focusEls).forEach(([k,el])=>payload[k]=el.value.trim());
-  localStorage.setItem('lee-focus-'+mondayOf(today),JSON.stringify(payload));
-  await saveCloudRecord('focus',mondayOf(today),payload);
-  flash('focusStatus',session?'已同步 ✓':'已保存本机 ✓')
-};
 
 let assetsCache=[];
 const assetTypeName={principle:'Lee原则',case:'案例',decision:'决策日志',idea:'灵感'};
