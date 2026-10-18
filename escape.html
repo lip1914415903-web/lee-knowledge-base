@@ -15,13 +15,13 @@
 .check{display:flex;gap:9px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #eef0f3}.check:last-child{border-bottom:0}.check input{margin-top:5px;width:17px;height:17px;accent-color:var(--green)}
 textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;resize:vertical;outline:none}textarea:focus{border-color:#9db9ad;box-shadow:0 0 0 3px #2f70551a}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}button{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.primary{background:var(--green);color:white}.secondary{background:var(--soft);color:var(--green)}.status{font-size:12px;color:var(--green2);align-self:center}
-footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
+.cloud{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}.dot{width:8px;height:8px;border-radius:50%;background:#aeb5c0}.dot.on{background:#3e7964;box-shadow:0 0 0 4px #3e796419}footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 @media(max-width:800px){.countdown{grid-template-columns:repeat(2,1fr)}.card,.card.third{grid-column:1/-1}.top{flex-direction:column}.top h1{font-size:32px}.stage{grid-template-columns:1fr}.grid{display:block}.card{margin-bottom:12px}}
 </style>
 </head>
 <body>
 <main class="wrap">
-<div class="top"><div><div class="eyebrow">LEE · 365 ESCAPE PLAN</div><h1>365逃离计划</h1><p>不是为了“逃离一家公司”，而是用365天换来更强的职业选择权。</p></div><a class="home" href="index.html">← 返回总入口</a></div>
+<div class="top"><div><div class="eyebrow">LEE · 365 ESCAPE PLAN</div><h1>365逃离计划</h1><p>不是为了“逃离一家公司”，而是用365天换来更强的职业选择权。</p><div class="cloud"><span class="dot" id="cloudDot"></span><span id="cloudText">本地保存模式</span></div></div><a class="home" href="index.html">← 返回总入口</a></div>
 
 <section class="hero">
   <h2>起点：2026.08.13　｜　目标日：2027.08.12</h2>
@@ -117,7 +117,12 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 
 <footer>Lee 365 Escape Plan · 主线决定职业上限，副线决定人生宽度。</footer>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL='https://kryfdjlffpqtmbwpjjua.supabase.co';
+const SUPABASE_KEY='sb_publishable_uRsPdSc6LpKWr7NXu1rXTg_3YO4Cnuk';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let session=null;
 const START=new Date('2026-08-13T00:00:00+08:00'),END=new Date('2027-08-12T23:59:59+08:00'),TOTAL=365;
 const now=new Date(),one=86400000;
 const elapsed=Math.max(0,Math.min(TOTAL,Math.floor((now-START)/one)+1)),left=Math.max(0,TOTAL-elapsed);
@@ -128,8 +133,24 @@ document.getElementById('todayLabel').textContent=now.toLocaleDateString('zh-CN'
 let saved={};try{saved=JSON.parse(localStorage.getItem('lee-escape-'+key)||'{}')}catch(e){}
 document.querySelectorAll('input[data-k]').forEach(x=>{x.checked=!!saved[x.dataset.k];x.onchange=saveLocal});
 const note=document.getElementById('escapeNote');note.value=localStorage.getItem('lee-escape-note-'+key)||'';
-function saveLocal(){const o={};document.querySelectorAll('input[data-k]').forEach(x=>o[x.dataset.k]=x.checked);localStorage.setItem('lee-escape-'+key,JSON.stringify(o))}
-document.getElementById('save').onclick=()=>{saveLocal();localStorage.setItem('lee-escape-note-'+key,note.value.trim());document.getElementById('status').textContent='已保存 ✓';setTimeout(()=>document.getElementById('status').textContent='',1800)};
+function collect(){const checks={};document.querySelectorAll('input[data-k]').forEach(x=>checks[x.dataset.k]=x.checked);return{checks,note:note.value.trim()}}
+function saveLocal(){const p=collect();localStorage.setItem('lee-escape-'+key,JSON.stringify(p.checks));return p}
+async function saveCloud(){
+  if(!session)return false;
+  const p=collect();
+  const {error}=await sb.from('growth_records').upsert({user_id:session.user.id,record_type:'escape',record_date:key,payload:p},{onConflict:'user_id,record_type,record_date'});
+  if(error){document.getElementById('cloudText').textContent='云同步失败，已保存在本机';return false}
+  document.getElementById('cloudDot').classList.add('on');document.getElementById('cloudText').textContent='365计划已同步云端';return true
+}
+document.getElementById('save').onclick=async()=>{saveLocal();localStorage.setItem('lee-escape-note-'+key,note.value.trim());const ok=await saveCloud();document.getElementById('status').textContent=ok?'已保存并同步 ✓':'已保存本机 ✓';setTimeout(()=>document.getElementById('status').textContent='',1800)};
 document.getElementById('goTraining').onclick=()=>location.href='training.html';
+(async()=>{
+  const {data}=await sb.auth.getSession();session=data.session||null;
+  if(!session){document.getElementById('cloudText').textContent='本地保存模式 · 在成长打卡页登录后可跨设备同步';return}
+  document.getElementById('cloudDot').classList.add('on');document.getElementById('cloudText').textContent=session.user.email+' · 云端已连接';
+  const {data:rows}=await sb.from('growth_records').select('payload').eq('record_type','escape').eq('record_date',key).limit(1);
+  const p=rows?.[0]?.payload;
+  if(p){document.querySelectorAll('input[data-k]').forEach(x=>x.checked=!!(p.checks||{})[x.dataset.k]);note.value=p.note||'';localStorage.setItem('lee-escape-'+key,JSON.stringify(p.checks||{}));localStorage.setItem('lee-escape-note-'+key,p.note||'')}
+})();
 </script>
 </body></html>
