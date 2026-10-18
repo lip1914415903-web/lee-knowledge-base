@@ -21,6 +21,8 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px 10px
 .kpi{font-size:13px;color:#55606e}.warn{color:var(--danger);font-weight:700}
 .syncbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:18px 0}.sync-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.dot{width:9px;height:9px;border-radius:50%;background:#aab2bf}.dot.on{background:#3c8b68;box-shadow:0 0 0 4px #3c8b6818}.sync-title{font-weight:800}.sync-sub{font-size:12px;color:var(--muted)}.authbox{display:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:-6px 0 18px}.authbox.open{display:block}.authgrid{display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px}.authgrid input{min-width:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit}.history-list{display:grid;gap:8px}.history-item{display:grid;grid-template-columns:110px 90px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid #eef0f3;font-size:13px}.history-item:last-child{border-bottom:0}.history-item time{color:var(--muted)}.cloud-note{font-size:12px;color:var(--muted);margin-top:8px}
 .training-box{background:linear-gradient(135deg,#fffdf8,#f6faf7);border:1px solid #dfe8e2;border-radius:18px;padding:22px}.training-box h3{font-size:22px;margin:4px 0 10px}.training-meta{font-size:12px;color:var(--green2);font-weight:800;letter-spacing:.04em}.signal-list{display:grid;gap:7px;margin:12px 0}.signal{padding:9px 11px;background:#f4f7f5;border-radius:10px;color:#46544d}.mission{margin-top:14px;border-left:4px solid var(--amber);background:#fff8ef;border-radius:0 12px 12px 0;padding:12px 14px}.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.metric b{display:block;font-size:25px}.metric span{font-size:12px;color:var(--muted)}.bars{display:flex;align-items:flex-end;gap:5px;height:120px;margin-top:16px;padding-top:10px;border-top:1px solid #eef0f3}.daybar{flex:1;min-width:5px;background:#dfeae4;border-radius:5px 5px 2px 2px;position:relative}.daybar.good{background:#5d8f7a}.daybar:hover:after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);white-space:nowrap;background:#172033;color:#fff;font-size:11px;padding:4px 7px;border-radius:6px;z-index:3}
+.game-shell{background:#172033;color:#fff;border-radius:22px;padding:24px;overflow:hidden}.game-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-end;flex-wrap:wrap}.game-head h3{font-size:24px;margin:0}.game-head p{margin:4px 0 0;color:#cbd3df}.level-badge{background:#ffffff12;border:1px solid #ffffff24;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800}.road{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:18px}.flag{background:#ffffff0c;border:1px solid #ffffff18;border-radius:14px;padding:12px;min-height:118px;position:relative}.flag.unlocked{background:#22483d;border-color:#437a68}.flag.claimed{background:#7b2525;border-color:#b95b55}.flag .emoji{font-size:22px}.flag b{display:block;margin:5px 0 2px}.flag small{color:#b9c3d0}.flag button{margin-top:8px;padding:6px 9px;font-size:11px;background:#fff;color:#172033}.flag button:disabled{opacity:.35;cursor:not-allowed}.boss-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.boss{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px}.boss .monster{font-size:28px}.boss b{display:block;margin:4px 0}.boss small{color:var(--muted)}.boss.active{border-color:#c58b4c;box-shadow:0 0 0 3px #c58b4c12}.chapter{font-size:12px;color:#8b94a3;font-weight:800;letter-spacing:.08em}.reward{margin-top:10px;padding:9px 11px;background:#fff8ef;border-radius:10px;font-size:12px;color:#7b562c}.game-rule{margin-top:14px;color:#cbd3df;font-size:12px}.game-rule b{color:white}
+@media(max-width:900px){.road{grid-template-columns:repeat(3,1fr)}.boss-grid{grid-template-columns:repeat(2,1fr)}}
 footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 @media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.card,.card.third{grid-column:1/-1}.top{flex-direction:column}.top h1{font-size:31px}.grid{display:block}.card{margin-bottom:12px}}
 </style>
@@ -35,21 +37,36 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 <section class="hero">
   <div style="font-size:13px;font-weight:800;letter-spacing:.08em;color:#bcd4ca;margin-bottom:6px">365 ESCAPE PLAN · 正在进行</div>
   <h2>365逃离计划：离开平台之后，我还剩什么？</h2>
-  <p>2026.08.13 → 2027.08.12。现在借助公司的品牌、预算、团队、供应链和平台资源放大结果；这一年要训练的是：即使资源被拿走，只剩自己、少量资金和一台电脑，也能发现需求、做出产品/内容、获取用户、完成成交、算清账并持续迭代。</p>
+  <p>2026.10.18 → 2027.10.17。旧进度从今天起清零，重新从 Day 1 出发。现在借助公司的品牌、预算、团队、供应链和平台资源放大结果；这一年要训练的是：即使资源被拿走，只剩自己、少量资金和一台电脑，也能发现需求、做出产品/内容、获取用户、完成成交、算清账并持续迭代。</p>
   <div class="quote">真正要逃离的，不是一家公司，而是没有选择权、只能依赖平台的职业状态。</div>
 </section>
 
 <section class="section" style="margin-top:18px">
-  <div class="section-head"><h2>365逃离计划｜倒计时看板</h2><span>2026.08.13 → 2027.08.12</span></div>
+  <div class="section-head"><h2>365逃离计划｜倒计时看板</h2><span>2026.10.18 → 2027.10.17 · 今天重新起跑</span></div>
   <section class="stats" style="margin-top:0">
     <div class="stat"><b id="daysDone">—</b><span>已经走过</span></div>
     <div class="stat"><b id="daysLeft">—</b><span>距离目标还剩</span></div>
     <div class="stat"><b id="escapePct">—</b><span>365计划完成度</span></div>
-    <div class="stat"><b id="targetDate">2027.08.12</b><span>目标日</span></div>
+    <div class="stat"><b id="targetDate">2027.10.17</b><span>终点日</span></div>
   </section>
   <div class="progress"><span id="escapeBar"></span></div>
   <p class="kpi" style="margin-top:10px">Day <b id="dayNumber">—</b> / 365 · 目标不是熬到离职，而是在这一天之前建立“没有公司资源也能活”的能力。</p>
 </section>
+
+
+<section class="section">
+  <div class="section-head"><h2>冒险地图｜365天升级打怪</h2><span>每30天一面红旗 · 每90天一只Boss · Day 365终局通关</span></div>
+  <div class="game-shell">
+    <div class="game-head">
+      <div><div class="chapter" id="chapterName">CHAPTER 1</div><h3 id="levelTitle">起跑村 · 把能力从平台身上剥离出来</h3><p id="nextMission">下一面红旗：Day 30</p></div>
+      <div class="level-badge" id="flagCount">🚩 0 / 12</div>
+    </div>
+    <div class="road" id="flagRoad"></div>
+    <div class="game-rule"><b>规则：</b>到达日期只是“解锁挑战”，不等于拿旗。完成该节点验收后再领取红旗；我会在节点前后专门出验收题。</div>
+  </div>
+  <div class="boss-grid" id="bossGrid"></div>
+</section>
+
 
 <section class="stats">
   <div class="stat"><b id="todayDone">0/6</b><span>今日训练</span></div>
@@ -249,13 +266,53 @@ const SUPABASE_KEY='sb_publishable_uRsPdSc6LpKWr7NXu1rXTg_3YO4Cnuk';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const localDate=(d=new Date())=>{const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day};
 const today=new Date(), key=localDate(today), taskKey='lee-training-tasks-'+key, noteKey='lee-training-note-'+key;
-const ESCAPE_START=new Date('2026-08-13T00:00:00+08:00'),ESCAPE_END=new Date('2027-08-12T23:59:59+08:00'),ESCAPE_TOTAL=365;
+const ESCAPE_START=new Date('2026-10-18T00:00:00+08:00'),ESCAPE_END=new Date('2027-10-17T23:59:59+08:00'),ESCAPE_TOTAL=365;
 const escapeElapsed=Math.max(0,Math.min(ESCAPE_TOTAL,Math.floor((today-ESCAPE_START)/86400000)+1)),escapeLeft=Math.max(0,ESCAPE_TOTAL-escapeElapsed),escapePct=Math.max(0,Math.min(100,escapeElapsed/ESCAPE_TOTAL*100));
 document.getElementById('daysDone').textContent=escapeElapsed+'天';
 document.getElementById('daysLeft').textContent=escapeLeft+'天';
 document.getElementById('escapePct').textContent=escapePct.toFixed(1)+'%';
 document.getElementById('dayNumber').textContent=escapeElapsed;
 document.getElementById('escapeBar').style.width=escapePct+'%';
+
+const FLAGS=[
+ {day:30,name:'觉醒旗',goal:'连续训练形成节奏；完成1份“平台能力 vs 我的能力”清单'},
+ {day:60,name:'判断旗',goal:'沉淀10条有证据的经营判断；完成1次错误判断复盘'},
+ {day:90,name:'启动旗',goal:'独立跑完1个低资源0→1小验证'},
+ {day:120,name:'用户旗',goal:'完成1份真实用户洞察，并转成产品/内容动作'},
+ {day:150,name:'成交旗',goal:'独立设计一次获客→成交闭环并复盘'},
+ {day:180,name:'商业旗',goal:'能算清一个小项目的毛利、费用、现金流和回本周期'},
+ {day:210,name:'创造旗',goal:'完成1个自己从写到拍剪/发布的作品或小项目'},
+ {day:240,name:'组织旗',goal:'让1件重要工作通过Owner/机制稳定运转，不依赖亲自盯'},
+ {day:270,name:'迁移旗',goal:'把一套方法迁移到新商品、新平台或个人项目'},
+ {day:300,name:'品牌旗',goal:'形成稳定个人表达主题，并产出至少5个代表作品'},
+ {day:330,name:'生存旗',goal:'完成一次“1万元+一台电脑”的90天生意模拟方案'},
+ {day:360,name:'选择旗',goal:'形成职业资产包：案例库、能力证据、个人作品与下一步方案'}
+];
+const BOSSES=[
+ {day:90,name:'平台依赖兽',desc:'你做成结果，是因为平台强，还是你真的会？',win:'用低资源完成一次0→1验证'},
+ {day:180,name:'忙碌幻觉兽',desc:'每天很忙，但有没有形成商业闭环和可迁移资产？',win:'拿出可计算的商业案例 + 方法论'},
+ {day:270,name:'单点能力兽',desc:'会抖音不等于会经营，能力能不能迁移？',win:'跨商品/平台复用一套经营方法'},
+ {day:365,name:'舒适区终极兽',desc:'如果没有公司，你是否真的敢从0开始？',win:'完成独立生存测试与下一阶段选择'}
+];
+let claimed={};try{claimed=JSON.parse(localStorage.getItem('lee-escape-v2-flags')||'{}')}catch(e){}
+function renderGame(){
+  const road=document.getElementById('flagRoad');
+  road.innerHTML=FLAGS.map((f,i)=>{
+    const unlocked=escapeElapsed>=f.day,got=!!claimed[f.day];
+    return '<div class="flag '+(got?'claimed':unlocked?'unlocked':'')+'"><div class="emoji">'+(got?'🚩':unlocked?'⚔️':'🔒')+'</div><b>Day '+f.day+' · '+f.name+'</b><small>'+f.goal+'</small><button data-flag="'+f.day+'" '+(!unlocked?'disabled':'')+'>'+(got?'已拿旗 ✓':'验收后领取')+'</button></div>'
+  }).join('');
+  road.querySelectorAll('button[data-flag]').forEach(btn=>btn.onclick=()=>{const d=btn.dataset.flag;if(claimed[d]){if(confirm('取消这面红旗？'))delete claimed[d]}else{if(confirm('确认这个节点已经验收通过，领取红旗？'))claimed[d]=true}localStorage.setItem('lee-escape-v2-flags',JSON.stringify(claimed));renderGame();saveStageCloud()});
+  const n=Object.values(claimed).filter(Boolean).length;document.getElementById('flagCount').textContent='🚩 '+n+' / 12';
+  const next=FLAGS.find(f=>!claimed[f.day]);
+  document.getElementById('nextMission').textContent=next?(escapeElapsed<next.day?'下一面红旗：Day '+next.day+' · 还差 '+(next.day-escapeElapsed)+' 天':'已解锁：Day '+next.day+' '+next.name+'，等待验收'):'12面红旗已集齐，准备终局通关';
+  const chapter=escapeElapsed<=90?1:escapeElapsed<=180?2:escapeElapsed<=270?3:4;
+  const titles=['起跑村 · 把能力从平台身上剥离出来','低资源荒野 · 学会一个人启动','迁移之城 · 把单点能力连成闭环','选择权终局 · 准备没有平台也能活'];
+  document.getElementById('chapterName').textContent='CHAPTER '+chapter+' / 4';
+  document.getElementById('levelTitle').textContent=titles[chapter-1];
+  document.getElementById('bossGrid').innerHTML=BOSSES.map((b,i)=>'<div class="boss '+(escapeElapsed>=b.day-14&&escapeElapsed<=b.day+14?'active':'')+'"><div class="monster">'+(escapeElapsed>b.day?'🏆':'👾')+'</div><div class="chapter">BOSS '+(i+1)+' · DAY '+b.day+'</div><b>'+b.name+'</b><small>'+b.desc+'</small><div class="reward">击败条件：'+b.win+'</div></div>').join('');
+}
+async function saveStageCloud(){if(!session)return;await sb.from('growth_records').upsert({user_id:session.user.id,record_type:'stage',record_date:'2026-10-18',payload:{plan_version:2,flags:claimed,day:escapeElapsed}},{onConflict:'user_id,record_type,record_date'})}
+renderGame();
 const mondayOf=(d)=>{const x=new Date(d),day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return localDate(x)};
 const monthKey=(d)=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';
 document.getElementById('dateLabel').textContent=today.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
@@ -270,8 +327,8 @@ function localPayload(){const tasks={};boxes.forEach(b=>tasks[b.dataset.task]=b.
 function saveTasks(){const o={};boxes.forEach(b=>o[b.dataset.task]=b.checked);localStorage.setItem(taskKey,JSON.stringify(o));updateProgress();updateStreak();queueCloudDaily()}
 function updateProgress(){const n=boxes.filter(b=>b.checked).length;document.getElementById('todayDone').textContent=n+'/6';document.getElementById('bar').style.width=(n/6*100)+'%';document.getElementById('progressText').textContent=n===6?'今日完成。把今天最重要的判断留在下面。':n>=4?'已经过半，继续完成剩余关键项。':n>0?'已经开始，保持最小连续性。':'今天还没开始。先完成最小的一步。'}
 function updateStreak(){
-  if(session && cloudRows.length){let c=0,d=new Date();const map=new Map(cloudRows.filter(r=>r.record_type==='daily').map(r=>[r.record_date,r.payload]));for(let i=0;i<365;i++){const k=localDate(d),p=map.get(k);if(!p)break;const n=Object.values(p.tasks||{}).filter(Boolean).length;if(n<4)break;c++;d.setDate(d.getDate()-1)}document.getElementById('streak').textContent=c;return}
-  let c=0,d=new Date();for(let i=0;i<365;i++){const k=localDate(d),raw=localStorage.getItem('lee-training-tasks-'+k);if(!raw)break;let o={};try{o=JSON.parse(raw)}catch(e){}const n=Object.values(o).filter(Boolean).length;if(n<4)break;c++;d.setDate(d.getDate()-1)}document.getElementById('streak').textContent=c
+  if(session && cloudRows.length){let c=0,d=new Date();const map=new Map(cloudRows.filter(r=>r.record_type==='daily').map(r=>[r.record_date,r.payload]));for(let i=0;i<365;i++){if(d<ESCAPE_START)break;const k=localDate(d),p=map.get(k);if(!p)break;const n=Object.values(p.tasks||{}).filter(Boolean).length;if(n<4)break;c++;d.setDate(d.getDate()-1)}document.getElementById('streak').textContent=c;return}
+  let c=0,d=new Date();for(let i=0;i<365;i++){if(d<ESCAPE_START)break;const k=localDate(d),raw=localStorage.getItem('lee-training-tasks-'+k);if(!raw)break;let o={};try{o=JSON.parse(raw)}catch(e){}const n=Object.values(o).filter(Boolean).length;if(n<4)break;c++;d.setDate(d.getDate()-1)}document.getElementById('streak').textContent=c
 }
 function flash(id,msg){const s=document.getElementById(id);s.textContent=msg;setTimeout(()=>s.textContent='',2200)}
 
@@ -299,6 +356,7 @@ async function loadCloud(){
   }else{
     const lp=localPayload();if(Object.values(lp.tasks).some(Boolean)||lp.note)await saveCloudRecord('daily',key,lp)
   }
+  const stage=cloudRows.find(r=>r.record_type==='stage'&&r.record_date==='2026-10-18');if(stage?.payload?.plan_version===2){claimed=stage.payload.flags||{};localStorage.setItem('lee-escape-v2-flags',JSON.stringify(claimed));renderGame()}
   const wk=cloudRows.find(r=>r.record_type==='weekly'&&r.record_date===mondayOf(today));document.getElementById('weeklyNote').value=wk?.payload?.note||localStorage.getItem('lee-weekly-'+mondayOf(today))||'';
   const mo=cloudRows.find(r=>r.record_type==='monthly'&&r.record_date===monthKey(today));document.getElementById('monthlyNote').value=mo?.payload?.note||localStorage.getItem('lee-monthly-'+monthKey(today))||'';
   updateProgress();updateStreak();renderHistory();renderMetrics();setSync(true,session.user.email+' · 云端已连接')
