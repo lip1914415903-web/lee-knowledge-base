@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lee｜经营者成长打卡</title>
+<title>Lee｜365经营者成长计划</title>
 <style>
 :root{--bg:#f4f5f7;--paper:#fff;--ink:#172033;--muted:#7b8495;--line:#e5e8ee;--green:#245746;--green2:#3f7a65;--soft:#eaf2ed;--amber:#b87333;--danger:#a14e46}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}
@@ -28,21 +28,54 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 <body>
 <main class="wrap">
 <div class="top">
-  <div><div class="eyebrow">LEE · OPERATOR DEVELOPMENT SYSTEM</div><h1>经营者成长打卡</h1><p>把每天的训练、真实工作和长期职业目标连成一套可复利的成长系统。</p></div>
+  <div><div class="eyebrow">LEE · 365 OPERATOR DEVELOPMENT PLAN</div><h1>365经营者成长计划</h1><p>把逃离计划、每日训练、主线能力和副线成长合成一套系统：用365天换来更强的职业选择权。</p></div>
   <a class="home" href="index.html">← 返回总入口</a>
 </div>
 
 <section class="hero">
-  <h2>长期目标：从运营负责人，成长为真正的经营者</h2>
-  <p>训练“看懂生意、看懂组织、看懂人、看懂钱”的能力；用真实工作积累经营判断、组织能力、资源配置、表达与复盘，逐步形成属于Lee自己的经营操作系统。</p>
-  <div class="quote">种一棵树最好的时间是十年前，其次是现在。</div>
+  <h2>核心命题：离开平台之后，我还剩什么？</h2>
+  <p>2026.08.13 → 2027.08.12。现在借助公司的品牌、预算、团队、供应链和平台资源放大结果；这一年要训练的是：即使资源被拿走，只剩自己、少量资金和一台电脑，也能发现需求、做出产品/内容、获取用户、完成成交、算清账并持续迭代。</p>
+  <div class="quote">真正要逃离的，不是一家公司，而是没有选择权、只能依赖平台的职业状态。</div>
 </section>
 
 <section class="stats">
-  <div class="stat"><b id="todayDone">0/6</b><span>今日打卡</span></div>
-  <div class="stat"><b id="streak">0</b><span>连续完成天数</span></div>
-  <div class="stat"><b>30天</b><span>第一阶段：行为明显变化</span></div>
-  <div class="stat"><b>1年</b><span>目标：形成职业选择权</span></div>
+  <div class="stat"><b id="daysLeft">—</b><span>365计划剩余天数</span></div>
+  <div class="stat"><b id="escapePct">—</b><span>365计划进度</span></div>
+  <div class="stat"><b id="todayDone">0/6</b><span>今日训练</span></div>
+  <div class="stat"><b id="streak">0</b><span>连续有效训练天数</span></div>
+</section>
+<div class="progress"><span id="escapeBar"></span></div>
+
+<section class="section">
+  <div class="section-head"><h2>能力地图｜没有公司资源时，我靠什么活下来</h2><span>主线不是“什么都会”，而是能独立完成经营闭环</span></div>
+  <div class="grid">
+    <div class="card third"><h3>01｜机会判断</h3><p>看市场、趋势和竞争，判断什么值得做、什么不值得做；识别核心矛盾和真正约束。</p><p><span class="pill">行业判断</span><span class="pill">机会成本</span><span class="pill">取舍</span></p></div>
+    <div class="card third"><h3>02｜用户与产品</h3><p>找到真实需求，做出用户愿意付钱的价值主张，而不是只会执行别人定义好的商品。</p><p><span class="pill">用户洞察</span><span class="pill">产品定义</span><span class="pill">价值主张</span></p></div>
+    <div class="card third"><h3>03｜获客与成交</h3><p>没有品牌自然流量时，仍能自己完成内容获客、投放验证、销售表达、直播/私域成交。</p><p><span class="pill">内容</span><span class="pill">流量</span><span class="pill">销售</span></p></div>
+    <div class="card third"><h3>04｜商业与财务</h3><p>会算毛利、费用、现金流、回本周期、边际ROI，知道“增长”什么时候其实是在亏钱。</p><p><span class="pill">单位经济</span><span class="pill">现金流</span><span class="pill">资源配置</span></p></div>
+    <div class="card third"><h3>05｜0→1低成本执行</h3><p>资源少也能自己做第一版：研究、写、拍、剪、上架、分析、自动化，快速验证而不是等资源齐全。</p><p><span class="pill">AI</span><span class="pill">摄影/剪辑</span><span class="pill">小步试错</span></p></div>
+    <div class="card third"><h3>06｜供应链与交付</h3><p>知道产品怎么被做出来、成本怎么形成、质量如何控制、供应如何保障，避免只懂前端营销。</p><p><span class="pill">成本</span><span class="pill">品质</span><span class="pill">履约</span></p></div>
+    <div class="card third"><h3>07｜组织与合作</h3><p>一个人能启动，但不能永远一个人做。会招人、用人、定Owner、做标准，也会借合作伙伴放大。</p><p><span class="pill">授权</span><span class="pill">机制</span><span class="pill">合作</span></p></div>
+    <div class="card third"><h3>08｜表达与个人品牌</h3><p>能把观点讲清楚、把价值卖出去、建立信任；未来做自媒体、创业、招聘和融资都需要这一层。</p><p><span class="pill">表达</span><span class="pill">说服</span><span class="pill">个人IP</span></p></div>
+    <div class="card third"><h3>09｜自我管理与韧性</h3><p>没有组织替你规定节奏时，仍能管理注意力、精力、情绪、习惯和长期节奏。</p><p><span class="pill">锻炼</span><span class="pill">专注</span><span class="pill">长期主义</span></p></div>
+    <div class="card full"><h3>一年后的独立生存测试</h3><p><b>如果明天离开所有平台，只给我1万元和一台电脑，我能不能在90天内找到一个真实需求、做出第一版产品/服务、获得第一批用户并赚到第一笔可重复收入？</b></p><p class="kpi">以后每个月都用这个问题检查：哪些能力属于公司，哪些已经真正长在自己身上。</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>主线 & 副线｜怎么分配精力</h2><span>主线决定职业上限，副线决定人生宽度</span></div>
+  <div class="grid">
+    <div class="card">
+      <h3>主线｜独立经营者能力</h3>
+      <p>经营判断 → 用户/产品 → 获客成交 → 商业财务 → 资源配置 → 组织管理 → 复盘方法论。</p>
+      <p><b>规则：</b>优先使用真实工作训练，每月至少形成1个有证据的经营案例；没有真实业务证据，不算能力升级。</p>
+    </div>
+    <div class="card">
+      <h3>副线｜复合能力工具箱</h3>
+      <p><span class="pill">英语</span><span class="pill">AI</span><span class="pill">摄影</span><span class="pill">剪辑</span><span class="pill">锻炼</span><span class="pill">辩论</span><span class="pill">读书</span></p>
+      <p><b>规则：</b>副线不断线，但不抢主线资源。它们的价值是降低你独立做事的启动成本、扩大视野并提高表达与执行效率。</p>
+    </div>
+  </div>
 </section>
 
 <section class="syncbar">
@@ -139,12 +172,12 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 </section>
 
 <section class="section">
-  <div class="section-head"><h2>阶段目标｜30天 · 3个月 · 半年 · 1年</h2><span>不靠感觉，用证据判断成长</span></div>
+  <div class="section-head"><h2>365阶段目标｜30天 · 90天 · 180天 · 365天</h2><span>不靠感觉，用独立能力证据判断成长</span></div>
   <div class="card full">
-    <div class="phase"><b>30天｜看变化</b><div>表达更有结论；做事有优先级；能区分事实/判断/假设；开始真正授权；每天留下方法论。</div></div>
-    <div class="phase"><b>3个月｜看成型</b><div>能稳定判断一盘生意、拆目标、找约束、配资源；团队不再完全依赖你；形成2–3个完整经营案例。</div></div>
-    <div class="phase"><b>半年｜看迁移</b><div>形成自己的经营框架、管理原则、内容审美标准和案例库；换品类/换平台仍能快速找到经营逻辑。</div></div>
-    <div class="phase"><b>1年｜看选择权</b><div>具备生意判断、组织带队、机制建设、资源配置、商业算账和高质量表达能力；能理性决定留、走或接更大的盘子。</div></div>
+    <div class="phase"><b>Day 1–30｜行为改变</b><div>表达更有结论；工作开始抓关键问题；每天留下判断；区分“公司给我的能力”和“我真正掌握的能力”。</div></div>
+    <div class="phase"><b>Day 31–90｜能独立跑第一版</b><div>能自己完成一次低资源0→1验证：用户、产品/内容、获客、成交、复盘；形成2–3个完整经营案例。</div></div>
+    <div class="phase"><b>Day 91–180｜能力迁移</b><div>把经营框架迁移到新商品、新平台或个人项目；补齐商业财务、供应链、销售成交等过去主要由公司提供的能力。</div></div>
+    <div class="phase"><b>Day 181–365｜形成选择权</b><div>能以低资源独立启动一个小生意/账号/项目；同时具备案例库、作品、个人表达和基本商业闭环能力，理性决定留、走、创业或回到小城市。</div></div>
   </div>
 </section>
 
@@ -194,7 +227,7 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
   <div class="card full"><div class="history-list" id="historyList"><div class="cloud-note">尚未登录，当前仅使用本机记录。</div></div></div>
 </section>
 
-<footer>Lee Operator Development System · 每天进步一点判断力，每周沉淀一点方法，每月增加一点职业资产。</footer>
+<footer>Lee 365 Operator Development Plan · 有平台能放大，没平台也能从0开始。</footer>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -204,6 +237,11 @@ const SUPABASE_KEY='sb_publishable_uRsPdSc6LpKWr7NXu1rXTg_3YO4Cnuk';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const localDate=(d=new Date())=>{const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day};
 const today=new Date(), key=localDate(today), taskKey='lee-training-tasks-'+key, noteKey='lee-training-note-'+key;
+const ESCAPE_START=new Date('2026-08-13T00:00:00+08:00'),ESCAPE_END=new Date('2027-08-12T23:59:59+08:00'),ESCAPE_TOTAL=365;
+const escapeElapsed=Math.max(0,Math.min(ESCAPE_TOTAL,Math.floor((today-ESCAPE_START)/86400000)+1)),escapeLeft=Math.max(0,ESCAPE_TOTAL-escapeElapsed),escapePct=Math.max(0,Math.min(100,escapeElapsed/ESCAPE_TOTAL*100));
+document.getElementById('daysLeft').textContent=escapeLeft+'天';
+document.getElementById('escapePct').textContent=escapePct.toFixed(1)+'%';
+document.getElementById('escapeBar').style.width=escapePct+'%';
 const mondayOf=(d)=>{const x=new Date(d),day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return localDate(x)};
 const monthKey=(d)=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';
 document.getElementById('dateLabel').textContent=today.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
