@@ -20,6 +20,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px 10px
 .phase{border-left:4px solid var(--green);padding:12px 14px;background:#f8faf9;border-radius:0 12px 12px 0;margin:8px 0}.phase b{color:var(--green)}
 .kpi{font-size:13px;color:#55606e}.warn{color:var(--danger);font-weight:700}
 .syncbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:18px 0}.sync-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.dot{width:9px;height:9px;border-radius:50%;background:#aab2bf}.dot.on{background:#3c8b68;box-shadow:0 0 0 4px #3c8b6818}.sync-title{font-weight:800}.sync-sub{font-size:12px;color:var(--muted)}.authbox{display:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:-6px 0 18px}.authbox.open{display:block}.authgrid{display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px}.authgrid input{min-width:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit}.history-list{display:grid;gap:8px}.history-item{display:grid;grid-template-columns:110px 90px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid #eef0f3;font-size:13px}.history-item:last-child{border-bottom:0}.history-item time{color:var(--muted)}.cloud-note{font-size:12px;color:var(--muted);margin-top:8px}
+.training-box{background:linear-gradient(135deg,#fffdf8,#f6faf7);border:1px solid #dfe8e2;border-radius:18px;padding:22px}.training-box h3{font-size:22px;margin:4px 0 10px}.training-meta{font-size:12px;color:var(--green2);font-weight:800;letter-spacing:.04em}.signal-list{display:grid;gap:7px;margin:12px 0}.signal{padding:9px 11px;background:#f4f7f5;border-radius:10px;color:#46544d}.mission{margin-top:14px;border-left:4px solid var(--amber);background:#fff8ef;border-radius:0 12px 12px 0;padding:12px 14px}.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.metric b{display:block;font-size:25px}.metric span{font-size:12px;color:var(--muted)}.bars{display:flex;align-items:flex-end;gap:5px;height:120px;margin-top:16px;padding-top:10px;border-top:1px solid #eef0f3}.daybar{flex:1;min-width:5px;background:#dfeae4;border-radius:5px 5px 2px 2px;position:relative}.daybar.good{background:#5d8f7a}.daybar:hover:after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);white-space:nowrap;background:#172033;color:#fff;font-size:11px;padding:4px 7px;border-radius:6px;z-index:3}
 footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 @media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.card,.card.third{grid-column:1/-1}.top{flex-direction:column}.top h1{font-size:31px}.grid{display:block}.card{margin-bottom:12px}}
 </style>
@@ -56,6 +57,15 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
     <button class="secondary" id="signupBtn">注册</button>
   </div>
   <div class="cloud-note" id="authMsg">首次注册后如收到确认邮件，请先完成邮箱确认，再回来登录。云端数据按账号隔离。</div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>今日训练题｜Today’s Training</h2><span>每天早间训练自动归档到这里</span></div>
+  <div class="training-box" id="trainingBox">
+    <div class="training-meta">等待今日训练</div>
+    <h3>今天的训练题会在早间提醒后显示在这里</h3>
+    <p>如果当天还没有生成训练内容，这里会保留为空，不影响正常打卡。</p>
+  </div>
 </section>
 
 <section class="section">
@@ -169,6 +179,17 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
 </section>
 
 <section class="section">
+  <div class="section-head"><h2>成长趋势｜Growth Trend</h2><span>登录后根据云端记录自动计算</span></div>
+  <div class="metric-grid">
+    <div class="metric"><b id="mCompletion">—</b><span>本月训练完成率</span></div>
+    <div class="metric"><b id="mActiveDays">—</b><span>本月有效训练天数</span></div>
+    <div class="metric"><b id="mJudgments">—</b><span>本月留下判断</span></div>
+    <div class="metric"><b id="mReviews">—</b><span>周/月复盘次数</span></div>
+  </div>
+  <div class="card full" style="margin-top:12px"><h3>最近30天训练强度</h3><div class="bars" id="trendBars"></div><div class="cloud-note">每天完成4项及以上记为“有效训练日”。目标不是全勤，而是稳定积累。</div></div>
+</section>
+
+<section class="section">
   <div class="section-head"><h2>历史记录｜History</h2><span>登录后自动读取云端最近记录</span></div>
   <div class="card full"><div class="history-list" id="historyList"><div class="cloud-note">尚未登录，当前仅使用本机记录。</div></div></div>
 </section>
@@ -188,12 +209,12 @@ const monthKey=(d)=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'
 document.getElementById('dateLabel').textContent=today.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
 const boxes=[...document.querySelectorAll('input[data-task]')];
 const note=document.getElementById('dailyNote');
-let session=null, cloudRows=[];
+let session=null, cloudRows=[], publicTraining=null;
 let saved={};try{saved=JSON.parse(localStorage.getItem(taskKey)||'{}')}catch(e){}
 boxes.forEach(b=>{b.checked=!!saved[b.dataset.task];b.addEventListener('change',saveTasks)});
 note.value=localStorage.getItem(noteKey)||'';
 
-function localPayload(){const tasks={};boxes.forEach(b=>tasks[b.dataset.task]=b.checked);return{tasks,note:note.value.trim()}}
+function localPayload(){const tasks={};boxes.forEach(b=>tasks[b.dataset.task]=b.checked);return{tasks,note:note.value.trim(),training_snapshot:publicTraining||null}}
 function saveTasks(){const o={};boxes.forEach(b=>o[b.dataset.task]=b.checked);localStorage.setItem(taskKey,JSON.stringify(o));updateProgress();updateStreak();queueCloudDaily()}
 function updateProgress(){const n=boxes.filter(b=>b.checked).length;document.getElementById('todayDone').textContent=n+'/6';document.getElementById('bar').style.width=(n/6*100)+'%';document.getElementById('progressText').textContent=n===6?'今日完成。把今天最重要的判断留在下面。':n>=4?'已经过半，继续完成剩余关键项。':n>0?'已经开始，保持最小连续性。':'今天还没开始。先完成最小的一步。'}
 function updateStreak(){
@@ -228,24 +249,52 @@ async function loadCloud(){
   }
   const wk=cloudRows.find(r=>r.record_type==='weekly'&&r.record_date===mondayOf(today));document.getElementById('weeklyNote').value=wk?.payload?.note||localStorage.getItem('lee-weekly-'+mondayOf(today))||'';
   const mo=cloudRows.find(r=>r.record_type==='monthly'&&r.record_date===monthKey(today));document.getElementById('monthlyNote').value=mo?.payload?.note||localStorage.getItem('lee-monthly-'+monthKey(today))||'';
-  updateProgress();updateStreak();renderHistory();setSync(true,session.user.email+' · 云端已连接')
+  updateProgress();updateStreak();renderHistory();renderMetrics();setSync(true,session.user.email+' · 云端已连接')
 }
 async function loadHistory(render=true){
   if(!session)return;
   const {data}=await sb.from('growth_records').select('record_type,record_date,payload,updated_at').order('record_date',{ascending:false}).limit(400);
-  if(data)cloudRows=data;if(render){updateStreak();renderHistory()}
+  if(data)cloudRows=data;if(render){updateStreak();renderHistory();renderMetrics()}
 }
 function renderHistory(){
   const el=document.getElementById('historyList');
   const rows=cloudRows.filter(r=>r.record_type==='daily').slice(0,30);
   if(!rows.length){el.innerHTML='<div class="cloud-note">还没有云端打卡记录。</div>';return}
-  el.innerHTML=rows.map(r=>{const n=Object.values(r.payload?.tasks||{}).filter(Boolean).length;const t=(r.payload?.note||'').replace(/[<>&]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[s]));return '<div class="history-item"><time>'+r.record_date+'</time><b>'+n+'/6</b><span>'+(t||'—')+'</span></div>'}).join('')
+  el.innerHTML=rows.map(r=>{const n=Object.values(r.payload?.tasks||{}).filter(Boolean).length;const noteText=(r.payload?.note||'').replace(/[<>&]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[s]));const title=(r.payload?.training_snapshot?.title||'').replace(/[<>&]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[s]));const t=[title,noteText].filter(Boolean).join('｜');return '<div class="history-item"><time>'+r.record_date+'</time><b>'+n+'/6</b><span>'+(t||'—')+'</span></div>'}).join('')
 }
 
 document.getElementById('saveWeekly').onclick=async()=>{const v=document.getElementById('weeklyNote').value.trim(),d=mondayOf(today);localStorage.setItem('lee-weekly-'+d,v);await saveCloudRecord('weekly',d,{note:v});flash('weeklyStatus',session?'已同步 ✓':'已保存本机 ✓')};
 document.getElementById('saveMonthly').onclick=async()=>{const v=document.getElementById('monthlyNote').value.trim(),d=monthKey(today);localStorage.setItem('lee-monthly-'+d,v);await saveCloudRecord('monthly',d,{note:v});flash('monthlyStatus',session?'已同步 ✓':'已保存本机 ✓')};
 document.getElementById('weeklyNote').value=localStorage.getItem('lee-weekly-'+mondayOf(today))||'';
 document.getElementById('monthlyNote').value=localStorage.getItem('lee-monthly-'+monthKey(today))||'';
+
+function renderMetrics(){
+  const now=new Date(), monthPrefix=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-';
+  const daily=cloudRows.filter(r=>r.record_type==='daily'&&r.record_date.startsWith(monthPrefix));
+  const totalTasks=daily.reduce((s,r)=>s+Object.values(r.payload?.tasks||{}).filter(Boolean).length,0);
+  const daysInMonth=now.getDate();
+  document.getElementById('mCompletion').textContent=daily.length?Math.round(totalTasks/(daysInMonth*6)*100)+'%':'0%';
+  document.getElementById('mActiveDays').textContent=daily.filter(r=>Object.values(r.payload?.tasks||{}).filter(Boolean).length>=4).length+'天';
+  document.getElementById('mJudgments').textContent=daily.filter(r=>(r.payload?.note||'').trim()).length+'条';
+  document.getElementById('mReviews').textContent=cloudRows.filter(r=>(r.record_type==='weekly'||r.record_type==='monthly')&&r.record_date.startsWith(monthPrefix)).length+'次';
+  const map=new Map(cloudRows.filter(r=>r.record_type==='daily').map(r=>[r.record_date,r.payload]));
+  const bars=[];for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=localDate(d),p=map.get(k),n=p?Object.values(p.tasks||{}).filter(Boolean).length:0;const h=Math.max(5,Math.round(n/6*100));bars.push('<div class="daybar '+(n>=4?'good':'')+'" style="height:'+h+'%" data-tip="'+k+' · '+n+'/6"></div>')}
+  document.getElementById('trendBars').innerHTML=bars.join('');
+}
+
+async function loadPublicTraining(){
+  try{
+    const res=await fetch('training-content.json?ts='+Date.now()),data=await res.json();
+    const item=(data.entries||[]).find(x=>x.date===key);
+    publicTraining=item||null;
+    const box=document.getElementById('trainingBox');
+    if(!item){return}
+    const esc=s=>(s||'').replace(/[<>&]/g,x=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[x]));
+    box.innerHTML='<div class="training-meta">'+esc(item.category||'今日训练')+'</div><h3>'+esc(item.title)+'</h3><p>'+esc(item.why||'')+'</p>'+
+      ((item.signals||[]).length?'<div class="signal-list">'+item.signals.map((s,i)=>'<div class="signal"><b>信号 '+(i+1)+'</b>　'+esc(s)+'</div>').join('')+'</div>':'')+
+      (item.mission?'<div class="mission"><b>今日实战任务</b><div>'+esc(item.mission)+'</div></div>':'');
+  }catch(e){console.warn('training content unavailable',e)}
+}
 
 const authBox=document.getElementById('authBox');
 document.getElementById('authToggle').onclick=()=>authBox.classList.toggle('open');
@@ -263,8 +312,8 @@ document.getElementById('exportBtn').onclick=async()=>{
 document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
 document.getElementById('importFile').onchange=async(e)=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text()),records=data.records||[];if(!session){alert('请先登录云端账号，再导入历史备份。');return}const rows=records.map(r=>({user_id:session.user.id,record_type:r.record_type,record_date:r.record_date,payload:r.payload||{}}));for(let i=0;i<rows.length;i+=100){const {error}=await sb.from('growth_records').upsert(rows.slice(i,i+100),{onConflict:'user_id,record_type,record_date'});if(error)throw error}await loadCloud();alert('导入完成，共恢复 '+rows.length+' 条记录。')}catch(err){alert('导入失败：'+(err.message||err))}e.target.value=''};
 
-(async()=>{const {data}=await sb.auth.getSession();session=data.session||null;if(session)afterAuth();else setSync(false,'登录后可跨设备同步历史记录')})();
-updateProgress();updateStreak();
+(async()=>{await loadPublicTraining();const {data}=await sb.auth.getSession();session=data.session||null;if(session)afterAuth();else setSync(false,'登录后可跨设备同步历史记录')})();
+updateProgress();updateStreak();renderMetrics();
 </script>
 </body>
 </html>
