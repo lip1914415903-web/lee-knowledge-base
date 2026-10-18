@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lee｜经营者成长打卡</title>
+<style>
+:root{--bg:#f4f5f7;--paper:#fff;--ink:#172033;--muted:#7b8495;--line:#e5e8ee;--green:#245746;--green2:#3f7a65;--soft:#eaf2ed;--amber:#b87333;--danger:#a14e46}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}
+.wrap{max-width:1180px;margin:auto;padding:34px 20px 80px}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:24px}.eyebrow{font-size:12px;letter-spacing:.12em;color:#8b94a3}.top h1{margin:6px 0 8px;font-size:38px}.top p{margin:0;color:var(--muted)}.home{color:var(--green);text-decoration:none;font-weight:800;background:var(--soft);padding:10px 14px;border-radius:10px}
+.hero{background:linear-gradient(135deg,#173b31,#2c6754);color:white;border-radius:22px;padding:28px;box-shadow:0 14px 40px #0f172a14}.hero h2{margin:0 0 8px;font-size:28px}.hero p{margin:0;color:#dce8e2;max-width:820px}.hero .quote{margin-top:16px;display:inline-block;border:1px solid #ffffff32;background:#ffffff12;padding:8px 12px;border-radius:999px;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.stat{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:16px}.stat b{font-size:24px;display:block}.stat span{font-size:12px;color:var(--muted)}
+.section{margin-top:26px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:12px}.section-head h2{margin:0;font-size:20px}.section-head span{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.card{grid-column:span 6;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px}.card.full{grid-column:1/-1}.card.third{grid-column:span 4}.card h3{margin:0 0 8px;font-size:17px}.card p{margin:6px 0;color:#50596a}.pill{display:inline-block;background:var(--soft);color:var(--green);padding:4px 8px;border-radius:999px;font-size:12px;font-weight:700;margin:3px 4px 3px 0}
+.task{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #eef0f3}.task:last-child{border-bottom:0}.task input{margin-top:5px;width:17px;height:17px;accent-color:var(--green)}.task b{display:block}.task small{color:var(--muted)}
+.progress{height:10px;background:#edf0f3;border-radius:999px;overflow:hidden;margin-top:12px}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--green2));transition:.25s}
+textarea{width:100%;min-height:130px;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;resize:vertical;outline:none}textarea:focus{border-color:#9db9ad;box-shadow:0 0 0 3px #2f70551a}
+button{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.primary{background:var(--green);color:#fff}.secondary{background:var(--soft);color:var(--green)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.save-status{font-size:12px;color:var(--green2);align-self:center}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted)}
+.phase{border-left:4px solid var(--green);padding:12px 14px;background:#f8faf9;border-radius:0 12px 12px 0;margin:8px 0}.phase b{color:var(--green)}
+.kpi{font-size:13px;color:#55606e}.warn{color:var(--danger);font-weight:700}
+footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.card,.card.third{grid-column:1/-1}.top{flex-direction:column}.top h1{font-size:31px}.grid{display:block}.card{margin-bottom:12px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="top">
+  <div><div class="eyebrow">LEE · OPERATOR DEVELOPMENT SYSTEM</div><h1>经营者成长打卡</h1><p>把每天的训练、真实工作和长期职业目标连成一套可复利的成长系统。</p></div>
+  <a class="home" href="index.html">← 返回总入口</a>
+</div>
+
+<section class="hero">
+  <h2>长期目标：从运营负责人，成长为真正的经营者</h2>
+  <p>训练“看懂生意、看懂组织、看懂人、看懂钱”的能力；用真实工作积累经营判断、组织能力、资源配置、表达与复盘，逐步形成属于Lee自己的经营操作系统。</p>
+  <div class="quote">种一棵树最好的时间是十年前，其次是现在。</div>
+</section>
+
+<section class="stats">
+  <div class="stat"><b id="todayDone">0/6</b><span>今日打卡</span></div>
+  <div class="stat"><b id="streak">0</b><span>连续完成天数</span></div>
+  <div class="stat"><b>30天</b><span>第一阶段：行为明显变化</span></div>
+  <div class="stat"><b>1年</b><span>目标：形成职业选择权</span></div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>今天｜Daily</h2><span id="dateLabel"></span></div>
+  <div class="grid">
+    <div class="card">
+      <h3>早上1小时｜经营者晨练</h3>
+      <label class="task"><input type="checkbox" data-task="deep"><span><b>30分钟深度思考</b><small>只想一个真实问题：经营、用户、商品、组织或钱。</small></span></label>
+      <label class="task"><input type="checkbox" data-task="read"><span><b>20分钟高质量输入</b><small>商业、管理、财务、人物传记；不刷碎片信息。</small></span></label>
+      <label class="task"><input type="checkbox" data-task="output"><span><b>10分钟输出</b><small>留下一条判断、一页笔记，或录3分钟视频。</small></span></label>
+    </div>
+    <div class="card">
+      <h3>白天与晚上｜把工作变成训练</h3>
+      <label class="task"><input type="checkbox" data-task="practice"><span><b>工作中1次刻意训练</b><small>今天重点练：判断 / 授权 / 取舍 / 表达 / 机制化，任选一个。</small></span></label>
+      <label class="task"><input type="checkbox" data-task="review"><span><b>晚间45分钟训练与复盘</b><small>20分钟核心能力 + 10分钟表达 + 5分钟审美 + 5分钟复盘。</small></span></label>
+      <label class="task"><input type="checkbox" data-task="body"><span><b>身体与精力</b><small>完成运动或主动恢复，保持长期输出能力。</small></span></label>
+    </div>
+    <div class="card full">
+      <h3>今日进度</h3>
+      <div class="progress"><span id="bar"></span></div>
+      <p class="kpi" id="progressText">今天还没开始。先完成最小的一步。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>今天只留下一个判断</h2><span>经历 → 方法 → 能力 → 资产</span></div>
+  <div class="grid">
+    <div class="card full">
+      <textarea id="dailyNote" placeholder="例：今天我意识到，真正的授权不是把任务给别人，而是把目标、判断权、边界和升级条件一起给出去。"></textarea>
+      <div class="actions"><button class="primary" id="saveBtn">保存今日记录</button><button class="secondary" id="clearBtn">清空今日</button><span class="save-status" id="saveStatus"></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>每周｜Weekly</h2><span>每周至少沉淀一次</span></div>
+  <div class="grid">
+    <div class="card third"><h3>经营判断</h3><p>写清楚本周最重要的经营判断：问题、证据、取舍、结果。</p></div>
+    <div class="card third"><h3>组织升级</h3><p>至少授权或机制化1件事，不让团队所有问题都回到自己。</p></div>
+    <div class="card third"><h3>作品资产</h3><p>沉淀1个案例、1条方法论，或1份可复用标准/SOP。</p></div>
+    <div class="card third"><h3>表达</h3><p>完成1篇经营思考或1个3–5分钟视频，训练高密度表达。</p></div>
+    <div class="card third"><h3>审美</h3><p>拆1个商业视觉/内容案例：目标、焦点、信息层级、可迁移规律。</p></div>
+    <div class="card third"><h3>周复盘</h3><p>回答：本周最对的判断、最大的错误、拿掉了什么、下周只练什么。</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>每月｜Monthly</h2><span>个人董事会</span></div>
+  <div class="grid">
+    <div class="card">
+      <h3>能力盘点</h3>
+      <p><span class="pill">经营判断</span><span class="pill">商品/用户</span><span class="pill">管理组织</span><span class="pill">表达影响</span><span class="pill">审美内容</span><span class="pill">商业/财务</span></p>
+      <p>给自己打分，但<strong>没有新证据，不允许涨分</strong>。</p>
+    </div>
+    <div class="card">
+      <h3>职业资产盘点</h3>
+      <p>本月必须新增至少1个能讲清楚“背景 → 问题 → 判断 → 取舍 → 动作 → 结果 → 方法论”的案例。</p>
+    </div>
+    <div class="card">
+      <h3>时间资产盘点</h3>
+      <p>每个月永久拿掉至少1类低价值工作：授权、标准化、机制化或停止。</p>
+    </div>
+    <div class="card">
+      <h3>逃离计划检查</h3>
+      <p>问自己：如果今天离开当前公司，我比一个月前多了什么可迁移的市场价值？</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>阶段目标｜30天 · 3个月 · 半年 · 1年</h2><span>不靠感觉，用证据判断成长</span></div>
+  <div class="card full">
+    <div class="phase"><b>30天｜看变化</b><div>表达更有结论；做事有优先级；能区分事实/判断/假设；开始真正授权；每天留下方法论。</div></div>
+    <div class="phase"><b>3个月｜看成型</b><div>能稳定判断一盘生意、拆目标、找约束、配资源；团队不再完全依赖你；形成2–3个完整经营案例。</div></div>
+    <div class="phase"><b>半年｜看迁移</b><div>形成自己的经营框架、管理原则、内容审美标准和案例库；换品类/换平台仍能快速找到经营逻辑。</div></div>
+    <div class="phase"><b>1年｜看选择权</b><div>具备生意判断、组织带队、机制建设、资源配置、商业算账和高质量表达能力；能理性决定留、走或接更大的盘子。</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>一年后的能力目标</h2><span>不是成为“最会做抖音的人”</span></div>
+  <div class="grid">
+    <div class="card third"><h3>看懂生意</h3><p>判断用户价值、商业模式、增长质量、利润和长期竞争力。</p></div>
+    <div class="card third"><h3>看懂组织</h3><p>能设计Owner、标准、权限、机制，让组织不依赖个人英雄主义。</p></div>
+    <div class="card third"><h3>看懂人</h3><p>识别人、培养人、影响人，做到对人温暖、对事严格。</p></div>
+    <div class="card third"><h3>看懂钱</h3><p>逐步掌握毛利、费用率、现金流、ROI、ROIC与资源/资本配置。</p></div>
+    <div class="card third"><h3>长期主义</h3><p>能放弃短期诱惑，坚持用户价值和长期正确的事情。</p></div>
+    <div class="card third"><h3>职业资产</h3><p>形成属于Lee自己的案例库、判断原则、经营机制和公开表达。</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>固定训练节奏</h2><span>每天主线不同，但最终汇到同一个目标</span></div>
+  <div class="card full">
+    <table>
+      <thead><tr><th>星期</th><th>核心训练</th><th>重点</th></tr></thead>
+      <tbody>
+        <tr><td>周一</td><td>经营思维</td><td>目标拆解、商业模型、核心矛盾、增长质量</td></tr>
+        <tr><td>周二</td><td>操盘能力</td><td>资源配置、实验、因果判断、风险与节奏</td></tr>
+        <tr><td>周三</td><td>管理与组织</td><td>授权、标准、机制、Owner培养、横向影响</td></tr>
+        <tr><td>周四</td><td>表达与影响力</td><td>向上汇报、辩论、30秒结论、说服与决策表达</td></tr>
+        <tr><td>周五</td><td>复盘与方法论</td><td>判断准确率、错误模型、机制沉淀、案例提炼</td></tr>
+        <tr><td>周六</td><td>审美 · 内容 · 用户</td><td>商业视觉、内容判断、用户洞察、创意拆解</td></tr>
+        <tr><td>周日</td><td>长期成长</td><td>职业资产、财务商业、读书、逃离计划与长期选择</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>Lee Operator Development System · 每天进步一点判断力，每周沉淀一点方法，每月增加一点职业资产。</footer>
+</main>
+
+<script>
+const today=new Date(), key=today.toISOString().slice(0,10), taskKey='lee-training-tasks-'+key, noteKey='lee-training-note-'+key;
+document.getElementById('dateLabel').textContent=today.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+const boxes=[...document.querySelectorAll('input[data-task]')];
+let saved={};try{saved=JSON.parse(localStorage.getItem(taskKey)||'{}')}catch(e){}
+boxes.forEach(b=>{b.checked=!!saved[b.dataset.task];b.addEventListener('change',saveTasks)});
+function saveTasks(){const o={};boxes.forEach(b=>o[b.dataset.task]=b.checked);localStorage.setItem(taskKey,JSON.stringify(o));updateProgress();updateStreak()}
+function updateProgress(){const n=boxes.filter(b=>b.checked).length;document.getElementById('todayDone').textContent=n+'/6';document.getElementById('bar').style.width=(n/6*100)+'%';document.getElementById('progressText').textContent=n===6?'今日完成。把今天最重要的判断留在下面。':n>=4?'已经过半，继续完成剩余关键项。':n>0?'已经开始，保持最小连续性。':'今天还没开始。先完成最小的一步。'}
+const note=document.getElementById('dailyNote');note.value=localStorage.getItem(noteKey)||'';
+document.getElementById('saveBtn').onclick=()=>{localStorage.setItem(noteKey,note.value.trim());const s=document.getElementById('saveStatus');s.textContent='已保存 ✓';setTimeout(()=>s.textContent='',1800)};
+document.getElementById('clearBtn').onclick=()=>{if(confirm('清空今天的打卡和记录？')){boxes.forEach(b=>b.checked=false);note.value='';localStorage.removeItem(taskKey);localStorage.removeItem(noteKey);updateProgress();updateStreak()}};
+function updateStreak(){let c=0,d=new Date();for(let i=0;i<365;i++){const k=d.toISOString().slice(0,10),raw=localStorage.getItem('lee-training-tasks-'+k);if(!raw)break;let o={};try{o=JSON.parse(raw)}catch(e){}const n=Object.values(o).filter(Boolean).length;if(n<4)break;c++;d.setDate(d.getDate()-1)}document.getElementById('streak').textContent=c}
+updateProgress();updateStreak();
+</script>
+</body>
+</html>
