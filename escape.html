@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lee｜365逃离计划</title>
+<style>
+:root{--bg:#f3f4f6;--paper:#fff;--ink:#172033;--muted:#7a8495;--line:#e5e8ee;--green:#234f42;--green2:#3e7964;--soft:#eaf2ed;--amber:#b87333;--red:#9b4b43}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}
+.wrap{max-width:1180px;margin:auto;padding:34px 20px 80px}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.eyebrow{font-size:12px;letter-spacing:.14em;color:#8b94a3}.top h1{font-size:40px;margin:6px 0 8px}.top p{margin:0;color:var(--muted)}.home{color:var(--green);text-decoration:none;font-weight:800;background:var(--soft);padding:10px 14px;border-radius:10px}
+.hero{margin-top:22px;background:linear-gradient(135deg,#173a30,#2b6653);color:white;border-radius:24px;padding:30px;box-shadow:0 18px 46px #0f172a16}.hero h2{margin:0 0 8px;font-size:28px}.hero p{max-width:820px;color:#dce8e2;margin:0}.quote{display:inline-block;margin-top:15px;padding:8px 12px;border:1px solid #ffffff2d;border-radius:999px;background:#ffffff10;font-weight:700}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.metric{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}.metric b{display:block;font-size:28px}.metric span{font-size:12px;color:var(--muted)}.progress{height:12px;background:#e9edf0;border-radius:999px;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green2));width:0}
+.section{margin-top:28px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:12px}.section-head h2{margin:0;font-size:21px}.section-head span{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.card{grid-column:span 6;background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px}.card.full{grid-column:1/-1}.card.third{grid-column:span 4}.card h3{margin:0 0 8px;font-size:17px}.card p{color:#4e5868;margin:6px 0}.tag{display:inline-block;background:var(--soft);color:var(--green);padding:4px 8px;border-radius:999px;font-size:12px;font-weight:800;margin:3px 5px 3px 0}
+.mainline{border-top:5px solid var(--green)}.sideline{border-top:5px solid #a9b0bc}.rule{border-left:4px solid var(--amber);background:#fff9f0;border-radius:0 12px 12px 0;padding:12px 14px;margin-top:12px}
+.stage{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid #edf0f3}.stage:last-child{border-bottom:0}.stage b{color:var(--green)}.stage small{color:var(--muted);display:block}
+.check{display:flex;gap:9px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #eef0f3}.check:last-child{border-bottom:0}.check input{margin-top:5px;width:17px;height:17px;accent-color:var(--green)}
+textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;resize:vertical;outline:none}textarea:focus{border-color:#9db9ad;box-shadow:0 0 0 3px #2f70551a}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}button{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.primary{background:var(--green);color:white}.secondary{background:var(--soft);color:var(--green)}.status{font-size:12px;color:var(--green2);align-self:center}
+footer{margin-top:44px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:800px){.countdown{grid-template-columns:repeat(2,1fr)}.card,.card.third{grid-column:1/-1}.top{flex-direction:column}.top h1{font-size:32px}.stage{grid-template-columns:1fr}.grid{display:block}.card{margin-bottom:12px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="top"><div><div class="eyebrow">LEE · 365 ESCAPE PLAN</div><h1>365逃离计划</h1><p>不是为了“逃离一家公司”，而是用365天换来更强的职业选择权。</p></div><a class="home" href="index.html">← 返回总入口</a></div>
+
+<section class="hero">
+  <h2>起点：2026.08.13　｜　目标日：2027.08.12</h2>
+  <p>这一年不以“熬满365天”为目标，而是把当前平台变成训练场：主线持续升级经营者能力，副线补齐长期生活与表达能力，最终做到即使离开当前平台，也拥有可迁移、可证明、可变现的职业资产。</p>
+  <div class="quote">真正要逃离的，是没有选择权的职业状态。</div>
+</section>
+
+<section class="countdown">
+  <div class="metric"><b id="daysLeft">—</b><span>剩余天数</span></div>
+  <div class="metric"><b id="daysDone">—</b><span>已走过</span></div>
+  <div class="metric"><b id="progressPct">—</b><span>365计划进度</span></div>
+  <div class="metric"><b id="targetLabel">2027.08.12</b><span>目标节点</span></div>
+</section>
+<div class="progress"><i id="progressBar"></i></div>
+
+<section class="section">
+  <div class="section-head"><h2>主线｜必须形成职业竞争力</h2><span>80%的精力优先押在这里</span></div>
+  <div class="grid">
+    <div class="card mainline">
+      <h3>01｜经营判断</h3>
+      <p>能定义核心问题、识别约束、区分事实/判断/假设，形成高质量经营结论。</p>
+      <span class="tag">定义问题</span><span class="tag">用户价值</span><span class="tag">因果判断</span>
+    </div>
+    <div class="card mainline">
+      <h3>02｜操盘与资源配置</h3>
+      <p>知道资源押哪里、何时加码、何时止损；用实验和领先指标降低经营不确定性。</p>
+      <span class="tag">资源配置</span><span class="tag">机会成本</span><span class="tag">增长质量</span>
+    </div>
+    <div class="card mainline">
+      <h3>03｜管理与组织</h3>
+      <p>从“自己做完”升级到“让Owner和机制稳定产出”，建立标准、权限、节点与升级机制。</p>
+      <span class="tag">授权</span><span class="tag">Owner</span><span class="tag">机制建设</span>
+    </div>
+    <div class="card mainline">
+      <h3>04｜表达与影响</h3>
+      <p>把复杂问题说简单，向上能推动决策，横向能协调资源，对下能讲清标准。</p>
+      <span class="tag">结论先行</span><span class="tag">证据</span><span class="tag">影响力</span>
+    </div>
+    <div class="card mainline">
+      <h3>05｜复盘与方法论</h3>
+      <p>把一次经历沉淀成可迁移规律，形成自己的案例库、判断原则和经营操作系统。</p>
+      <span class="tag">复盘</span><span class="tag">抽象能力</span><span class="tag">职业资产</span>
+    </div>
+    <div class="card mainline">
+      <h3>主线最终标准</h3>
+      <p><b>不是“会做抖音”，而是换品类、换平台、换公司后，仍然能快速看懂生意并带队拿结果。</b></p>
+      <div class="rule">主线如果没有真实业务证据，就不算升级。每个月至少新增1个可对外讲清楚的经营案例。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>副线｜让人生能力更完整</h2><span>保持连续，但不抢主线资源</span></div>
+  <div class="grid">
+    <div class="card sideline"><h3>英语</h3><p>商务沟通、真实工作表达、听说能力。目标是能用，而不是只背词。</p></div>
+    <div class="card sideline"><h3>AI</h3><p>把AI变成工作杠杆：研究、分析、自动化、内容、知识管理，不停留在Prompt。</p></div>
+    <div class="card sideline"><h3>摄影</h3><p>训练构图、光线、空间、画面审美，让视觉判断反哺内容与品牌。</p></div>
+    <div class="card sideline"><h3>剪辑</h3><p>形成个人视频表达能力，逐步做到可以独立完成简单拍摄与剪辑。</p></div>
+    <div class="card sideline"><h3>锻炼</h3><p>稳定体能、体型和精力，把身体作为长期经营能力的一部分。</p></div>
+    <div class="card sideline"><h3>辩论 · 读书</h3><p>辩论练结构和反驳，读书补认知与长期输入；最后都要形成自己的判断。</p></div>
+  </div>
+  <div class="rule"><b>副线原则：</b>不断线即可。主线遇到关键战役时，副线允许降档，但不允许长期归零。</div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>365天四阶段</h2><span>从行为改变到职业选择权</span></div>
+  <div class="card full">
+    <div class="stage"><div><b>Day 1–30</b><small>行为改变</small></div><div>说话更有结论，做事开始抓重点；开始授权、复盘和留下方法，不再只是“忙”。</div></div>
+    <div class="stage"><div><b>Day 31–90</b><small>负责人定型</small></div><div>能稳定拆目标、找约束、配置资源；形成2–3个完整经营案例，团队开始独立承担模块。</div></div>
+    <div class="stage"><div><b>Day 91–180</b><small>能力迁移</small></div><div>沉淀经营框架、管理机制、内容判断和复盘方法；验证这些能力不只适用于当前业务。</div></div>
+    <div class="stage"><div><b>Day 181–365</b><small>选择权形成</small></div><div>完善案例库、简历与个人表达，补商业/财务能力；理性评估留、走、转型或更大职责。</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>今天｜365计划打卡</h2><span id="todayLabel"></span></div>
+  <div class="grid">
+    <div class="card">
+      <h3>主线最低动作</h3>
+      <label class="check"><input type="checkbox" data-k="main-judgment"><span><b>形成1个经营判断</b><br><small>不是描述发生了什么，而是明确“所以我判断什么”。</small></span></label>
+      <label class="check"><input type="checkbox" data-k="main-action"><span><b>完成1次能力升级动作</b><br><small>授权、取舍、机制化、数据验证、向上影响，任选其一。</small></span></label>
+      <label class="check"><input type="checkbox" data-k="main-asset"><span><b>留下1个可沉淀资产</b><br><small>案例、SOP、规则、复盘、判断模型或作品。</small></span></label>
+    </div>
+    <div class="card">
+      <h3>副线最低动作</h3>
+      <label class="check"><input type="checkbox" data-k="sub-input"><span><b>完成1项学习输入</b><br><small>英语 / AI / 读书 / 辩论，任选一项。</small></span></label>
+      <label class="check"><input type="checkbox" data-k="sub-create"><span><b>完成1项表达或创作</b><br><small>摄影 / 剪辑 / 视频 / 写作，任选一项。</small></span></label>
+      <label class="check"><input type="checkbox" data-k="sub-body"><span><b>完成身体训练</b><br><small>骑行、力量、有氧或主动恢复。</small></span></label>
+    </div>
+    <div class="card full"><h3>今天，我离“有选择权”更近的一件事是什么？</h3><textarea id="escapeNote" placeholder="只写一件最重要的：今天形成了什么能力、资产或判断？"></textarea><div class="actions"><button class="primary" id="save">保存今日</button><button class="secondary" id="goTraining">去经营者成长打卡</button><span class="status" id="status"></span></div></div>
+  </div>
+</section>
+
+<footer>Lee 365 Escape Plan · 主线决定职业上限，副线决定人生宽度。</footer>
+</main>
+<script>
+const START=new Date('2026-08-13T00:00:00+08:00'),END=new Date('2027-08-12T23:59:59+08:00'),TOTAL=365;
+const now=new Date(),one=86400000;
+const elapsed=Math.max(0,Math.min(TOTAL,Math.floor((now-START)/one)+1)),left=Math.max(0,TOTAL-elapsed);
+const pct=Math.max(0,Math.min(100,elapsed/TOTAL*100));
+document.getElementById('daysLeft').textContent=left+'天';document.getElementById('daysDone').textContent=elapsed+'天';document.getElementById('progressPct').textContent=pct.toFixed(1)+'%';document.getElementById('progressBar').style.width=pct+'%';
+const localDate=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),key=localDate(now);
+document.getElementById('todayLabel').textContent=now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+let saved={};try{saved=JSON.parse(localStorage.getItem('lee-escape-'+key)||'{}')}catch(e){}
+document.querySelectorAll('input[data-k]').forEach(x=>{x.checked=!!saved[x.dataset.k];x.onchange=saveLocal});
+const note=document.getElementById('escapeNote');note.value=localStorage.getItem('lee-escape-note-'+key)||'';
+function saveLocal(){const o={};document.querySelectorAll('input[data-k]').forEach(x=>o[x.dataset.k]=x.checked);localStorage.setItem('lee-escape-'+key,JSON.stringify(o))}
+document.getElementById('save').onclick=()=>{saveLocal();localStorage.setItem('lee-escape-note-'+key,note.value.trim());document.getElementById('status').textContent='已保存 ✓';setTimeout(()=>document.getElementById('status').textContent='',1800)};
+document.getElementById('goTraining').onclick=()=>location.href='training.html';
+</script>
+</body></html>
