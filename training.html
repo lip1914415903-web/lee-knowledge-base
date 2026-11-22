@@ -123,6 +123,83 @@ function assets(){const box=$('assetList');box.replaceChildren();if(!state.asset
 $('addAsset').onclick=()=>{const title=$('assetTitle').value.trim(),content=$('assetContent').value.trim();if(!title||!content){$('assetMessage').textContent='请填写标题和内容。';return}if(save(s=>s.assets.push({title,content,date:today,category:$('category').value,feedback:$('assetFeedback').value,revision:$('assetRevision').value}),'assetMessage')){for(const k of ['assetTitle','assetContent','assetFeedback','assetRevision'])$(k).value='';$('assetMessage').textContent='已保存。';assets()}};
 $('export').onclick=()=>{const a=el('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.download='365-training-'+today+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 $('import').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const incoming=JSON.parse(await f.text());if(!incoming||typeof incoming.checkins!=='object'||!incoming.checkins||typeof incoming.reviews!=='object'||!Array.isArray(incoming.assets))throw Error('格式不正确');if(!confirm('将备份中的作业、复盘与作品合并到本设备？同日期作业以备份内容为准，新版决策记录按ID合并。'))return;if(save(s=>{Object.assign(s.checkins,incoming.checkins);Object.assign(s.reviews,incoming.reviews);if(Array.isArray(incoming.decisions)){s.decisions??=[];const ids=new Set(s.decisions.map(d=>d.id));for(const d of incoming.decisions){if(d&&d.id&&!ids.has(d.id)){s.decisions.push(d);ids.add(d.id)}}}if(!s.project&&typeof incoming.project==='string')s.project=incoming.project;const byId=new Map(s.assets.map((a,i)=>[a.id||a.title+'|'+a.date,i]));for(const a of incoming.assets){const k=a.id||a.title+'|'+a.date;if(byId.has(k))s.assets[byId.get(k)]=a;else{s.assets.push(a);byId.set(k,s.assets.length-1)}}},'importMessage')){$('importMessage').textContent='导入成功，正在刷新页面。';location.reload()}}catch{$('importMessage').textContent='导入失败：请使用本训练台导出的JSON备份。'}finally{e.target.value=''}};
+
+let editingDecisionId=null;
+const dFields=['dTitle','dType','dScope','dContext','dChoice','dEvidence','dForecast','dAction','dReviewAt','dOutcome','dReviewEvidence','dFeedback','dLearning'];
+const isClosed=d=>Boolean(d.dOutcome&&d.dReviewEvidence&&d.dLearning);
+const isReal=d=>d.dScope==='独立决定'||d.dScope==='共同决策';
+function resetDecision(){
+ editingDecisionId=null;dFields.forEach(id=>{const e=$(id);e.value=e.tagName==='SELECT'?e.options[0].value:''});
+ $('dFormTitle').textContent='记录一项真实经营判断';$('saveDecision').textContent='保存这项决策';$('dMessage').textContent='';
+}
+function editDecision(id){
+ const d=(state.decisions||[]).find(x=>x.id===id);if(!d)return;
+ editingDecisionId=id;
+ dFields.forEach(k=>{$(k).value=d[k]||($(k).tagName==='SELECT'?$(k).options[0].value:'')});
+ $('dFormTitle').textContent='继续填写：'+d.dTitle;
+ $('saveDecision').textContent='更新这条记录';
+ $('dMessage').textContent='事前预测应保持原样。如果修改，请在复盘中注明调整时间和原因。';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+$('newDecision').onclick=resetDecision;
+$('saveDecision').onclick=()=>{
+ const v={};dFields.forEach(k=>v[k]=$(k).value.trim());
+ if(!v.dTitle||!v.dContext||!v.dChoice||!v.dEvidence||!v.dForecast||!v.dAction||!v.dReviewAt){
+ $('dMessage').textContent='请先填写题目、背景、选择、证据、事前预测、行动和复核日期。实际结果可以以后补。';return}
+ if(save(s=>{
+  s.decisions??=[];
+  if(editingDecisionId){
+   const i=s.decisions.findIndex(x=>x.id===editingDecisionId);
+   if(i<0)throw Error('找不到原记录');
+   s.decisions[i]={...s.decisions[i],...v,updatedAt:new Date().toISOString()}
+  }else{
+   s.decisions.push({...v,id:'d'+Date.now()+'_'+Math.random().toString(36).slice(2,8),date:today,project:s.project,createdAt:new Date().toISOString()});
+  }
+ },'dMessage')){
+   $('dMessage').textContent=isClosed(v)?'已保存结果与复盘（仍需真实证据核验）':'已保存事前判断，待真实验证。';
+   renderDecisions();
+ }
+};
+function renderDecisions(){
+ const box=$('decisionList');box.replaceChildren();
+ const arr=[...(state.decisions||[])].reverse();
+ if(!arr.length){box.append(el('p','暂无经营决策日志。先记录一项真实判断，保留事前证据与预测。'));return}
+ for(const d of arr){
+  const card=el('div');card.className='decision-entry';
+  const detail=el('details');detail.append(el('summary',d.dTitle+' · '+(isClosed(d)?'已填复盘':'待验证')+' · '+d.dScope));
+  for(const [k,label] of [['date','记录日期'],['dType','案例类型'],['dContext','目标与约束'],['dChoice','选择与备选'],['dEvidence','事前证据'],['dForecast','事前预测'],['dAction','行动'],['dReviewAt','复核日期'],['dOutcome','实际结果'],['dReviewEvidence','结果证据'],['dFeedback','外部反馈'],['dLearning','下次改进']])line(detail,label,d[k]);
+  const btn=el('button',isClosed(d)?'查看或继续补充':'填写实际结果 / 编辑');
+  btn.onclick=()=>{editDecision(d.id);location.hash='decisions'};
+  card.append(detail,btn);box.append(card);
+ }
+}
+function renderEvidence(){
+ const all=state.decisions||[];
+ const closed=all.filter(isClosed),real=closed.filter(isReal);
+ const realBusiness=real.filter(d=>d.dType==='经营决策');
+ const withFeedback=closed.filter(d=>d.dFeedback);
+ const cross=closed.filter(d=>d.dType==='跨部门协作'&&d.dFeedback);
+ const stats=[['真实决策闭环',realBusiness.length],['有外部反馈',withFeedback.length],['跨部门验证',cross.length]];
+ $('evidenceStats').replaceChildren(...stats.map(x=>{const card=el('div');card.className='stat';card.append(el('b',x[1]),el('span',x[0]));return card}));
+ const hasDefense=state.assets.some(a=>a.category==='年度答辩'&&a.revision)||Object.values(state.checkins).some(r=>r.session?.title?.includes('5分钟')&&r.session.status==='done');
+ const checkpoints=[
+ ['3次重要经营判断复盘',closed.filter(d=>d.dType==='经营决策').length>=3],
+ ['一次写明实际决策权的事前预测',all.some(d=>isReal(d)&&d.dForecast&&d.dAction)],
+ ['一项已填写真实结果的经营决策',realBusiness.length>=1],
+ ['一次跨部门协作并收到具体反馈',cross.length>=1],
+ ['5分钟年度经营答辩',hasDefense]
+ ];
+ $('evidenceChecks').replaceChildren(...checkpoints.map(x=>el('p',(x[1]?'✓ 有对应记录 · ':'○ 暂无完整记录 · ')+x[0])));
+ const notes=[];
+ if(!all.length)notes.push('缺少事前决策记录；优先记录一项自己真正参与决定的事情。');
+ const pending=all.filter(x=>!isClosed(x)).length;
+ if(pending)notes.push('有'+pending+'项判断尚未填写实际结果、证据或复盘。');
+ if(!withFeedback.length)notes.push('尚无外部反馈记录；可向协作方或主管征求对具体行为的反馈。');
+ if(!all.some(isReal))notes.push('还没有记录独立或共同决策权；可以争取一个范围可控的小决定。');
+ if(!notes.length)notes.push('已有基础记录，下一阶段请检查事前判断偏差，而非只追求案例数量。');
+ $('evidenceGaps').replaceChildren(...notes.map(n=>el('p',n)));
+}
+
 function route(){const hash=location.hash.slice(1),id=['calendar','abilities','assets','roadmap','decisions','evidence'].includes(hash)?hash:hash==='speech'?'abilities':'today';document.querySelectorAll('[data-page]').forEach(e=>e.hidden=e.id!==id);document.querySelectorAll('nav a').forEach(a=>{if(a.hash==='#'+id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(id==='calendar'){calendar();reviews()}if(id==='abilities')abilityList();if(id==='assets')assets();if(id==='decisions')renderDecisions();if(id==='evidence')renderEvidence();if(hash==='sprint')$('sprint').open=true;scrollTo(0,0)}
 addEventListener('hashchange',route);metrics();route();
 </script></html>
