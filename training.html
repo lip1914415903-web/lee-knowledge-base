@@ -128,17 +128,18 @@ let editingDecisionId=null;
 const dFields=['dTitle','dType','dScope','dContext','dChoice','dEvidence','dForecast','dAction','dReviewAt','dOutcome','dReviewEvidence','dFeedback','dLearning'];
 const isClosed=d=>Boolean(d.dOutcome&&d.dReviewEvidence&&d.dLearning);
 const isReal=d=>d.dScope==='独立决定'||d.dScope==='共同决策';
+const baselineFields=['dTitle','dType','dScope','dContext','dChoice','dEvidence','dForecast','dAction','dReviewAt'];
 function resetDecision(){
- editingDecisionId=null;dFields.forEach(id=>{const e=$(id);e.value=e.tagName==='SELECT'?e.options[0].value:''});
+ editingDecisionId=null;dFields.forEach(id=>{const e=$(id);e.value=e.tagName==='SELECT'?e.options[0].value:'';e.disabled=false});
  $('dFormTitle').textContent='记录一项真实经营判断';$('saveDecision').textContent='保存这项决策';$('dMessage').textContent='';
 }
 function editDecision(id){
  const d=(state.decisions||[]).find(x=>x.id===id);if(!d)return;
  editingDecisionId=id;
- dFields.forEach(k=>{$(k).value=d[k]||($(k).tagName==='SELECT'?$(k).options[0].value:'')});
+ dFields.forEach(k=>{$(k).value=d[k]||($(k).tagName==='SELECT'?$(k).options[0].value:'');$(k).disabled=baselineFields.includes(k)});
  $('dFormTitle').textContent='继续填写：'+d.dTitle;
  $('saveDecision').textContent='更新这条记录';
- $('dMessage').textContent='事前预测应保持原样。如果修改，请在复盘中注明调整时间和原因。';
+ $('dMessage').textContent='原始判断和预测已锁定，避免事后重写；你可以补充实际结果、外部反馈与复盘。';
  window.scrollTo({top:0,behavior:'smooth'});
 }
 $('newDecision').onclick=resetDecision;
@@ -151,7 +152,9 @@ $('saveDecision').onclick=()=>{
   if(editingDecisionId){
    const i=s.decisions.findIndex(x=>x.id===editingDecisionId);
    if(i<0)throw Error('找不到原记录');
-   s.decisions[i]={...s.decisions[i],...v,updatedAt:new Date().toISOString()}
+   const original=s.decisions[i];
+   const outcomes={dOutcome:v.dOutcome,dReviewEvidence:v.dReviewEvidence,dFeedback:v.dFeedback,dLearning:v.dLearning};
+   s.decisions[i]={...original,...outcomes,updatedAt:new Date().toISOString()};
   }else{
    s.decisions.push({...v,id:'d'+Date.now()+'_'+Math.random().toString(36).slice(2,8),date:today,project:s.project,createdAt:new Date().toISOString()});
   }
