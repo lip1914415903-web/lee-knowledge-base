@@ -127,10 +127,10 @@ if(existing){for(const k of ['attempt','feedback','revision'])$(k).value=existin
 function mode(){return document.querySelector('input[name=mode]:checked').value}
 function updateMode(){$('shortHint').hidden=mode()!=='short'}document.querySelectorAll('input[name=mode]').forEach(x=>x.onchange=updateMode);updateMode();
 $('start').onclick=()=>{$('editor').hidden=false;$('start').hidden=true;$('attempt').focus()};
-$('copy').onclick=()=>clipboard('开始365陪练。当前真实项目：'+state.project+'。题目：'+task[1]+'。交付：'+task[2]+'。具体问题：'+questionsFor(task).map((q,i)=>(i+1)+'、'+q).join('；')+'。标准：'+task[3]+'。请先让我做第一版，指出一个关键改动，再让我重做。','todayMessage');
+$('copy').onclick=()=>clipboard('开始365陪练。当前真实项目：'+state.project+'。题目：'+task[1]+'。交付：'+task[2]+'。具体问题：'+questionsFor(task).map((q,i)=>(i+1)+'、'+q).join('；')+'。标准：'+task[3]+'。请先让我做第一版，重点判断用户证据真实性、需求推理和商业验证；只指出一个关键改动，再让我重做。','todayMessage');
 function saveToday(done){const v=Object.fromEntries(['attempt','feedback','revision'].map(k=>[k,$(k).value.trim()]));if(!v.attempt||(done&&(!v.feedback||!v.revision))){$('todayMessage').textContent=done?'归档前请记录初版、反馈和改动。':'请先留下初版，再保存部分完成。';return}if(!done&&state.checkins[today]?.session?.status==='done'){$('todayMessage').textContent='今天已归档；如有更新，请用「完成并归档」。';return}
 if(save(s=>{const r=s.checkins[today]||{};s.checkins[today]={...r,session:{...v,mode:mode(),status:done?'done':'partial',title:task[1],ability:task[0]}};if(done){const asset={...v,id:'training:'+today,title:task[1],date:today,category:task[4],content:v.attempt};const i=s.assets.findIndex(x=>x.id===asset.id);if(i<0)s.assets.push(asset);else s.assets[i]=asset}},'todayMessage')){$('todayMessage').textContent=done?'已归档，可在日历和作品查看。':'已保存为部分完成。';metrics()}}
-$('sendCoach').onclick=()=>{const answer=$('attempt').value.trim();if(!answer){$('todayMessage').textContent='请先写下第一版回答。';return}saveToday(false);const prompt='请担任我的365逃离计划2.0严格经营教练。当前真实项目：'+state.project+'。日期：'+today+'。训练题目：'+task[1]+'。唯一交付：'+task[2]+'。完成标准：'+task[3]+'。具体问题：'+questionsFor(task).map((q,i)=>(i+1)+'、'+q).join('；')+'。\\n我的回答：\\n'+answer+'\\n请先判断我的逻辑、证据、隐藏假设、机会成本和决策可执行性；指出最重要的一个问题，并给出具体修改要求。不要自动宣称作业完成。';window.open('https://chatgpt.com/','_blank','noopener');if(navigator.clipboard?.writeText){navigator.clipboard.writeText(prompt).then(()=>{$('todayMessage').textContent='内容已复制，请到ChatGPT窗口粘贴发送；点评后复制回这里。'},()=>{$('todayMessage').textContent='复制失败，请手动复制题目和回答。'})}else{$('todayMessage').textContent='此浏览器不支持复制，请手动复制题目和回答。'}};
+$('sendCoach').onclick=()=>{const answer=$('attempt').value.trim();if(!answer){$('todayMessage').textContent='请先写下第一版回答。';return}saveToday(false);const prompt='请担任我的365逃离计划2.0严格经营教练。当前真实项目：'+state.project+'。日期：'+today+'。训练题目：'+task[1]+'。唯一交付：'+task[2]+'。完成标准：'+task[3]+'。具体问题：'+questionsFor(task).map((q,i)=>(i+1)+'、'+q).join('；')+'。\\n我的回答：\\n'+answer+'\\n请围绕用户真实场景、访谈是否诱导、事实与推测、替代方案、产品价值和商业可行性进行严格点评。只挑最关键的一个漏洞，给出下一版具体修改要求；不能编造用户证据、商业结果或自动宣称完成。';window.open('https://chatgpt.com/','_blank','noopener');if(navigator.clipboard?.writeText){navigator.clipboard.writeText(prompt).then(()=>{$('todayMessage').textContent='内容已复制，请到ChatGPT窗口粘贴发送；点评后复制回这里。'},()=>{$('todayMessage').textContent='复制失败，请手动复制题目和回答。'})}else{$('todayMessage').textContent='此浏览器不支持复制，请手动复制题目和回答。'}};
 $('finish').onclick=()=>saveToday(true);$('draft').onclick=()=>saveToday(false);
 let selected=today,month=utc(today.slice(0,7)+'-01');
 function detail(){const out=$('dayDetail'),r=state.checkins[selected],sess=r?.session;out.replaceChildren(el('h3',selected+' · '+(selected>today?'未来日期':status(selected,r))));if(sess){line(out,'题目',sess.title);line(out,'初版',sess.attempt);line(out,'反馈',sess.feedback);line(out,'改动',sess.revision)}if(r){line(out,'历史训练',r.completed?.map(k=>abilities.find(a=>a[0]===k)?.[1]||k).join('、'));line(out,'当日收获',r.reflection);line(out,'状态备注',r.energy)}else if(selected<=today)out.append(el('p','这一天没有训练记录。'))}
@@ -199,30 +199,32 @@ function renderDecisions(){
  }
 }
 function renderEvidence(){
- const all=state.decisions||[];
- const closed=all.filter(isClosed),real=closed.filter(isReal);
- const realBusiness=real.filter(d=>d.dType==='经营决策');
- const withFeedback=closed.filter(d=>d.dFeedback);
- const cross=closed.filter(d=>d.dType==='跨部门协作'&&d.dFeedback);
- const stats=[['真实决策闭环',realBusiness.length],['有外部反馈',withFeedback.length],['跨部门验证',cross.length]];
- $('evidenceStats').replaceChildren(...stats.map(x=>{const card=el('div');card.className='stat';card.append(el('b',x[1]),el('span',x[0]));return card}));
- const hasDefense=state.assets.some(a=>a.category==='年度答辩'&&a.revision)||Object.values(state.checkins).some(r=>r.session?.title?.includes('5分钟')&&r.session.status==='done');
- const checkpoints=[
- ['3次重要经营判断复盘',closed.filter(d=>d.dType==='经营决策').length>=3],
- ['一次写明实际决策权的事前预测',all.some(d=>isReal(d)&&d.dForecast&&d.dAction)],
- ['一项已填写真实结果的经营决策',realBusiness.length>=1],
- ['一次跨部门协作并收到具体反馈',cross.length>=1],
- ['5分钟年度经营答辩',hasDefense]
+ const decisions=state.decisions||[],assets=state.assets||[];
+ const count=category=>assets.filter(a=>a.category===category).length;
+ const closed=decisions.filter(isClosed);
+ const validScope=d=>d.dScope==='独立决定'||d.dScope==='共同决策';
+ const validations=closed.filter(d=>validScope(d)&&['经营决策','用户需求验证','产品策略'].includes(d.dType));
+ const feedback=closed.filter(d=>d.dFeedback);
+ const stats=[['洞察作品归档',count('需求洞察')+count('用户研究')],['产品方案归档',count('产品策略')],['验证结果回写',validations.length]];
+ $('evidenceStats').replaceChildren(...stats.map(([label,value])=>{const c=el('div');c.className='stat';c.append(el('b',value),el('span',label));return c}));
+ const hasDefense=assets.some(a=>a.category==='年度答辩'&&a.revision)||Object.values(state.checkins).some(r=>r.session?.title?.includes('5分钟')&&r.session.status==='done');
+ const checks=[
+ ['用户问题卡已归档（来源质量待人工检查）',count('需求洞察')>=1],
+ ['访谈／用户研究记录已归档（不能用个例推断整体）',count('用户研究')>=1],
+ ['一份产品策略方案已经根据反馈修改',assets.some(a=>a.category==='产品策略'&&a.revision)],
+ ['有事前预测、明确复核日期的业务验证记录',decisions.some(d=>d.dForecast&&d.dReviewAt&&['经营决策','用户需求验证','产品策略'].includes(d.dType))],
+ ['一次真实结果与事前预测的对照复盘',validations.length>=1],
+ ['一份5分钟年度经营答辩',hasDefense]
  ];
- $('evidenceChecks').replaceChildren(...checkpoints.map(x=>el('p',(x[1]?'✓ 有对应记录 · ':'○ 暂无完整记录 · ')+x[0])));
+ $('evidenceChecks').replaceChildren(...checks.map(([name,ok])=>el('p',(ok?'✓ 已有对应记录 · ':'○ 尚缺记录 · ')+name)));
  const notes=[];
- if(!all.length)notes.push('缺少事前决策记录；优先记录一项自己真正参与决定的事情。');
- const pending=all.filter(x=>!isClosed(x)).length;
- if(pending)notes.push('有'+pending+'项判断尚未填写实际结果、证据或复盘。');
- if(!withFeedback.length)notes.push('尚无外部反馈记录；可向协作方或主管征求对具体行为的反馈。');
- if(!all.some(isReal))notes.push('还没有记录独立或共同决策权；可以争取一个范围可控的小决定。');
- if(!notes.length)notes.push('已有基础记录，下一阶段请检查事前判断偏差，而非只追求案例数量。');
- $('evidenceGaps').replaceChildren(...notes.map(n=>el('p',n)));
+ if(!count('需求洞察'))notes.push('先记录一条真实用户现象，再区分事实与个人假设。');
+ if(!count('用户研究'))notes.push('缺少用户研究过程记录。可以使用授权的匿名评论或客服材料，切勿伪造访谈。');
+ if(!count('产品策略'))notes.push('尚缺基于用户需求的产品/经营方案取舍。');
+ if(decisions.some(d=>!isClosed(d)))notes.push('有'+decisions.filter(d=>!isClosed(d)).length+'项经营判断还没有真实结果与复盘。');
+ if(!feedback.length)notes.push('尚无外部反馈记录；今后可争取产研、品牌或用户的具体反馈。');
+ if(!notes.length)notes.push('记录覆盖已有基础，下一步核对证据质量、因果归因与长期稳定性。');
+ $('evidenceGaps').replaceChildren(...notes.map(x=>el('p',x)));
 }
 
 function route(){const hash=location.hash.slice(1),id=['calendar','abilities','assets','roadmap','decisions','evidence'].includes(hash)?hash:hash==='speech'?'abilities':'today';document.querySelectorAll('[data-page]').forEach(e=>e.hidden=e.id!==id);document.querySelectorAll('nav a').forEach(a=>{if(a.hash==='#'+id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(id==='calendar'){calendar();reviews()}if(id==='abilities')abilityList();if(id==='assets')assets();if(id==='decisions')renderDecisions();if(id==='evidence')renderEvidence();if(hash==='sprint')$('sprint').open=true;scrollTo(0,0)}
