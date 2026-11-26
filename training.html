@@ -5,7 +5,7 @@
 .project-hero{background:#edf2ea;border:1px solid #d7e2d5;border-radius:13px;padding:20px 23px;margin:15px 0}.project-hero h2{font-size:21px;margin:6px 0}.statbox{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#f3f5ef;border-radius:9px;padding:12px}.stat b{display:block;font-size:23px}.decision-entry{background:var(--white);border:1px solid var(--line);padding:16px;margin-top:12px;border-radius:10px}.decision-entry p{white-space:pre-wrap;overflow-wrap:anywhere}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.mini-note{background:#f4f5ef;padding:13px 16px;border-radius:9px;margin:17px 0}@media(max-width:550px){.statbox,.grid2{grid-template-columns:1fr}nav{gap:12px;font-size:13px;overflow-x:auto;white-space:nowrap}}#cloudPanel{border:1px solid #d7e2d5;background:#f1f5ed;border-radius:12px;margin-top:18px;margin-bottom:4px;padding:12px 17px}#cloudPanel>summary{font-weight:700}#cloudPanel>summary small{margin-left:10px;font-weight:400}#cloudPanel .cloud-inner{padding-top:12px}#cloudPanel .cloud-actions{margin-top:12px}.cloud-input{max-width:360px}#cloudPanel input{background:var(--white)}#cloudStatus{font-size:12px}#cloudMessage{white-space:pre-wrap;font-size:13px}#cloudConflict{border-top:1px solid var(--line);margin-top:13px;padding-top:12px}[hidden]{display:none!important}</style>
 <header><div class="wrap"><div class="top"><b>365逃离计划 2.1</b><a href="index.html">知识库总入口</a></div><nav aria-label="训练导航"><a href="#today">今天</a><a href="#decisions">决策</a><a href="#evidence">证据</a><a href="#calendar">日历</a><a href="#abilities">能力</a><a href="#roadmap">路线</a><a href="#assets">作品</a></nav></div></header>
 <main class="wrap"><details id="cloudPanel"><summary>☁ 云端账号与同步 <small id="cloudStatus">正在初始化…</small></summary><div class="cloud-inner"><p class="muted">先登录，作业、项目、决策记录、复盘和作品才可以同步到其他设备。本机原记录不会因登录而删除。</p><div id="cloudLogin"><div class="grid2"><label class="field">邮箱<input id="cloudEmail" class="cloud-input" type="email" autocomplete="email" placeholder="你的登录邮箱"></label><label class="field">密码<input id="cloudPassword" class="cloud-input" type="password" autocomplete="current-password" placeholder="至少6位，建议使用独立强密码"></label></div><div class="row cloud-actions"><button id="cloudSignIn" class="primary">登录云端账号</button><button id="cloudSignUp">注册账号</button><button id="cloudMagic">发送邮箱登录链接</button></div><p class="muted">首次注册可能需要邮件验证；邮箱登录链接需要在Supabase项目中配置网站的允许回跳地址。</p></div><div id="cloudLogged" hidden><p>已登录：<strong id="cloudAccount"></strong></p><div class="row"><button id="cloudSyncNow" class="primary">立即同步</button><button id="cloudSignOut">退出登录</button></div><p class="muted">已登录期间，本地作业变更会尝试自动同步；跨设备冲突会暂停，不会静默覆盖。</p></div><div id="cloudConflict" hidden><p><b>发现跨设备记录冲突</b>：同一条内容在本机和云端都发生变化。请先到「作品」导出本机备份，再决定保留哪一版。</p><div class="row"><button id="cloudPreferLocal">冲突时采用本机</button><button id="cloudPreferRemote">冲突时采用云端</button></div></div><p id="cloudMessage" role="status"></p><p class="muted">仅发布密钥保存在网页；数据库使用账号级访问控制。敏感公司信息请先脱敏。目前AI仍通过ChatGPT独立点评，尚未接入自动批改。</p></div></details>
-<section id="today" data-page><div class="intro"><p class="eyebrow" id="todayDate"></p><h1>今日训练</h1><p class="muted">立足被子品类Owner岗位，以理解用户、产品判断和经营结果证明成长，不以管理人数为目标。</p></div><div class="project-hero"><p class="eyebrow">本阶段真实经营项目</p><h2>从用户问题，到产品价值，再到生意增量</h2><label class="field">当前主线项目<input id="projectTitle" type="text" maxlength="140" value="2027年被子业务增量，从哪里来？"></label><div class="row spaced"><button id="saveProject">保存主线</button><small id="projectMessage" role="status"></small></div><p id="weeklyGoal"></p></div><article class="sheet"><p class="eyebrow" id="weeklyTitle"></p><p class="eyebrow" id="focus"></p><h2 id="question"></h2><p id="deliverable"></p><div class="rule"><h3>今天具体回答的问题</h3><ol id="guidedQuestions" style="padding-left:22px;line-height:1.9"></ol></div><p class="muted" id="criteria"></p><fieldset style="border:0;padding:0;margin:16px 0 10px"><legend class="muted">选择时长</legend><div class="row"><label><input type="radio" name="mode" value="standard" checked> 标准 25–35 分钟</label><label><input type="radio" name="mode" value="short"> 保底 10 分钟</label></div></fieldset><p id="shortHint" class="muted" hidden>先完成一版简短交付，记录一个待改点；没拿到反馈或没重做，先存为部分完成。</p><button id="start" class="primary">开始训练</button><div id="editor" class="rule" hidden><p class="flow">先做 → 拿反馈 → 改一遍 → 归档</p><p class="muted">先完成下面的作业：登录后可点AI自动点评（需要服务端配置AI密钥），或交给ChatGPT手动点评。无论哪种方式，最终都要根据反馈修改。</p><label class="field">第一版：我的回答<textarea id="attempt" rows="11" placeholder="按上面的5个问题依次作答，可以直接写1、2、3、4、5。"></textarea></label><div class="row spaced"><button class="primary" id="autoCoach">AI自动点评（需登录）</button><button id="sendCoach">交给ChatGPT点评</button><button id="copy">复制陪练指令</button></div><label class="field">收到的反馈<textarea id="feedback" placeholder="把教练的点评粘贴在这里"></textarea></label><label class="field">第二版：我改了什么<textarea id="revision"></textarea></label><div class="row spaced"><button class="primary" id="finish">完成并归档</button><button id="draft">保存部分完成</button></div><p id="todayMessage" role="status"></p></div></article><div class="meta" id="metrics"></div><p class="mini-note"><b>真实工作闭环：</b>先记录事前判断 → 推动执行 → 到复核日期填写真实结果 → 总结偏差。<a href="#decisions">打开经营决策日志</a></p><details id="sprint"><summary>当前计划 · 用户驱动经营</summary><p>11/26–12/2发现用户问题；12/3–12/9验证需求；12/10–12/18形成产品/经营方案；12/19–12/31小规模验证、复盘与答辩。</p><p>12/31验收：一份脱敏用户洞察、一份有取舍的产品/增长方案、一次实际验证或明确待验证事项，以及5分钟经营答辩。不为了作业接触未经授权的用户数据。</p></details></section>
+<section id="today" data-page><div class="intro"><p class="eyebrow" id="todayDate"></p><h1>今日训练</h1><p class="muted">立足被子品类Owner岗位，以理解用户、产品判断和经营结果证明成长，不以管理人数为目标。</p></div><div class="project-hero"><p class="eyebrow">本阶段真实经营项目</p><h2>从用户问题，到产品价值，再到生意增量</h2><label class="field">当前主线项目<input id="projectTitle" type="text" maxlength="140" value="2027年被子业务增量，从哪里来？"></label><div class="row spaced"><button id="saveProject">保存主线</button><small id="projectMessage" role="status"></small></div><p id="weeklyGoal"></p></div><article class="sheet"><p class="eyebrow" id="weeklyTitle"></p><p class="eyebrow" id="focus"></p><h2 id="question"></h2><p id="deliverable"></p><div class="rule"><h3>今天具体回答的问题</h3><ol id="guidedQuestions" style="padding-left:22px;line-height:1.9"></ol></div><p class="muted" id="criteria"></p><fieldset style="border:0;padding:0;margin:16px 0 10px"><legend class="muted">选择时长</legend><div class="row"><label><input type="radio" name="mode" value="standard" checked> 标准 25–35 分钟</label><label><input type="radio" name="mode" value="short"> 保底 10 分钟</label></div></fieldset><p id="shortHint" class="muted" hidden>先完成一版简短交付，记录一个待改点；没拿到反馈或没重做，先存为部分完成。</p><button id="start" class="primary">开始训练</button><div id="editor" class="rule" hidden><p class="flow">先做 → 拿反馈 → 改一遍 → 归档</p><p class="muted">先完成下面的作业：登录后可点AI自动点评（需要服务端配置AI密钥），或交给ChatGPT手动点评。无论哪种方式，最终都要根据反馈修改。</p><label class="field">第一版：我的回答<textarea id="attempt" rows="11" placeholder="按上面的4个问题回答；没有实际证据就写待验证，不需要编造。"></textarea></label><div class="row spaced"><button class="primary" id="autoCoach">AI自动点评（需登录）</button><button id="sendCoach">交给ChatGPT点评</button><button id="copy">复制陪练指令</button></div><label class="field">收到的反馈<textarea id="feedback" placeholder="把教练的点评粘贴在这里"></textarea></label><label class="field">第二版：我改了什么<textarea id="revision"></textarea></label><div class="row spaced"><button class="primary" id="finish">完成并归档</button><button id="draft">保存部分完成</button></div><p id="todayMessage" role="status"></p></div></article><div class="meta" id="metrics"></div><p class="mini-note"><b>真实工作闭环：</b>先记录事前判断 → 推动执行 → 到复核日期填写真实结果 → 总结偏差。<a href="#decisions">打开经营决策日志</a></p><details id="sprint"><summary>当前计划 · 用户驱动经营</summary><p>11/26–12/2发现用户问题；12/3–12/9验证需求；12/10–12/18形成产品/经营方案；12/19–12/31小规模验证、复盘与答辩。</p><p>12/31验收：一份脱敏用户洞察、一份有取舍的产品/增长方案、一次实际验证或明确待验证事项，以及5分钟经营答辩。不为了作业接触未经授权的用户数据。</p></details></section>
 <section id="roadmap" data-page hidden><div class="intro"><h1>成长路线</h1><p class="muted">工作主线不变：被子品类经营。用户洞察和产品理解优先，经营、财务和增长是基本功，协同是推动结果的工具。</p></div><article class="sheet"><h2>2026 · 用户需求驱动的增长探索</h2><p><b>11/26—12/02｜找真问题</b>：选一个被子用户群体，收集脱敏原话、辨认场景与需求假设。</p><p><b>12/03—12/09｜验证需求</b>：学会非诱导式访谈，结合客服、评价与行为数据，寻找反证。</p><p><b>12/10—12/18｜形成方案</b>：比较产品升级、商品组合、价值表达和人群触达，明确商业可行性。</p><p><b>12/19—12/31｜验证与复盘</b>：推动最小成本测试或记录客观障碍，形成2027年计划与5分钟答辩。</p><div class="rule"><h2>2027 · 四个季度</h2><p><b>Q1 用户洞察</b>：访谈、用户场景、需求判断；完成2个有多来源证据的用户问题档案。</p><p><b>Q2 产品与品类策略</b>：产品定位、需求优先级、货品矩阵、利润判断；完成1份产品机会方案。</p><p><b>Q3 增长与经营效率</b>：转化、复购、投放与实验；推动2个有事前预测的业务验证。</p><p><b>Q4 完整品类经营</b>：用户→产品→增长→盈利的年度经营方案与答辩，必要的组织协同为经营服务。</p></div><p class="muted">每周只解决一个有价值的用户/经营问题，每月做证据验收。未验证不冒充成果；不补课，也不以连续打卡数定义成长。</p></article></section>
 <section id="decisions" data-page hidden><div class="intro"><h1>经营决策日志</h1><p class="muted">记录真实决策权、事前预测和实际结果。没有结果证据的案例不计算为决策闭环。</p></div><article class="sheet"><h2 id="dFormTitle">记录一项真实经营判断</h2><p class="muted">请使用脱敏信息，避免填写公司机密或客户隐私。先记录事前判断，结果可以以后补。</p><label class="field">决策题目<input id="dTitle" type="text" placeholder="例如：下一轮预算优先支持哪个增长动作？"></label><div class="grid2"><label class="field">案例类型<select id="dType"><option>经营决策</option><option>用户需求验证</option><option>产品策略</option><option>跨部门协作</option><option>团队授权</option><option>跨行业分析</option></select></label><label class="field">我的实际决策权<select id="dScope"><option>独立决定</option><option>共同决策</option><option>仅提出建议</option><option>按要求执行</option></select></label></div><label class="field">目标与约束<textarea id="dContext" placeholder="目标是什么？有哪些资源、时间、权限限制？"></textarea></label><label class="field">我的选择与备选方案<textarea id="dChoice" placeholder="选择什么、不选什么、机会成本是什么？"></textarea></label><label class="field">事前证据与关键未知<textarea id="dEvidence" placeholder="哪些是事实，哪些是推测？"></textarea></label><label class="field">事前预测、验证指标和止损条件<textarea id="dForecast" placeholder="预期会发生什么？怎样验证或推翻？"></textarea></label><label class="field">下一步行动与负责人<textarea id="dAction" placeholder="谁来做、做什么？"></textarea></label><label class="field">复核日期<input id="dReviewAt" type="date"></label><details><summary>有真实结果后，展开补充验证与复盘</summary><label class="field">实际结果<textarea id="dOutcome"></textarea></label><label class="field">结果证据与预测偏差<textarea id="dReviewEvidence"></textarea></label><label class="field">协作方或主管的具体反馈（可选）<textarea id="dFeedback"></textarea></label><label class="field">反思与下一次改进<textarea id="dLearning"></textarea></label></details><div class="row spaced"><button id="saveDecision" class="primary">保存这项决策</button><button id="newDecision">新建一项</button><span id="dMessage" role="status"></span></div></article><div class="intro" style="margin-top:24px"><h2>已记录的案例</h2></div><div id="decisionList"></div></section><section id="evidence" data-page hidden><div class="intro"><h1>能力证据板</h1><p class="muted">以用户证据、产品/经营取舍、实际验证和反馈衡量进步，不依赖主观分数。</p></div><article class="sheet"><div id="evidenceStats" class="statbox"></div><h3>2026收官证据</h3><div id="evidenceChecks"></div><div class="rule"><h3>目前还缺什么</h3><div id="evidenceGaps"></div></div><p class="muted">有复盘不代表结果由你造成；有结果不代表事前判断正确。必须区分外部环境和自身行动。</p></article></section><section id="calendar" data-page hidden><div class="intro"><h1>训练日历</h1><p class="muted">选一天，回看训练和留下的成果。</p></div><div class="sheet"><div class="row month"><button id="prev" aria-label="上个月">←</button><b id="month"></b><button id="next" aria-label="下个月">→</button></div><div class="grid muted"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="grid" id="days"></div><p class="meta">绿色：已完成 · 米色：部分完成 · 白色：未记录</p><div class="rule" id="dayDetail"></div></div><details><summary>周复盘</summary><label class="field">选择周次（起始日）<select id="reviewWeek"></select></label><label class="field">本周复盘<textarea id="review" placeholder="①本周最重要的用户证据是什么？②哪个假设被推翻？③下一步做什么验证或经营取舍？"></textarea></label><button id="saveReview">保存复盘</button><p id="reviewMessage" role="status"></p></details></section>
 <section id="abilities" data-page hidden><div class="intro"><h1>能力地图</h1><p class="muted">围绕被子品类经营建立能力组合；不是训练成传统人员管理者。</p></div><div class="sheet"><p><b>用户洞察</b>：用户访谈、使用场景、行为证据，区分原话与解释</p><p><b>需求判断</b>：需求强度、用户分层、现有替代方案与反证</p><p><b>产品策略</b>：产品定位、商品矩阵、组合装、价值差异</p><p><b>经营与财务</b>：增长、毛利、预算、机会成本与盈利效率</p><p><b>增长验证</b>：商品、内容、投放和人群验证闭环</p><p><b>沟通与协同</b>：与用户、产研、品牌、平台和团队协作；管理是工具而不是目标</p></div><details><summary>展开专项练习库（保留原有训练）</summary><div id="abilityList"></div></details><p id="abilityMessage" role="status"></p></section>
@@ -15,77 +15,99 @@
 const KEY='lee-escape-plan-v3',START='2026-11-22',END='2026-12-31';
 const $=id=>document.getElementById(id), iso=d=>d.toISOString().slice(0,10), utc=s=>new Date(s+'T00:00:00Z'), gap=(a,b)=>Math.round((utc(a)-utc(b))/86400000);
 const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const abilities=[['writing','美文表达','从一个真实场景写80字，再用自己的话说一遍。'],['english','英语口语','用英语在60秒内说清本周工作、原因和下一步。'],['business','经营与商业洞察','从一个经营异常出发，列出证据、取舍和验证动作。'],['ai','AI能力','拆解一个重复任务，明确哪一步交给AI、怎么验收。'],['aesthetic','审美能力','选一张卧室图，说明第一眼看哪里以及为什么。'],['photo','摄影能力','同一件物品拍两种光线，比较质感。'],['editing','剪辑能力','把60秒口播剪到30秒，写下删减依据。'],['expression','表达能力','用90秒向团队讲清结论、依据和下一步。'],['speech','演讲能力','以用户的夜间困境开场，做一段3分钟产品演讲；用故事讲清变化，留一句能复述的话。']];
-const base=['business','过去三个月，哪项经营判断真正由你独立作出？','一条有决策权说明的经营记录','区分事实、猜测、备选方案、自己实际决定的部分，以及结果。','经营案例'];
+const abilities=[['insight','用户洞察','从真实用户原话中发现场景、用户任务与未满足需求。'],['product','产品与品类策略','比较不同解决方案的用户价值、成本与可行性。'],['writing','美文表达','从一个真实场景写80字，再用自己的话说一遍。'],['english','英语口语','用英语在60秒内说清本周工作、原因和下一步。'],['business','经营与商业洞察','从一个经营异常出发，列出证据、取舍和验证动作。'],['ai','AI能力','拆解一个重复任务，明确哪一步交给AI、怎么验收。'],['aesthetic','审美能力','选一张卧室图，说明第一眼看哪里以及为什么。'],['photo','摄影能力','同一件物品拍两种光线，比较质感。'],['editing','剪辑能力','把60秒口播剪到30秒，写下删减依据。'],['expression','表达能力','用90秒向团队讲清结论、依据和下一步。'],['speech','演讲能力','以用户的夜间困境开场，做一段3分钟产品演讲；用故事讲清变化，留一句能复述的话。']];
+const base=['insight','从夏被用户到冬被用户：先找到一个真正值得理解的问题','一张用户问题卡（现象、事实、假设、待问问题）','不用立刻下结论；一定要区分用户真实行为与我们自己的猜测。','需求洞察','observe'];
 const PHASES=[
- {end:'2026-11-30',name:'阶段1 · 真实决策基线',goal:'复盘过去三个月的3个重要判断。重点辨别自己是决策人、共同决策者、建议者还是执行者。'},
- {end:'2026-12-07',name:'阶段2 · 选择增长机会',goal:'比较现有效率、用户需求创新、渠道拓展等至少3个方向，明确放弃什么、先验证什么。'},
- {end:'2026-12-21',name:'阶段3 · 资源协调与验证',goal:'围绕一个增长决策，真正获得协作方支持，推动一次小测试或一次授权，记录真实进展。'},
- {end:'2026-12-31',name:'阶段4 · 年度复盘与答辩',goal:'对照事前判断与实际结果，解释偏差，完成5分钟经营答辩。未获得最终结果的项目继续追踪。'}
+ {end:'2026-12-02',name:'阶段1 · 找到真实用户问题',goal:'围绕夏被向冬被迁移，或另一项真实被子用户需求，收集脱敏原话，识别使用场景，提出可反驳的假设。'},
+ {end:'2026-12-09',name:'阶段2 · 用用户证据验证需求',goal:'设计非诱导式访谈，使用得到授权的用户沟通与匿名化评价、客服、购买数据交叉验证；不以少数个例代表市场。'},
+ {end:'2026-12-18',name:'阶段3 · 从需求走向产品和经营策略',goal:'比较产品升级、商品组合、价值表达与目标人群方案；选择一个有用户价值与商业可行性的优先动作。'},
+ {end:'2026-12-31',name:'阶段4 · 推动验证与年度答辩',goal:'争取一次成本可控的验证，记录事前预测与真实结果；如果无法执行，明确障碍和下次验证时间。'}
 ];
 const DAILY=[
  [
  base,
- ['business','回看一个经营异常：事实、推测和未知是什么？','一份事实与假设记录','写清证据来源、未知变量和可能误判之处。','经营案例'],
- ['business','当时你放弃了哪两种替代方案？','一次有机会成本的取舍','明确备选方案，以及选择本方案的代价。','经营案例'],
- ['business','最可能推翻当初判断的是什么？','一条反证和验证方案','设定可观察的反证，而不是事后解释。','经营案例'],
- ['expression','90秒向不懂抖音的人解释你的判断','90秒录音或逐字稿','问题、证据、决定、结果四部分讲清楚。','表达'],
- ['business','今年哪次业务判断发生偏差？','一次预测与实际对照','区分自己可控的因素和外部变化。','经营案例'],
- ['business','从本周复盘中选出一条需要追踪的真实决策','一条事前或事后决策记录','写清真实权限、证据与下一次验证日期。','经营案例']
+ ['insight','用户为什么会换被，真正触发行为的事件是什么？','一条真实用户原话及其场景','从发生过的事情入手，不直接提炼广告词。','需求洞察','observe'],
+ ['insight','不买冬被的用户，正在用什么替代方案？','两种现实替代方案与局限','不要先假设用户只是缺少触达。','需求洞察','observe'],
+ ['insight','哪一类被子用户值得先研究？','一张具体人群与使用场景卡','用行为、居住和睡眠情境描述，不只按年龄分组。','需求洞察','segment'],
+ ['insight','把“控温”翻译成用户实际想完成的任务','一条用户任务陈述','在什么场景、为了实现什么效果；不能只复述产品参数。','需求洞察','jobs'],
+ ['insight','同一条反馈，有哪些不同解释？','两个竞争性假设与反例','至少给出一个可能推翻自己解释的证据。','需求洞察','hypothesis'],
+ ['insight','本周最值得继续追踪的用户问题是什么？','一张经过修改的用户问题卡','整理现象、来源、用户行为和待验证假设。','需求洞察','review']
  ],
  [
- ['business','2027年被子业务有哪些不同的增长来源？','至少3个可比较的增长假设','区分新用户、场景、转化、客单价与渠道。','经营案例'],
- ['business','三条增长路径各依赖什么前提？','一份关键假设与证据表','每条路径列出必须成立的条件和未知。','经营案例'],
- ['business','资源只够试一个方向，你会选择哪个？','一次明确的资源取舍','说明替代方案、机会成本和判断依据。','经营案例'],
- ['business','什么结果会让你停止这项增长试验？','一张验证与止损卡','设定观察期、指标、停止条件。','经营案例'],
- ['expression','怎样向管理层争取一次小规模资源验证？','90秒资源争取稿','讲清目标、成本上限、证据、风险与责任人。','表达'],
- ['business','把增长方案缩小为最低成本的测试','一份最小可行验证方案','避免一开始就要求大投入，列出判断标准。','经营案例'],
- ['business','总结本周你愿意承担的一个真实决定','一条可执行承诺','明确谁做什么、什么时候复核。','经营案例']
+ ['insight','设计一次不诱导用户的需求访谈','五个开放问题','重点询问过去真实经历，不问“你喜欢我们的控温被吗”。','用户研究','interview'],
+ ['insight','用户说“挺舒服”，你怎样追问？','三层追问脚本','追问最近一次发生的时间、环境、动作、结果。','用户研究','interview'],
+ ['insight','用户说的与用户做的，如何区分？','一张态度与行为对照卡','不能把表示感兴趣直接等同于会购买。','用户研究','evidence'],
+ ['insight','主动寻找一个与你假设不同的用户','反例用户筛选条件','不仅听满意老客，也找未购买或停止使用者。','用户研究','interview'],
+ ['insight','把访谈、评价、客服与成交信息放在一起看','一份交叉证据矩阵','明确来源、样本局限与互相矛盾的信息。','用户研究','evidence'],
+ ['insight','少量用户访谈能证明多大的需求？','一份支持、反对和未知清单','访谈可以发现问题，但不能直接推断整体用户比例。','用户研究','hypothesis'],
+ ['insight','用户证据真正改变了你的哪个判断？','一页用户洞察小结','把原来的看法和现在的证据并排写出。','用户研究','review']
  ],
  [
- ['business','本周最值得推进的验证动作是什么？','一项有负责人和日期的行动','说明目的、验证指标、资源边界。','经营案例'],
- ['expression','协作方为什么会支持或者拒绝你？','一份利益与阻力地图','说明对方目标、顾虑、共识与交换条件。','协作记录'],
- ['business','怎么在预算有限时完成一次小范围验证？','最小成本实验方案','明确样本、周期、指标和止损条件。','经营案例'],
- ['business','哪项工作可以真正授权给团队？','一份授权约定','说明结果、权限、复核节点，不能只派任务。','授权复盘'],
- ['expression','遇到跨部门分歧如何推进？','一段沟通记录或草稿','确认真实分歧、共同目标和下一步承诺。','协作记录'],
- ['business','对照事前预测，实际发生了什么？','一次阶段验证记录','标记事实、外部因素和仍未验证的部分。','经营案例'],
- ['business','本周有哪些真实的组织推进？','一次行动与结果复盘','把沟通成功和结果实现区分开。','经营案例']
+ ['product','同一个用户问题，可以有哪些不同解法？','三种不同方案','至少比较产品改进、内容沟通和人群经营中的两个方向。','产品策略','solution'],
+ ['product','怎样判断一个需求值得解决？','一张需求优先级卡','综合痛点、出现频次、替代方案、付费可能性与证据。','产品策略','prioritize'],
+ ['product','夏被客户不买冬被，可能卡在哪一步？','一张用户迁移阻碍假设卡','区分真实不需要、已买竞品、使用场景不符、认知或触达障碍。','产品策略','hypothesis'],
+ ['product','冬被Pro3.0应该怎样表达用户价值？','用户场景→产品价值→可信证据的表达','不只是列出“湿度稳定”等技术指标。','产品策略','solution'],
+ ['product','被子×床笠组合装，用户究竟为了什么买？','一份组合场景价值假设','区分用户真实使用价值和因促销而凑单。','产品策略','solution'],
+ ['business','一个用户需求方案能算得过来账吗？','一张初步单位经济模型','看销售、毛利、成本、转化和退货，未知数字写未知。','经营案例','economics'],
+ ['business','资源只够做一个，你选哪个产品/增长方案？','一份资源取舍决策','说明选择与机会成本、反证和止损条件。','经营案例','prioritize'],
+ ['expression','用90秒向领导说清用户需求带来的机会','一段90秒经营陈述','场景、证据、机会、投入、下一步。','表达','story'],
+ ['product','形成可以讨论的产品和经营机会方案','一页需求→方案→经济性→验证计划','有明确选择、资源边界和成功/失败标准。','产品策略','review']
  ],
  [
- ['business','年初最确定的判断，现在还成立吗？','一次事实与判断对照','不事后重写当初的预测。','经营案例'],
- ['business','今年最重要的一次判断失误是什么？','一份归因复盘','区分策略、执行和环境影响。','经营案例'],
- ['business','明年你应该停止投入什么？','一份停止清单','说明释放的资源和机会成本。','经营案例'],
- ['expression','向非业务同事说明2027年的增长选择','一段90秒陈述','说明选择什么、不选什么和原因。','表达'],
- ['business','今年哪次跨部门协作产生了真实结果？','一份协作结果记录','说明对方反馈、实际行动和证据。','协作记录'],
- ['speech','完成5分钟年度经营答辩','录音链接或逐字稿','讲清判断、证据、取舍、行动、结果、偏差与改进。','年度答辩'],
- ['business','年底还有什么判断必须标注待验证？','一份待验证清单','注明复核日期，不把未完成说成成功。','经营案例']
+ ['business','为一个用户需求设计最小成本验证','一张实验卡','写清人群、对照、指标、周期和投入上限。','需求验证','test'],
+ ['business','没有新增预算时，怎样先验证关键假设？','一份低成本替代验证计划','优先利用得到授权的现有数据与小范围沟通。','需求验证','test'],
+ ['expression','怎样向产研或品牌争取一次验证机会？','一段跨部门沟通陈述','用用户证据解释为什么值得投入，明确资源请求。','协作记录','stakeholder'],
+ ['business','哪些外部因素可能误导实验结果？','一张混淆因素清单','天气、促销、流量、库存等变化与产品价值分开看。','需求验证','evidence'],
+ ['insight','怎样回收真实用户使用反馈？','一份脱敏反馈记录模板','分开记录用户原话、实际行为和个人解释。','用户研究','interview'],
+ ['business','在执行前，怎样写一个可证伪的预测？','一份事前预测和复核日期','指标要具体、观察窗口明确。','需求验证','test'],
+ ['business','数据还没到位时，哪些结论必须保持未知？','一份待验证清单','不把直觉、零散个例或AI生成内容当成事实。','需求验证','hypothesis'],
+ ['business','本周真正推动了什么，而不只是计划了什么？','一条实际行动记录','写清谁完成了什么，尚未实施就标计划。','协作记录','stakeholder'],
+ ['product','用户是否愿意为价值付费，怎样验证？','一份行为型付费意愿验证','观察真实选择而不只是口头意愿。','需求验证','test'],
+ ['business','最新反馈支持还是反对原先判断？','一份事前预测与真实反馈对照','说明样本局限、天气影响和不确定性。','需求验证','evidence'],
+ ['expression','将用户洞察整理成一条可执行的经营建议','一段3分钟汇报稿','先讲用户问题，再讲取舍、投入和下一步。','经营案例','story'],
+ ['speech','5分钟年度答辩：从用户问题到增长机会','一份5分钟逐字稿或录音','用真实证据讲清选择、行动、结果与不足。','年度答辩','story'],
+ ['business','年末验收：哪些判断已验证，哪些仍待验证？','一页证据与2027跟进清单','不编造结果，明确下一次复核日期。','经营案例','review']
  ]
 ];
+const COACH_QUESTIONS={
+ observe:['你看到了哪个真实用户现象？来源是什么？如果暂无证据，请直接写“待查”。','这是哪类用户，在什么具体生活或睡眠场景下发生的？','你能提出至少两个不同的解释吗？哪一个目前更像猜测？','如果明天能和这类用户交流，你最想问的一个非诱导问题是什么？'],
+ segment:['用户是谁？用行为、使用场景与环境描述，而不是只有年龄。','他们在什么时候最需要解决这个问题？','与另一类用户相比，有什么可能不同？','你最需要核实的一个事实是什么？'],
+ jobs:['用户在什么场景下想完成什么事情？','他们目前如何解决？现有方式有什么不足？','我们的产品可能帮助他实现什么结果？','这是真实需求证据还是你的产品推测？'],
+ hypothesis:['至少列出两个竞争性的解释？','每个解释分别有哪些支持和反对证据？','什么样的反例会让你改变结论？','怎样以最小代价验证？'],
+ interview:['你会问用户哪些过去真实经历，而不是让他评价产品？','遇到“挺好”“舒服”这类笼统回答，如何追问场景、动作和结果？','你会找哪类反例用户，以避免只听到满意用户？','如何脱敏记录原话、实际行为和你的理解？'],
+ evidence:['哪些来自真实用户原话，哪些来自成交数据，哪些只是你的推测？','不同证据是否相互矛盾？有没有样本选择偏差？','哪条假设获得了支持，哪条仍未确定？','要做经营决策还缺什么关键数据？'],
+ solution:['目标用户想要什么生活中的实际结果？','至少有哪些不同的解法，不局限于广告表达？','各方案的用户价值、成本、执行难度是什么？','哪种最小验证能优先排除错误方案？'],
+ prioritize:['你的备选方案各自解决哪类用户的什么问题？','从用户价值、业务收益、资源成本和证据质量比较。','你决定优先做什么、放弃什么？','什么证据会让你改变优先级？'],
+ economics:['收入、毛利、投放、退货或服务成本可能如何变化？','哪个数字有真实来源，哪个是假设？','不做这个方案，资源还能做什么？','要做最终判断还缺什么数据？'],
+ test:['你要验证的唯一核心假设是什么？','对照方式、观察指标与周期是什么？','资源上限、风险和停止条件是什么？','失败时你会怎样解释，如何排除外部因素？'],
+ stakeholder:['你需要谁支持哪件具体事情？','对方的目标和现实顾虑是什么？','用户价值和经营价值证据分别是什么？','下一步负责人、时间、交付是什么？'],
+ story:['用一个真实用户问题开场，而不是广告词。','你有什么支持判断的事实与数据？','你选择了什么，放弃了什么，为什么？','接下来如何验证，哪些不确定性需要交代？'],
+ review:['本周新增了哪条最重要的用户或经营证据？','原来的哪个假设被支持、否定或者仍未验证？','你实际做了什么经营取舍或行动？','下周要验证什么，何时复核？']
+};
 function phaseFor(date){
- if(date<'2027-01-01')return PHASES.find(x=>date<=x.end)||PHASES[3];
+ if(date<='2026-12-31')return PHASES.find(p=>date<=p.end)||PHASES[0];
  const q=Math.min(4,Math.ceil(Number(date.slice(5,7))/3));
- const titles=['独立判断与商业财务','决策与资源配置','跨部门影响与组织领导','完整经营与战略'];
- const goals=['3份跨行业商业分析并建立财务理解','2次有事前预测和事后验证的真实决策','3个跨部门协作或带人案例，包含真实反馈','一份兼顾增长、利润、现金流、组织与战略的完整经营方案'];
- return {name:'2027 Q'+q+' · '+titles[q-1],goal:goals[q-1]+'。每周围绕同一真实案例推进。'};
+ const titles=['用户洞察与需求判断','产品价值与商品矩阵','增长策略与经营效率','完整品类经营与协同'];
+ const goals=['完成两个有多来源证据的用户问题档案','完成一份产品定位、商品矩阵与经济性方案','完成两个有事前预测和结果核对的经营验证','完成用户→产品→增长→盈利的年度经营方案与答辩'];
+ return {name:'2027 Q'+q+' · '+titles[q-1],goal:goals[q-1]+'。团队管理不是考核目标，必要的协同以推动真实结果为准。'};
 }
 function taskFor(date){
- if(date<START)return base;
- const i=PHASES.findIndex(x=>date<=x.end);
- if(i>=0){const anchor=i===0?START:PHASES[i-1].end;const n=i===0?gap(date,START):gap(date,anchor)-1;return DAILY[i][n%7];}
+ if(date<'2026-11-26')return base;
+ const i=PHASES.findIndex(p=>date<=p.end);
+ if(i>=0){
+  const anchor=i===0?'2026-11-26':PHASES[i-1].end;
+  const n=i===0?gap(date,anchor):gap(date,anchor)-1;
+  return DAILY[i][Math.min(n,DAILY[i].length-1)];
+ }
  const q=Math.min(4,Math.ceil(Number(date.slice(5,7))/3));
- const topics=[['用户需求','商业模式','利润与现金流','竞争优势'],['资源配置','概率风险','效率与边际收益','机会成本'],['跨部门协作','团队授权','招聘与培养','组织机制'],['业务组合','长期战略','资本配置','组织设计']];
+ const topics=[['用户场景','用户访谈','需求分层','需求证据'],['产品定位','产品升级','商品矩阵','组合价值'],['转化与复购','预算配置','内容效率','利润效率'],['经营战略','业务组合','盈利质量','跨部门协同']];
  const n=gap(date,date.slice(0,7)+'-01');
  const topic=topics[q-1][Math.floor(n/7)%4];
- const work=['识别一个真实问题','找出三条证据与未知','寻找反证和备选方案','做出取舍','设计行动与验证指标','核对结果和外部反馈','总结本周形成的原则'][n%7];
- return [q===3?'expression':'business',topic+'：'+work,'一份可复核的判断或行动记录','明确结论、证据、取舍与下一步；涉及真实业务时事前预测、事后验证。','经营案例'];
+ const steps=[['insight','找到一条真实用户证据','需求洞察','observe'],['insight','寻找竞争解释与反证','需求洞察','hypothesis'],['product','比较两种产品或经营解法','产品策略','solution'],['business','做出一项资源取舍','经营案例','prioritize'],['business','确定一个可验证动作','需求验证','test'],['business','核对反馈、修正结论','需求验证','evidence'],['insight','复盘本周用户与经营证据','需求洞察','review']];
+ const s=steps[n%7];
+ return [s[0],topic+'：'+s[1],'一张可复核的'+s[2]+'小卡','区分事实、假设和未知，并给出实际下一步。',s[2],s[3]];
 }
-const questionBank={
-'今年哪一次经营判断最值得复盘？':['当时发生了什么？具体业务背景、目标和问题是什么？','你当时作出了什么判断或决定？为什么没有选择其他方案？','你掌握了哪些事实和数据？哪些只是自己的推测？','你采取了什么行动？最终结果如何？与预期有何差异？','如果重新来一次，你会怎么判断或决策？为什么？'],
-'如果重新分配下一笔预算，你会如何取舍？':['你现在面对什么业务目标和预算约束？','你会把预算优先投向哪里？为什么？','你放弃或减少了哪些投入？机会成本是什么？','你最需要核实的三个数据是什么？','达到什么指标继续投，出现什么信号就停止？'],
-'一次跨部门沟通，如何争取真正的支持？':['你希望哪个部门支持你完成什么事情？','对方最关心的目标、困难或顾虑是什么？','你准备提出什么具体方案，双方各自得到什么？','如果对方拒绝，你会怎样沟通和调整？','如何确认责任人、时间节点和最终结果？'],
-'团队有一项工作反复依赖你，怎么授权？':['哪项工作反复需要你亲自介入？','你希望团队成员独立交付什么结果？','你准备给予哪些权限、资源和判断标准？','哪些节点需要检查，什么情况下必须升级给你？','如何判断授权成功，而不只是把任务交出去？'],
-'五分钟讲清今年最重要的经营判断':['今年最重要的经营问题是什么？','你为什么作出这个判断，有哪些关键证据？','你考虑过哪些替代方案，为什么最终这样选择？','执行结果如何，与你的预期有什么差异？','明年你会坚持什么、改变什么？']};
-function questionsFor(t){return questionBank[t[1]]||['真实背景、目标是什么？你的决策权限是多大？','你的判断是什么？有哪些事实支持，哪些只是推测？','有其他方案或反证吗？你放弃了什么？','下一步谁做什么，何时复核，如何判断成败？']}
+function questionsFor(t){return COACH_QUESTIONS[t[5]]||COACH_QUESTIONS.observe}
 const task=taskFor(today);
 let state={checkins:{},reviews:{},assets:[],decisions:[],project:'2027年被子业务增量，从哪里来？'}, storageProblem=false;
 try{const raw=localStorage.getItem(KEY);if(raw){const old=JSON.parse(raw);if(!old||!Array.isArray(old.assets)||!old.checkins||!old.reviews)throw Error();state={...state,...old,decisions:Array.isArray(old.decisions)?old.decisions:[],project:typeof old.project==='string'&&old.project.trim()?old.project:'2027年被子业务增量，从哪里来？'}}}catch{storageProblem=true}
@@ -94,7 +116,7 @@ const el=(tag,text)=>{const x=document.createElement(tag);if(text!=null)x.textCo
 function status(date,r){if(!r)return '未记录';if(r.session)return r.session.status==='done'?'已完成':'部分完成';return r.completed?.length>=4?'已完成':(r.completed?.length||r.reflection||r.energy)?'部分完成':'未记录'}
 function line(parent,label,value){if(!value)return;const p=el('p',label+'：'+value);p.className='note';parent.append(p)}
 function clipboard(text,id){navigator.clipboard?.writeText? navigator.clipboard.writeText(text).then(()=>$(id).textContent='已复制。',()=>$(id).textContent='未能复制，请手动复制题目。'):$(id).textContent='此环境无法复制，请手动复制题目。'}
-function metrics(){const keys=Object.keys(state.checkins).filter(d=>d>=START&&d<=today).sort();const done=keys.filter(d=>status(d,state.checkins[d])==='已完成');const last=keys.filter(d=>status(d,state.checkins[d])!=='未记录').at(-1);$('metrics').replaceChildren(...['本轮已归档 '+done.length+' 次','最近 '+(last||'无记录') ,'目标 · 独立经营能力','冲刺验收 · '+END].map(x=>el('span',x)))}
+function metrics(){const keys=Object.keys(state.checkins).filter(d=>d>=START&&d<=today).sort();const done=keys.filter(d=>status(d,state.checkins[d])==='已完成');const last=keys.filter(d=>status(d,state.checkins[d])!=='未记录').at(-1);$('metrics').replaceChildren(...['本轮已归档 '+done.length+' 次','最近 '+(last||'无记录') ,'目标 · 用户驱动的品类经营','冲刺验收 · '+END].map(x=>el('span',x)))}
 $('guidedQuestions').replaceChildren(...questionsFor(task).map(q=>el('li',q)));$('todayDate').textContent=today;$('focus').textContent=abilities.find(x=>x[0]===task[0])[1]+(today>=START&&today<=END?' · 元旦冲刺':'');$('question').textContent=task[1];$('deliverable').textContent='唯一交付：'+task[2];$('criteria').textContent='完成标准：'+task[3]+' 保存初版、反馈和改动。';
 $('weeklyTitle').textContent=phaseFor(today).name;
 $('weeklyGoal').textContent='本阶段目标：'+phaseFor(today).goal;
